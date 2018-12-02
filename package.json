@@ -1,0 +1,21 @@
+{
+  "name": "notes-mobile",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "babel": {
+    "compact": false
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jwt-simple": "^0.5.5",
+    "lodash": "^4.17.11",
+    "path-to-regexp": "^2.4.0",
+    "qiniu-js": "^2.5.3"
+  }
+}
