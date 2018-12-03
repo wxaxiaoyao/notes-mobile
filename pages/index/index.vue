@@ -1,6 +1,17 @@
 
 <template>
 	<view class="index-page-container">
+		<view class="entries">
+			<view class="entry-item-container">
+				<navigator url="/pages/daily/index">日报</navigator>
+			</view>
+			<view class="entry-item-container">
+				<navigator url="/pages/daily/index"></navigator>
+			</view>
+			<view class="entry-item-container">
+				<navigator url="/pages/daily/index"></navigator>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -9,24 +20,37 @@ import component from "../../components/component.js";
 
 export default {
 	mixins:[component],
+
+	components: {
+	},
+
 	data() {
 		return {
-			title: 'Hello'
 		}
 	},
-	onLoad() {
+	async onLoad() {
 		this.authenticated();
-		//console.log(this.app);
 	},
 	methods: {
-
 	}
 }
 </script>
 
-<style>
+<style lang="less" scoped>
 .index-page-container {
 	width:100%;
 	height:100%;
+}
+.entries {
+	display:flex;
+
+	.entry-item-container {
+		flex:1;
+		height:100px;
+		border:1px solid gray;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 }
 </style>

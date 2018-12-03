@@ -20,6 +20,12 @@
 		"path": "pages/login/index",
 		"style": {
 		}
+	},
+	{
+		"path": "pages/daily/index",
+		"style": {
+			"navigationBarTitleText": "日报"
+		}
 	}
 	],
 	"tabBar": {
