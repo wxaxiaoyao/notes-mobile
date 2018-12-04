@@ -10,11 +10,11 @@
 		</view>
 
 		<view>
-			<button @tap="clickLoginBtn">登陆</button>
+			<button @tap="clickRegisterBtn">注册</button>
 		</view>
 
-		<view class="register-link-container">
-			<navigator url="/pages/register/index" open-type="reLaunch" hover-class="navigator-hover">没有账号 去注册</navigator>	
+		<view class="login-link-container">
+			<navigator url="/pages/login/index" open-type="reLaunch" hover-class="navigator-hover">已有账号 去登录</navigator>	
 		</view>
 	</view>
 </template>
@@ -34,8 +34,8 @@ export default {
 
 	methods: {
 		async clickLoginBtn() {
-			const result = await this.api.users.login({username:this.username, password: this.password});
-			if (result.isErr()) return uni.showToast({title:"用户名密码错误", icon:"none"});
+			const result = await this.api.users.register({username:this.username, password: this.password});
+			if (result.isErr()) return uni.showToast({title:"用户已存在", icon:"none"});
 			const user = result.data || {};
 			this.setUser(user);
 
@@ -46,7 +46,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style>
 .login-container {
 
 }
@@ -54,7 +54,7 @@ export default {
 	margin: 10px 0px;
 	width:100%;
 }
-.register-link-container {
+.login-link-container {
 	margin:10px 20px;
 	display:flex;
 	justify-content: flex-end;

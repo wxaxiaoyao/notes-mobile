@@ -19,6 +19,13 @@
 	{
 		"path": "pages/login/index",
 		"style": {
+			"navigationBarTitleText":"NOTE-登录"
+		}
+	},
+	{
+		"path": "pages/register/index",
+		"style": {
+			"navigationBarTitleText":"NOTE-注册"
 		}
 	}
 	],
