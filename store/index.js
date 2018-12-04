@@ -5,8 +5,12 @@ import _ from "../libs/lodash.min.js";
 import jwt from "jwt-simple";
 
 import storage from "../commons/storage.js";
+import api from "../commons/api/index.js";
 
 vue.use(vuex);
+
+const userinfo = storage.get("__userinfo__") || {};
+if (userinfo.token) api.options.header.Authorization = "Bearer " + userinfo.token;
 
 export const state = () => ({
 	isSmallScreen: false,
@@ -21,7 +25,7 @@ export const state = () => ({
 	// socketState: "disconnect",
 
 	// 用户信息
-	user: storage.get("__userinfo__") || {},
+	user: userinfo,
 
 	// 通用数据
 	data: {},
@@ -96,6 +100,7 @@ export const mutations = {
 	setUser(state, user) {
 		state.user = user || {};
 		storage.set("__userinfo__", user);
+		if (user.token) api.options.header.Authorization = "Bearer " + user.token;
 	},
 	setMsg(state, msg) {
 		state.msg = msg;

@@ -5,7 +5,7 @@ import httpRequest from "./http.js";
 import config from "../config.js";
 
 function initHttpOptions(self, options = {}, prefix) {
-	options.headers = options.headers || {};
+	options.header = options.header || {};
 	
 	self.options = options;
 	//self.httpGet = httpGet;
@@ -374,7 +374,7 @@ export function Notes(options = {}){
 }
 
 export const options = {
-	headers: {},
+	header: {},
 	cache: true,
 	baseURL: config.baseURL,
 }
