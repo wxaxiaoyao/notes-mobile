@@ -10,6 +10,7 @@ vue.config.productionTip = false
 appCmp.mpType = 'app'
 vue.prototype.$store = store;
 
+
 const app = new vue({
 	store,
     ...appCmp

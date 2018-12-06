@@ -7,7 +7,6 @@
 			"h5": {
 				"titleNView": {
 				}
-
 			}
 		}
 	},
@@ -31,6 +30,12 @@
 	{
 		"path": "pages/daily/index",
 		"style": {
+			"app-plus": {
+				"titleNView": false
+			},
+			"h5": {
+				"titleNView": false
+			},
 			"navigationBarTitleText": "日报"
 		}
 	}

@@ -1,21 +1,19 @@
 
-const ENV = "release";
-
 const defaultConfig = {
-
 }
 
-const localConfig = {
-	baseURL:"http://192.168.31.250:3001/api/v0/",
+const developmentConfig = {
+	baseURL:"http://localhost:3001/api/v0/",
 }
 
-const releaseConfig = {
+const productionConfig = {
+	//baseURL:"http://192.168.31.250:3001/api/v0/",
 	baseURL:"http://api.wxaxiaoyao.cn/api/v0/",
 }
 
 const config = {
-	local: {...defaultConfig, ...localConfig},
-	release: {...defaultConfig, ...releaseConfig}
+	development: {...defaultConfig, ...developmentConfig},
+	production: {...defaultConfig, ...productionConfig}
 }
 
-export default config[ENV];
+export default config[process.env.NODE_ENV];
