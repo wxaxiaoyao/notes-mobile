@@ -46,7 +46,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 .login-container {
 
 }
@@ -54,6 +54,7 @@ export default {
 	margin: 10px 0px;
 	width:100%;
 }
+
 .login-link-container {
 	margin:10px 20px;
 	display:flex;

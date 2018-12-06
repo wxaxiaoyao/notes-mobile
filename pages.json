@@ -3,41 +3,23 @@
 	"pages": [
 	{
 		"path": "pages/index/index",
-		"style": {
-			"h5": {
-				"titleNView": {
-				}
-			}
-		}
+		"style": {}
 	},
 	{
 		"path": "pages/user/index",
-		"style": {
-		}
+		"style": {}
 	},
 	{
 		"path": "pages/login/index",
-		"style": {
-			"navigationBarTitleText":"NOTE-登录"
-		}
+		"style": {}
 	},
 	{
 		"path": "pages/register/index",
-		"style": {
-			"navigationBarTitleText":"NOTE-注册"
-		}
+		"style": {}
 	},
 	{
 		"path": "pages/daily/index",
-		"style": {
-			"app-plus": {
-				"titleNView": false
-			},
-			"h5": {
-				"titleNView": false
-			},
-			"navigationBarTitleText": "日报"
-		}
+		"style": {}
 	}
 	],
 	"tabBar": {
@@ -53,7 +35,7 @@
 		]
 	},
 	"globalStyle": {
-		//"navigationStyle":"custom",
+		"navigationStyle":"custom",
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "NOTE",
 		"navigationBarBackgroundColor": "#F8F8F8",

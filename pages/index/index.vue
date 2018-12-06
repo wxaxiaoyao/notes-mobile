@@ -1,6 +1,7 @@
 
 <template>
 	<view class="index-page-container">
+	<navigations></navigations>
 		<view class="entries">
 			<view class="entry-item-container">
 				<navigator url="/pages/daily/index">日报</navigator>
@@ -16,12 +17,21 @@
 </template>
 
 <script>
+			//"app-plus": {
+				//"titleNView": false
+			//},
+			//"h5": {
+				//"titleNView": false
+			//},
+		//<navigations></navigations>
 import component from "../../components/component.js";
+import navigations from "../../components/navigations/index.vue";
 
 export default {
 	mixins:[component],
 
 	components: {
+		navigations,
 	},
 
 	data() {
