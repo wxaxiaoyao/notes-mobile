@@ -3,7 +3,11 @@
 	<view class="navigation-index-container">
 		<view class="status-bar"></view>
 		<view class="navigator-bar">
-			<view class="iconfont icon-back">&#xe612;</view>
+			<view class="navigator-bar-left-container">
+				<view v-show="isShowBackBtn" class="iconfont icon-back">&#xe612;</view>
+			</view>
+			<view class="navigator-bar-middle-container">{{title}}</view>
+			<view class="navigator-bar-right-container"></view>
 		</view>
 	</view>
 </template>
@@ -12,6 +16,17 @@
 
 export default {
 
+	data: function() {
+		return {
+			isShowBackBtn:false,
+			title: "NOTE",
+		}
+	},
+
+	mounted() {
+		const pages = getCurrentPages();
+		this.isShowBackBtn = pages.length > 1 ? true : false;
+	}
 }
 </script>
 
@@ -23,7 +38,9 @@ export default {
 }
 .navigator-bar {
 	height: 44px;
+	width: 100%;
 	display: flex;
+	justify-content: space-between;
 	align-items: center;
 
 	.icon-back {
