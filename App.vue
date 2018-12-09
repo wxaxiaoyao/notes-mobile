@@ -14,6 +14,8 @@
 </script>
 
 <style>
+@import "./commons/css/uni.css";
+
 	/*每个页面公共css */
 @font-face {
   font-family: 'iconfont';  /* project id 654450 */

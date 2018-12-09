@@ -97,8 +97,8 @@ export const mutations = {
 	setMode(state, mode) {
 		state.mode = mode;
 	},
-	setUser(state, user) {
-		state.user = user || {};
+	setUser(state, user = {}) {
+		state.user = user;
 		storage.set("__userinfo__", user);
 		if (user.token) api.options.header.Authorization = "Bearer " + user.token;
 	},

@@ -30,6 +30,7 @@ export default {
 
 	methods: {
 		async loadDailies(query) {
+			console.log(process.env.NODE_ENV);
 			query = query || this.query;
 			const result = await this.api.dailies.get(query);
 			this.dailies = this.dailies.concat(result.data || []);

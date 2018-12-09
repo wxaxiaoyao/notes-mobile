@@ -1,16 +1,20 @@
 
 <template>
-	<view class="login-container">
-		<view class="username-input-container">
-			<input class="input" v-model="username" placeholder="用户名">
+	<view class="login-container uni-column">
+		<uni-nav-bar status-bar=true title="notes-登陆"></uni-nav-bar>
+
+		<view class="uni-form-item uni-flex">
+			<view class="title">用户名</view>
+			<input class="uni-input" v-model="username" placeholder="用户名">
 		</view>
 
-		<view class="password-input-container">
-			<input class="input" v-model="password" password placeholder="密码">
+		<view class="uni-form-item uni-flex">
+			<view class="title">密  码</view>
+			<input class="uni-input" v-model="password" password placeholder="密码">
 		</view>
 
-		<view>
-			<button @tap="clickLoginBtn">登陆</button>
+		<view class=uni-btn-v>
+			<button @click="clickLoginBtn">登陆</button>
 		</view>
 
 		<view class="register-link-container">
@@ -21,9 +25,14 @@
 
 <script>
 import component from "../../components/component.js";
+import uniNavBar from "../../components/unis/uni-nav-bar.vue";
 
 export default {
 	mixins: [component],
+
+	components: {
+		"uni-nav-bar": uniNavBar,
+	},
 
 	data: function() {
 		return {
@@ -48,11 +57,16 @@ export default {
 
 <style lang="less">
 .login-container {
-
 }
-.username-input-container, .password-input-container input {
-	margin: 10px 0px;
-	width:100%;
+
+.title {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex:2;
+}
+.uni-input {
+	flex:8;
 }
 .register-link-container {
 	margin:10px 20px;

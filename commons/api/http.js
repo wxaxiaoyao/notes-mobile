@@ -104,7 +104,7 @@ export function httpRequest(method, url, data = {}, config = {}) {
 	method = (method || "get").toLowerCase();
 	config = {...config, method, url, data};
 
-	// cache get
+	// cache get disable
 	if (method == "get" && config.cache) {
 		const key = url + JSON.stringify(config.data);
 		const cache = Cache.get(key, config);

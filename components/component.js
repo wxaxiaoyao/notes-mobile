@@ -15,6 +15,9 @@ export default {
 	},
 
 	props: {
+		__data__: {
+			type: Object,
+		}
 	},
 
 	computed: {
@@ -55,6 +58,12 @@ export default {
 			setToken: "setToken",
 			setMsg: "setMsg",
 		}),
+		back() {
+			uni.navigateBack({delta:1});
+		},
+		go(url) {
+			uni.navigateTo({url});
+		},
 		systemPortrait(username = "username") {
 			const key = username.toLowerCase()[0] + 1;
 			return g_app.portraits[key];
@@ -125,9 +134,6 @@ export default {
 		push(path, data = {}) {
 			g_app.storage.sessionStorageSetItem(path, _.cloneDeep(data));
 			this.$router.push({path});
-		},
-		go(number) {
-			this.$router.go(number);
 		},
 		setEditorMode(mode) {
 			this.setData("__editor_mode__", mode);

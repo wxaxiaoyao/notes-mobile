@@ -1,4 +1,5 @@
 
+const platform = uni.getSystemInfoSync().platform;
 const defaultConfig = {
 }
 
@@ -11,9 +12,14 @@ const productionConfig = {
 	baseURL:"http://api.wxaxiaoyao.cn/api/v0/",
 }
 
-const config = {
+const configs = {
 	development: {...defaultConfig, ...developmentConfig},
 	production: {...defaultConfig, ...productionConfig}
 }
 
-export default config[process.env.NODE_ENV];
+let ENV = "production";
+if (process.env.NODE_ENV == "development" && platform == "ios") {
+	ENV = "development";
+}
+
+export default configs[ENV || process.env.NODE_ENV];

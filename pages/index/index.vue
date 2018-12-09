@@ -1,45 +1,36 @@
 
 <template>
 	<view class="index-page-container">
-	<navigations></navigations>
-		<view class="entries">
-			<view class="entry-item-container">
-				<navigator url="/pages/daily/index">日报</navigator>
-			</view>
-			<view class="entry-item-container">
-				<navigator url="/pages/daily/index"></navigator>
-			</view>
-			<view class="entry-item-container">
-				<navigator url="/pages/daily/index"></navigator>
+		<uni-nav-bar status-bar=true :title="title"></uni-nav-bar>
+		<view class="uni-list">
+			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view @click="go('/pages/daily/index')" class="uni-list-cell-navigate uni-navigate-right">
+					日报
+				</view>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-			//"app-plus": {
-				//"titleNView": false
-			//},
-			//"h5": {
-				//"titleNView": false
-			//},
-		//<navigations></navigations>
 import component from "../../components/component.js";
-import navigations from "../../components/navigations/index.vue";
+import uniNavBar from "../../components/unis/uni-nav-bar.vue";
 
 export default {
 	mixins:[component],
 
 	components: {
-		navigations,
+		"uni-nav-bar": uniNavBar,
 	},
 
 	data() {
 		return {
+			title:"NOTE",
 		}
 	},
 	async onLoad() {
 		this.authenticated();
+		this.title = this.user.username;
 	},
 	methods: {
 	}
@@ -50,17 +41,5 @@ export default {
 .index-page-container {
 	width:100%;
 	height:100%;
-}
-.entries {
-	display:flex;
-
-	.entry-item-container {
-		flex:1;
-		height:100px;
-		border:1px solid gray;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
 }
 </style>
