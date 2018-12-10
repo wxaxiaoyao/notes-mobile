@@ -3,6 +3,13 @@
 	<view class="user-page-container">
 		<uni-nav-bar status-bar=true :title="title"></uni-nav-bar>
 		<users-index></users-index>
+
+		<view class="uni-list">
+			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view @click="go('/pages/debug/index')" class="uni-list-cell-navigate uni-navigate-right">调试</view>
+			</view>
+		</view>
+
 		<button @click="clickLogoutBtn">退出</button>
 	</view>
 </template>

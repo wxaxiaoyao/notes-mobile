@@ -4,10 +4,12 @@ const defaultConfig = {
 }
 
 const developmentConfig = {
+	env:"development",
 	baseURL:"http://localhost:3001/api/v0/",
 }
 
 const productionConfig = {
+	env:"production",
 	//baseURL:"http://192.168.31.250:3001/api/v0/",
 	baseURL:"http://api.wxaxiaoyao.cn/api/v0/",
 }

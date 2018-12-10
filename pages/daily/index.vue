@@ -63,6 +63,8 @@ export default {
 			this.dailies = this.dailies.concat(result.data || []);
 			//uni.hideLoading();
 
+			this.query["x-page"]++;
+
 			return result.data || [];
 		},
 		upper(e) {
@@ -93,6 +95,7 @@ export default {
 	},
 
 	async onShow() {
+		this.query["x-page"] = 1;
 		this.dailies = [];
 		await this.loadDailies();
 	},

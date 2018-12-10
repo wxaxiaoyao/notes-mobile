@@ -23,7 +23,8 @@
 	},
 	{
 		"path": "pages/daily/upsert"
-	}
+	},
+	{"path": "pages/debug/index"}
 	],
 	"tabBar": {
 		"list": [
