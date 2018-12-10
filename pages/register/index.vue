@@ -5,7 +5,7 @@
 
 		<view class="uni-form-item uni-flex">
 			<view class="title">用户名</view>
-			<input class="uni-input" v-model="username" placeholder="用户名">
+			<input class="uni-input" v-model="username" placeholder="字母数字组成,字母开头">
 		</view>
 
 		<view class="uni-form-item uni-flex">
@@ -43,6 +43,10 @@ export default {
 
 	methods: {
 		async clickRegisterBtn() {
+			const username = this.username.toLowerCase();
+			const usernameReg = /^\w[\w\d]+$/;
+			if (!usernameReg.test(username) || username.length < 4 || username.length > 32) return uni.showToast({title:"用户名不合法"});
+			
 			const result = await this.api.users.register({username:this.username, password: this.password});
 			if (result.isErr()) return uni.showToast({title:"用户已存在", icon:"none"});
 			const user = result.data || {};
