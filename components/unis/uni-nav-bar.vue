@@ -187,7 +187,8 @@
 		display:inline-flex;
 		flex-wrap:nowrap;
 		flex-shrink:0;
-		width: 120upx;
+		/*width: 120upx;*/
+		min-width: 120upx;
 		padding:0 12upx;
 	}
 	
@@ -195,7 +196,8 @@
 		padding-left:0;
 	}
 	.uni-navbar-header .uni-navbar-header-btns:last-child{
-		width: 60upx;
+		/*width: 60upx;*/
+		min-width: 60upx;
 	}
 	.uni-navbar-container{
 		width:100%;

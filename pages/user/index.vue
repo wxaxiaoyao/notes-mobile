@@ -3,23 +3,30 @@
 	<view class="user-index-container">
 		<uni-nav-bar status-bar=true :title="title"></uni-nav-bar>
 
-		<view @click="go('/pages/user/info')" class="users-me-container">
-			<view class="left-container">
-				<image :src="user.portrait" class="portrait"></image>
-			</view>
-			<view class="main-container">
-				<view class="username">{{ (user.nickname || "") + " " + user.username}}</view>
-				<view class="description">{{user.description}}</view>
-			</view>
-		</view>
-
 		<view class="uni-list">
+			<view class="uni-list-cell-divider"></view>
+			<view @click="go('/pages/user/info')" class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view class="uni-list-cell-navigate">
+					<image style="width:70px; height:70px" :src="user.portrait" class="portrait"></image>
+					<view class="uni-column uni-list-cell-right uni-list-cell-pd">
+						<view class="uni-ellipsis uni-title">{{ user.nickname || ""}}</view>
+						<view class="uni-ellipsis uni-text uni-text-gray">{{ "用户名: " + user.username}}</view>
+					</view>
+				</view>
+			</view>
+
+			<view class="uni-list-cell-divider"></view>
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
-				<view @click="go('/pages/debug/index')" class="uni-list-cell-navigate uni-navigate-right">调试</view>
+				<view @click="go('/pages/debug/index')" class="uni-list-cell-navigate">调试</view>
+			</view>
+
+			<view class="uni-list-cell-divider"></view>
+			<view @click="clickLogoutBtn" class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view class="uni-list-cell-navigate">
+					退出
+				</view>
 			</view>
 		</view>
-
-		<button @click="clickLogoutBtn">退出</button>
 	</view>
 </template>
 

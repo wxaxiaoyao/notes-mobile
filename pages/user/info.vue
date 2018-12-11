@@ -69,6 +69,9 @@ export default {
 </script>
 
 <style lang="less">
+.uni-navbar-header .uni-navbar-header-btns {
+	width:100%;
+}
 .user-info-container {
 	background-color: rgb(247,247,248);
 	height:100%;
