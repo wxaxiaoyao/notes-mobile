@@ -17,6 +17,7 @@
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
     "path-to-regexp": "^2.4.0",
-    "qiniu-js": "^2.5.3"
+    "qiniu-js": "^2.5.3",
+    "query-string": "^6.2.0"
   }
 }

@@ -1,10 +1,8 @@
 
 import vue from "vue";
 
-import users from "./users/index.js";
 
 const mods = {
-	users,
 }
 
 //for (let modname in mods) {

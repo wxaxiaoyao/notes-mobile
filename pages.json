@@ -1,14 +1,17 @@
 
 {
 	"pages": [
+		{"path": "pages/debug/index"},
 		{"path": "pages/index/index"},
 		{"path": "pages/user/index"},
 		{"path": "pages/user/info"},
+		{"path": "pages/user/info-more"},
+		{"path": "pages/user/info-modify"},
 		{"path": "pages/login/index"},
 		{"path": "pages/register/index"},
 		{"path": "pages/daily/index"},
 		{"path": "pages/daily/upsert"},
-		{"path": "pages/debug/index"}
+		{"path": "pages/web/index"}
 	],
 	"tabBar": {
 		"list": [
