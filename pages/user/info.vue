@@ -39,6 +39,7 @@
 
 <script>
 import queryString from 'query-string';
+import config from "../../commons/config.js";
 import component from "../../components/component.js";
 import uniNavBar from "../../components/unis/uni-nav-bar.vue";
 
@@ -68,7 +69,7 @@ export default {
 					console.log('chooseImage success, temp path is', res.tempFilePaths[0])
 					const imageSrc = res.tempFilePaths[0]
 					uni.uploadFile({
-						url: this.app.config.baseURL + "files/upload",
+						url: config.baseURL + "files/upload",
 						filePath: imageSrc,
 						name: 'file',
 						header: {"Authorization": "Bearer " + this.token},

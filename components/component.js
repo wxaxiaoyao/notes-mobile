@@ -9,7 +9,8 @@ export default {
 	data: function() {
 		return {
 			api: api,
-			app: {config},
+			app: {
+			},
 		}
 	},
 

@@ -66,11 +66,11 @@ export default {
 	},
 	methods: {
 		async sexRadioChange(e) {
+			this.showSexPopup = false;
 			this.user.sex = e.detail.value;
 			const result = await this.api.users.update({sex: this.user.sex, id: this.user.id});
 			if (result.isErr()) return uni.showToast({title:"服务器繁忙"});
 			this.setUser(this.user);
-			this.showSexPopup = false;
 		},
 		clickDescription() {
 			const args = queryString.stringify({

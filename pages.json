@@ -1,7 +1,5 @@
-
 {
 	"pages": [
-		{"path": "pages/debug/index"},
 		{"path": "pages/index/index"},
 		{"path": "pages/user/index"},
 		{"path": "pages/user/info"},
@@ -11,6 +9,7 @@
 		{"path": "pages/register/index"},
 		{"path": "pages/daily/index"},
 		{"path": "pages/daily/upsert"},
+		{"path": "pages/debug/index"},
 		{"path": "pages/web/index"}
 	],
 	"tabBar": {

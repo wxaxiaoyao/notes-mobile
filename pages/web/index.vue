@@ -8,7 +8,7 @@
 			@click-left="back">
 		</uni-nav-bar>
 
-		<web-view style="width:100px; height:100px" src="http://wxaxiaoyao.cn"></web-view>
+		<web-view src="../../hybrid/html/index.html"></web-view>
 	</view>
 </template>
 

@@ -3,9 +3,17 @@
 	<view class="index-page-container">
 		<uni-nav-bar status-bar=true :title="title"></uni-nav-bar>
 		<view class="uni-list">
+			<view class="uni-list-cell-divider"></view>
+
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view @click="go('/pages/daily/index')" class="uni-list-cell-navigate uni-navigate-right">
 					日报
+				</view>
+			</view>
+
+			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view @click="go('/pages/web/index')" class="uni-list-cell-navigate uni-navigate-right">
+					webview
 				</view>
 			</view>
 		</view>

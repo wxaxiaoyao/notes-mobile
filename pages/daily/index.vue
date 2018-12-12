@@ -1,7 +1,7 @@
 
 <template>
 	<view class="daily-index-container">
-		<uni-nav-bar status-bar=true left-icon="back" left-text="返回" @click-left="back" title="日报" right-text="新增" @click-right="clickNewBtn"></uni-nav-bar>
+		<uni-nav-bar fixed status-bar=true left-icon="back" left-text="返回" @click-left="back" title="日报" right-text="新增" @click-right="clickNewBtn"></uni-nav-bar>
 		<scroll-view class="dailies-list-container" scroll-y @scrolltoupper="upper" @scrolltolower="lower" @scroll="scroll">
 			<view v-for="(x, i) in dailies" :key="i" @click="clickEditBtn(x)" class="daily-container">
 				<view class="date">
@@ -92,12 +92,6 @@ export default {
 	},
 
 	async mounted() {
-	},
-
-	async onShow() {
-		this.query["x-page"] = 1;
-		this.dailies = [];
-		await this.loadDailies();
 	},
 
 	onHide() {
