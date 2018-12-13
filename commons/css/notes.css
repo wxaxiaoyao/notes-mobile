@@ -27,6 +27,15 @@ page {
 .uni-common-mr {
 	margin-right:30upx;
 }
+
 .uni-common-pr {
 	padding-right:30upx;
+}
+
+.uni-bg-white {
+	background-color: #FFFFFF;
+}
+
+.x-input-border {
+	border: 2px solid rgb(245,245,245);
 }

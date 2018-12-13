@@ -40,8 +40,6 @@ export const state = () => ({
 });
 
 export const getters = {
-	mode: (state) => state.mode,
-
 	isAuthenticated: (state) => {
 		const token = (state.user || {}).token;
 
@@ -57,22 +55,8 @@ export const getters = {
 
 		return true;
 	},
-
 	token: (state) => (state.user || {}).token,
-
 	user: (state) => _.cloneDeep(state.user),
-
-	getData: (state) => (key) => _.cloneDeep(key ? _.get(state.data, key) : state.data),
-
-	getModData: (state) => (key) => _.cloneDeep(key ? _.get(state.modsData, key) : state.modsData),
-	getModsData: (state) => state.modsData,
-
-	getCurrentMod: (state) => _.cloneDeep(state.data[CURRENT_MOD] || {}),
-	getCurrentModData: (state) => {
-		const currentMod = state.data[CURRENT_MOD];
-		if (!currentMod || !currentMod.__key__) return {};
-		return  _.cloneDeep(_.get(state.modsData, currentMod.__key__) || {});
-	}
 }
 
 export const actions = {

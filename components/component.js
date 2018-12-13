@@ -15,9 +15,9 @@ export default {
 	},
 
 	props: {
-		__data__: {
+		__default_data__: {
 			type: Object,
-		}
+		},
 	},
 
 	computed: {
@@ -35,13 +35,22 @@ export default {
 			if (this.user && this.user.username) return this.user.username;
 			return "";
 		},
+		__data__() {
+			// 设置默认数据
+			const data = this.__default_data__ || this.default_data || {};	
+			_.each(this.default_data, (val, key) => {
+				if (data[key] == undefined) {
+					vue.set(data, key, val);
+				}
+			});
+
+			return data;
+		},
 	},
 
 	methods: {
 		...mapMutations({
 			setUser: "setUser",
-			setToken: "setToken",
-			setMsg: "setMsg",
 		}),
 		back() {
 			uni.navigateBack({delta:1});
@@ -49,44 +58,10 @@ export default {
 		go(url) {
 			uni.navigateTo({url});
 		},
-		systemPortrait(username = "username") {
-			const key = username.toLowerCase()[0] + 1;
-			return g_app.portraits[key];
-		},
 		authenticated() {
 			if (this.isAuthenticated) return {...this.user, userId:this.user.id};
 
 			uni.reLaunch({url:"/pages/login/index"});
-		},
-		setShareData(key, data) {
-			g_app.setData(key, data);
-		},
-		getShareData(key, defaultValue) {
-			return g_app.getData(key, defaultValue);
-		},
-		setData(key, data, replace=false) {
-			data = _.cloneDeep(data);
-			if (!replace && typeof(data) == "object") data = _.merge({}, this.getData(key), data);
-			this.$store.commit("setData", {[key]:data});
-		},
-		on(eventName, callback) {
-			events.$on(eventName, callback);
-		},
-		emit(eventName, ...args) {
-			events.$emit(eventName, ...args);
-		},
-		push(path, data = {}) {
-			g_app.storage.sessionStorageSetItem(path, _.cloneDeep(data));
-			this.$router.push({path});
-		},
-		setEditorMode(mode) {
-			this.setData("__editor_mode__", mode);
-		},
-		setCurrentUrl(url) {
-			this.setData("__currentUrl__", url);
-		},
-		setCurrentContent(content) {
-			this.setData("__currentContent__", content || "");
 		},
 	},
 

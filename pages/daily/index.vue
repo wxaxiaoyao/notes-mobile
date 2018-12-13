@@ -1,10 +1,10 @@
 
 <template>
 	<view class="daily-index-container">
-		<uni-nav-bar fixed status-bar=true left-icon="back" left-text="返回" @click-left="back" title="日报" right-text="新增" @click-right="clickNewBtn"></uni-nav-bar>
+		<uni-nav-bar status-bar=true left-icon="back" left-text="返回" @click-left="back" title="日报" right-text="新增" @click-right="clickNewBtn"></uni-nav-bar>
 		<scroll-view class="dailies-list-container" scroll-y @scrolltoupper="upper" @scrolltolower="lower" @scroll="scroll">
 			<view v-for="(x, i) in dailies" :key="i" @click="clickEditBtn(x)" class="daily-container">
-				<view class="date">
+				<view>
 					{{x.date}}
 				</view>
 				<view class="content">
@@ -57,11 +57,11 @@ export default {
 			uni.navigateTo({url:"/pages/daily/upsert?id=" + x.id});
 		},
 		async loadDailies(query) {
-			//uni.showLoading({title:"加载中..."});
+			uni.showLoading({});
 			query = query || this.query;
 			const result = await this.api.dailies.get(query);
 			this.dailies = this.dailies.concat(result.data || []);
-			//uni.hideLoading();
+			uni.hideLoading();
 
 			this.query["x-page"]++;
 
@@ -100,18 +100,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.dailies-list-container {
-	height:100%;
-}
-
 .daily-container {
 	display:flex;
 	flex-direction:column;
 	padding:5px;
 	border-bottom: 1px solid gray;
-
-	.date {
-		//text-align:center;
-	}
 }
 </style>
