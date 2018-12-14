@@ -9,14 +9,16 @@ export default {
 	data: function() {
 		return {
 			api: api,
-			app: {
-			},
+			app: {},
 		}
 	},
 
 	props: {
-		__default_data__: {
+		__data__: {
 			type: Object,
+			default:function() {
+				return {};
+			}
 		},
 	},
 
@@ -35,17 +37,16 @@ export default {
 			if (this.user && this.user.username) return this.user.username;
 			return "";
 		},
-		__data__() {
-			// 设置默认数据
-			const data = this.__default_data__ || this.default_data || {};	
+	},
+
+	watch: {
+		__data__: function() {
 			_.each(this.default_data, (val, key) => {
-				if (data[key] == undefined) {
-					vue.set(data, key, val);
+				if (this.__data__[key] == undefined) {
+					vue.set(this.__data__, key, val);
 				}
 			});
-
-			return data;
-		},
+		}
 	},
 
 	methods: {
@@ -66,6 +67,11 @@ export default {
 	},
 
 	beforeMount() {
+		_.each(this.default_data, (val, key) => {
+			if (this.__data__[key] == undefined) {
+				vue.set(this.__data__, key, val);
+			}
+		});
 	},
 }
 

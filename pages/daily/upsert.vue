@@ -24,7 +24,7 @@
 			</view>
 			<view class="uni-list-cell">
 				<view class="uni-list-cell-navigate">
-					<tags-index></tags-index>
+					<tags-index :__data__="tagsData"></tags-index>
 				</view>
 			</view>
 			<view class="uni-list-cell">
@@ -57,6 +57,10 @@ export default {
 			daily: {
 				date:moment().format("YYYY-MM-DD"),
 				content:"请输入日报内容...",
+			},
+			tagsData: {
+				tags:[],
+				editable: true,
 			}
 		}
 	},
@@ -66,6 +70,7 @@ export default {
 			this.daily.date = evt.detail.value;
 		},
 		async clickSubmitBtn() {
+			this.daily.tags = this.tagsData.tags.join("|");
 			if (this.daily.id) {
 				await this.api.dailies.update(this.daily);
 			} else {
@@ -79,6 +84,7 @@ export default {
 		if (options.id) {
 			const result = await this.api.dailies.getById({id: options.id});
 			this.daily = result.data || this.daily;
+			this.tagsData = {...this.tagsData, tags: this.daily.tags};
 		}
 	}
 }
