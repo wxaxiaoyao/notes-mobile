@@ -12,6 +12,12 @@
 			</view>
 
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view @click="go('/pages/chat/session')" class="uni-list-cell-navigate uni-navigate-right">
+					消息
+				</view>
+			</view>
+
+			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view @click="go('/pages/web/index')" class="uni-list-cell-navigate uni-navigate-right">
 					webview
 				</view>
@@ -41,7 +47,7 @@ export default {
 		this.title = this.user.username;
 	},
 	methods: {
-	}
+	},
 }
 </script>
 

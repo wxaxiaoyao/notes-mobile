@@ -5,7 +5,9 @@ const defaultConfig = {
 
 const developmentConfig = {
 	env:"development",
-	baseURL:"http://localhost:3001/api/v0/",
+	baseURL: platform == "android" ? "http://192.168.31.250:3001/api/v0/" : "http://xiaoyao.com:3001/api/v0/",
+	socketUrl: platform == "android" ? "ws://192.168.31.250:3001/" : "ws://127.0.0.1:3001/",
+	//socketUrl:"http://39.106.11.114:3001/",
 }
 
 const productionConfig = {
@@ -19,9 +21,4 @@ const configs = {
 	production: {...defaultConfig, ...productionConfig}
 }
 
-let ENV = "production";
-if (process.env.NODE_ENV == "development" && platform == "ios") {
-	ENV = "development";
-}
-
-export default configs[ENV || process.env.NODE_ENV];
+export default configs[process.env.NODE_ENV];

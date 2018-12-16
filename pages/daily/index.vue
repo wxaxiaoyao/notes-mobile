@@ -66,21 +66,14 @@ export default {
 			uni.navigateTo({url:"/pages/daily/upsert?id=" + x.id});
 		},
 		async loadDailies(query) {
-			uni.showLoading({});
+			if (this.loading) return Promise.resolve([]);
+			this.loading = true;
 			query = query || this.query;
 			const result = await this.api.dailies.get(query);
 			this.dailies = this.dailies.concat(result.data || []);
-			uni.hideLoading();
+			this.query["x-page"]++;
+			this.loading = false;
 			return result.data || [];
-		},
-		upper(e) {
-			console.log(e);
-		},
-		lower(e) {
-			console.log(e);
-		},
-		scroll(e) {
-			//console.log(e);
 		},
 		async initPageData() {
 			this.query["x-page"] = 1;
@@ -102,7 +95,6 @@ export default {
 		this.loadingType = 1;
 
 		const datas = await this.loadDailies();
-		this.query["x-page"]++;
 
 		this.loadingType = datas.length ? 0 : 2;
 	},

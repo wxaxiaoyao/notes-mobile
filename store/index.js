@@ -5,12 +5,33 @@ import _ from "../libs/lodash.min.js";
 import jwt from "jwt-simple";
 
 import storage from "../commons/storage.js";
+import socket from "../commons/socket.js";
+import config from "../commons/config.js";
 import api from "../commons/api/index.js";
 
 vue.use(vuex);
 
+const getTokenPayload = token => {
+	if (!token) return ;
+	const payload = jwt.decode(token, null, true);
+
+	if (payload.nbf && Date.now() < payload.nbf*1000) {
+		return;
+	}
+	if (payload.exp && Date.now() > payload.exp*1000) {
+		return;
+	}
+
+	return payload;
+}
 const userinfo = storage.get("__userinfo__") || {};
-if (userinfo.token) api.options.header.Authorization = "Bearer " + userinfo.token;
+const payload = getTokenPayload(userinfo.token);
+
+api.options.baseURL = config.baseURL;
+if (payload) {
+	api.options.header.Authorization = "Bearer " + userinfo.token;
+	socket(config.socketUrl, {token:userinfo.token});
+}
 
 export const state = () => ({
 	isSmallScreen: false,
@@ -42,7 +63,6 @@ export const state = () => ({
 export const getters = {
 	isAuthenticated: (state) => {
 		const token = (state.user || {}).token;
-
 		if (!token) return false;
 		const payload = jwt.decode(token, null, true);
 

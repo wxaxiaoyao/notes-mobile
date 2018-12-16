@@ -1,8 +1,6 @@
 
 //import * as qiniu from "qiniu-js";
-
 import httpRequest from "./http.js";
-import config from "../config.js";
 
 function initHttpOptions(self, options = {}, prefix) {
 	options.header = options.header || {};
@@ -376,7 +374,7 @@ export function Notes(options = {}){
 export const options = {
 	header: {},
 	cache: true,
-	baseURL: config.baseURL,
+	baseURL: "",
 }
 
 export default new Notes(options);

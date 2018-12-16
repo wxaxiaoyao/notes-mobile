@@ -4,12 +4,12 @@ import {mapGetters, mapActions, mapMutations} from "vuex";
 import _ from "../libs/lodash.min.js";
 import api from "../commons/api/index.js";
 import config from "../commons/config.js";
+import socket from "../commons/socket.js";
 
 export default {
 	data: function() {
 		return {
 			api: api,
-			app: {},
 		}
 	},
 
@@ -27,7 +27,6 @@ export default {
 			token: "token",
 			user: "user",
 			isAuthenticated: "isAuthenticated",
-			getData: "getData",
 		}),
 		authUserId() {
 			if (this.user && this.user.id) return this.user.id;
@@ -64,6 +63,10 @@ export default {
 
 			uni.reLaunch({url:"/pages/login/index"});
 		},
+		async initSocket() {
+			this.authenticated();
+			return await socket(config.socketUrl, {token: this.token});
+		}
 	},
 
 	beforeMount() {

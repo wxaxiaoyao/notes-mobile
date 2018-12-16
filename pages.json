@@ -1,6 +1,8 @@
 {
 	"pages": [
 		{"path": "pages/index/index"},
+		{"path": "pages/chat/index"},
+		{"path": "pages/chat/session"},
 		{"path": "pages/user/index"},
 		{"path": "pages/user/info"},
 		{"path": "pages/user/info-more"},
@@ -17,6 +19,10 @@
 			{
 				"pagePath":"pages/index/index",
 				"text":"首页"
+			},
+			{
+				"pagePath":"pages/chat/index",
+				"text":"消息"
 			},
 			{
 				"pagePath":"pages/user/index",
