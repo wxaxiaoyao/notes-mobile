@@ -6,6 +6,19 @@ import api from "../commons/api/index.js";
 import config from "../commons/config.js";
 import socket from "../commons/socket.js";
 
+const portraits = {};
+for (let i = 0; i < 26; i++) {
+	for (let j = 1; j <= 4; j++) {
+		const key = "abcdefghijklmnopqrstuvwxyz"[i] + j;
+		const url = "http://statics.qiniu.wxaxiaoyao.cn/_/portraits/" +  key + ".png";
+		portraits[key] = url;
+	}
+}
+
+const app = {
+	portraits,
+};
+
 export default {
 	data: function() {
 		return {
@@ -23,6 +36,7 @@ export default {
 	},
 
 	computed: {
+		app() {return app},
 		...mapGetters({
 			token: "token",
 			user: "user",

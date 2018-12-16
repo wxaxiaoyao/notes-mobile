@@ -14,16 +14,14 @@
 				</view>
 			</view>
 		</scroll-view>	
-
 	</view>
 </template>
 
 <script>
-import app from "../../commons/app.js";
+import _ from "../../libs/lodash.min.js";
 import component from "../../components/component.js";
 import uniNavBar from "../../components/unis/uni-nav-bar.vue";
 
-const {_, portraits} = app;
 
 export default {
 	mixins:[component],
@@ -40,6 +38,7 @@ export default {
 
 	methods: {
 		formatSession(session) {
+			const {portraits} = this.app;
 			const userId = this.user.id;
 			const members = session.members;
 			if (members.length == 2) {
