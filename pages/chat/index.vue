@@ -32,7 +32,13 @@ export default {
 
 	data: function() {
 		return {
+			rebotSession: {
+				title: "rebot",
+				sessionId:"__rebot__",
+				logo:"https://img-cdn-qiniu.dcloud.net.cn/uniapp/app/homeHL.png",
+			},
 			sessions:[],
+			currentSessionId:"",
 		}
 	},
 
@@ -54,8 +60,11 @@ export default {
 
 			return session;
 		},
-		clickSession() {
-			
+		clickSession(x) {
+			this.go("/pages/chat/session", {
+				title:x.title,
+				sessionId:x.sessionId,
+			});
 		},
 	},
 
@@ -63,7 +72,16 @@ export default {
 		this.socket = await this.initSocket();
 		this.socket.emit("pull_sessions", {}, (sessions = []) => {
 			this.sessions = _.map(sessions, this.formatSession);
+			this.sessions.splice(0,0, this.rebotSession);
+		
 			console.log(this.sessions);
+		});
+
+		this.socket.on("push_messages", message => {
+			const session = _.find(this.sessions, {sessionId:message.sessionId});
+			if (!session) return;
+			if (this.currentSessionId != message.sessionId)	session.unreadMsgCount++;
+			session.lastMsg = message;
 		});
 	}
 }

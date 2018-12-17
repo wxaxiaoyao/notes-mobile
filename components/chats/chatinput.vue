@@ -6,50 +6,50 @@
 		<view class="footer-center">
 			<input class="input-text" type="text" v-model="inputValue"></input>
 		</view>
-		<view class="footer-right" @tap="sendMessge">
+		<view class="footer-right" @tap="sendMessage">
 			<view id='msg-type' >发送</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	export default {
-		name: "chat-input",
-		data() {
-			return {
-				inputValue: ''
-			}
+import component from "../component.js";
+
+export default {
+	mixins: [component],
+
+	data() {
+		return {
+			inputValue: ''
+		}
+	},
+
+	methods: {
+		startRecognize: function () {
+			var options = {};
+			var that = this;
+			options.engine = 'iFly';
+			that.inputValue = "";
+			plus.speech.startRecognize(options, function (s) {
+				console.log(s);
+				that.inputValue += s;
+			}, function (e) {
+				console.log("语音识别失败：" + e.message);
+			});
 		},
-		methods: {
-			startRecognize: function () {
-				var options = {};
-				var that = this;
-				options.engine = 'iFly';
-				that.inputValue = "";
-				plus.speech.startRecognize(options, function (s) {
-					console.log(s);
-					that.inputValue += s;
-				}, function (e) {
-					console.log("语音识别失败：" + e.message);
-				});
-			},
-			sendMessge: function () {
-				var that = this;
-				if (that.inputValue.trim() == '') {
-
-					that.inputValue = '';
-				} else {
-
-					//点击发送按钮时，通知父组件用户输入的内容
-					this.$emit('send-message', {
-						type: 'text',
-						content: that.inputValue
-					});
-					that.inputValue = '';
-				}
+		sendMessage: function () {
+			var that = this;
+			if (that.inputValue.trim() == '') {
+				that.inputValue = '';
+				return;
 			}
+			
+			//点击发送按钮时，通知父组件用户输入的内容
+			this.__data__.sendMessage && this.__data__.sendMessage({text: this.inputValue});
+			that.inputValue = '';
 		}
 	}
+}
 </script>
 
 <style>

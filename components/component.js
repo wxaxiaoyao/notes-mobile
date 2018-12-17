@@ -1,6 +1,7 @@
 
 import vue from "vue";
 import {mapGetters, mapActions, mapMutations} from "vuex";
+import queryString from 'query-string';
 import _ from "../libs/lodash.min.js";
 import api from "../commons/api/index.js";
 import config from "../commons/config.js";
@@ -69,8 +70,9 @@ export default {
 		back() {
 			uni.navigateBack({delta:1});
 		},
-		go(url) {
-			uni.navigateTo({url});
+		go(url, options = {}) {
+			const qs = queryString.stringify(options, {encode:false});
+			uni.navigateTo({url: `${url}?${qs}`});
 		},
 		authenticated() {
 			if (this.isAuthenticated) return {...this.user, userId:this.user.id};

@@ -1,23 +1,39 @@
 <template>
-	<view class="m-item" :id="'message'+id">
+	<view class="m-item">
 		<view class="m-left">
-			<image class="head_icon" src="https://img-cdn-qiniu.dcloud.net.cn/uniapp/app/homeHL.png" v-if="message.user=='home'"></image>
+			<image class="head_icon" :src="__data__.portrait" v-if="__data__.userId != user.id"></image>
 		</view>
 		<view class="m-content">
-			<view class="m-content-head" :class="{'m-content-head-right':message.user=='customer'}">
-				<view :class="'m-content-head-'+message.user">{{message.content}} </view>
+			<view class="m-content-head" :class="{'m-content-head-right':__data__.userId == user.id}">
+				<view :class="[__data__.userId == user.id ? 'm-content-head-customer' : 'm-content-head-home']">{{__data__.text}} </view>
 			</view>
 		</view>
 		<view class="m-right">
-			<image class="head_icon" src="https://img-cdn-qiniu.dcloud.net.cn/uniapp/app/customerHL.png" v-if="message.user=='customer'"></image>
+			<image class="head_icon" :src="__data__.portrait" v-if="__data__.userId==user.id"></image>
 		</view>
 	</view>
 </template>
 
 <script>
-	export default {
-		props: ['message', 'id']
+import _ from "../../libs/lodash.min.js";
+import component from "../component.js";
+export default {
+	mixins:[component],
+
+	props: ["message"],
+
+	data: function() {
+		return {
+			default_data: {
+				sessionId:"__rebot__",
+				userId: 1,
+				username: "xiaoyao",
+				portrait: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/app/customerHL.png",
+				text: "你好",
+			},
+		}
 	}
+}
 </script>
 
 <style>
