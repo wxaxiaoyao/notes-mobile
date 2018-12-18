@@ -12,14 +12,14 @@
 			</view>
 
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
-				<view @click="go('/pages/chat/session')" class="uni-list-cell-navigate uni-navigate-right">
-					消息
+				<view @click="go('/pages/web/index')" class="uni-list-cell-navigate uni-navigate-right">
+					webview
 				</view>
 			</view>
 
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
-				<view @click="go('/pages/web/index')" class="uni-list-cell-navigate uni-navigate-right">
-					webview
+				<view @click="upgrade" class="uni-list-cell-navigate uni-navigate-right">
+					升级
 				</view>
 			</view>
 		</view>
@@ -47,6 +47,26 @@ export default {
 		this.title = this.user.username;
 	},
 	methods: {
+		upgrade() {
+			uni.showLoading({
+				title:'下载中'
+			})
+			const self = this
+			const url = "https://service.dcloud.net.cn/build/download/6f2fb350-01d8-11e9-81bc-19f3fb2b4f51";
+			uni.downloadFile({
+				url,
+				success: (res) => {
+					console.log('downloadFile success, res is', res)
+					self.imageSrc = res.tempFilePath;
+					uni.hideLoading();
+				},
+				fail: (err) => {
+					console.log('downloadFile fail, err is:', err)
+					uni.hideLoading();
+					uni.showToast({title:"下载失败", icon:"none"});
+				}
+			});
+		}
 	},
 }
 </script>

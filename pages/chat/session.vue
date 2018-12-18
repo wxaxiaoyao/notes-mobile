@@ -11,11 +11,11 @@
 				id="scrollview" 
 				:style="{height: style.contentViewHeight + 'px'}" 
 				scroll-y="true" 
-				scroll-into-view="scroll-view-bottm"
+				scroll-into-view="scroll-view-bottom"
 				:scroll-with-animation="true"
 			    :scroll-top="scrollTop">
 				<message-show v-for="(message,index) in messages" :key="index" :__data__="message"></message-show>
-				<view id="scroll-view-bottm"></view>
+				<view id="scroll-view-bottom"></view>
 			</scroll-view>
 		</view>
 		<view class="message-input-container">
@@ -87,6 +87,7 @@ export default {
 
 		const messages = await this.pullMessages(sessionId);
 		this.messages = messages;
+		this.scrollToBottom();
 	},
 
 	methods: {
