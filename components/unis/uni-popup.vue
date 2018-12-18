@@ -63,8 +63,8 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		width: 380upx;
-		height: 380upx;
+		min-width: 380upx;
+		min-height: 100upx;
 		border-radius: 10upx;
 		top: 50%;
 		left: 50%;

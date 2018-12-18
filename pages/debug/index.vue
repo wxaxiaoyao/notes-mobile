@@ -8,7 +8,7 @@
 		   	title="调试">
 		</uni-nav-bar>
 		<scroll-view scroll-x=true scroll-y=true>
-			{{config}}
+			{{debug}}
 		</scroll-view>
 	</view>
 </template>
@@ -27,10 +27,17 @@ export default {
 
 	data() {
 		return {
-			config: JSON.stringify(config, undefined, 4),
 		}
 	},
 
+	computed: {
+		debug() {
+			return JSON.stringify({
+				...config,
+				runtimeVersion: plus && plus.runtime.version,
+			}, undefined, 4);
+		}
+	},
 	async onLoad() {
 	},
 
