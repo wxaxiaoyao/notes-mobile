@@ -49,6 +49,8 @@ export default {
 	async onLoad() {
 		this.authenticated();
 		this.title = this.user.username;
+		const version = await this.checkVersion();
+		console.log(version);
 	},
 	methods: {
 		upgrade() {

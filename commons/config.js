@@ -1,7 +1,9 @@
 
 const platform = uni.getSystemInfoSync().platform;
 const defaultConfig = {
-	version:"0.0.1",
+	version:{
+		id:0,
+	},
 }
 
 const developmentConfig = {

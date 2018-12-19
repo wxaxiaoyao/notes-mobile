@@ -331,6 +331,13 @@ export function Qinius(options) {
 		return url;
 	}
 }
+
+export function Versions(options) {
+	const self = this;
+
+	initHttpOptions(self, options, "versions");
+}
+
 export function Notes(options = {}){
 	const self = this;
 	initHttpOptions(self, options);
@@ -369,6 +376,7 @@ export function Notes(options = {}){
 	self.bugs = new Bugs(self.options);
 	self.experiences = new Experiences(self.options);
 	self.qinius = new Qinius(self.options);
+	self.versions = new Versions(self.options);
 }
 
 export const options = {

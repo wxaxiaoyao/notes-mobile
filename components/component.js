@@ -82,6 +82,14 @@ export default {
 		async initSocket() {
 			this.authenticated();
 			return await socket(config.socketUrl, {token: this.token});
+		},
+		async checkVersion() {
+			const result = await this.api.versions.get({"x-order":"id-desc", "type":0});
+			const versions = result.data || [];
+			if (versions.length == 0) return;
+			const version = versions[0];
+			if (config.version.id >= version.id) return ;
+			return version;
 		}
 	},
 
