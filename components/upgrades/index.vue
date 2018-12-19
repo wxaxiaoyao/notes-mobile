@@ -41,7 +41,7 @@ export default {
 
 	methods: {
 		upgrade() {
-			const url="https://service.dcloud.net.cn/build/download/d91e4d30-02cb-11e9-8232-8b317256730e"; 
+			const url="http://statics.wxaxiaoyao.cn/app/android/__UNI__76406B9_1218181813.apk"; 
 			const downloadTask = uni.downloadFile({
 				url,
 				success: (res) => {
@@ -55,6 +55,9 @@ export default {
 					uni.hideLoading();
 					uni.showToast({title:"下载失败", icon:"none"});
 				}
+			});
+			downloadTask.onProgressUpdate(res => {
+				this.percent = res.progress;
 			});
 		}
 	},
