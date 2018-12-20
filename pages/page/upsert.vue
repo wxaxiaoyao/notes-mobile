@@ -12,8 +12,8 @@
 			</view>
 		</uni-nav-bar>
 		
-		<view class="uni-flex-item uni-flex uni-column">
-			<textarea class="uni-flex-item page-content" v-model="page.content" max-length=1></textarea>
+		<view class="uni-flex-item uni-flex uni-column full-width">
+			<textarea class="uni-flex-item page-content" v-model="page.content" max-length=-1></textarea>
 		</view>
 	</view>
 </template>

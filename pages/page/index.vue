@@ -70,7 +70,7 @@ export default {
 			query = query || this.query;
 
 			const result = await this.api.pages.get(query);
-			const pages = _.map(result.data || [], this.formatPage);
+			const pages = _.map(result.data || [], this.formatPage).filter(o => !_.endsWith(o.url, "/"));
 			this.pages = this.pages.concat(pages);
 			this.query["x-page"]++;
 			this.loading = false;
