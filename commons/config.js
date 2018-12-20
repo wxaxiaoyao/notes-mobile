@@ -2,7 +2,9 @@
 const platform = uni.getSystemInfoSync().platform;
 const defaultConfig = {
 	version:{
-		id:0,
+		versionNo:3,
+		versionName: "0.0.3",
+		description: `引入页面功能入口到首页`,
 	},
 }
 

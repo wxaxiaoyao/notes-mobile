@@ -10,7 +10,9 @@
 			@click-left="back">
 		</uni-nav-bar>
 
-		<textarea v-if="type == 'textarea'" v-model="value" class="uni-textarea" :maxlength="maxlength"/>
+		<view v-if="type == 'textarea'" class="uni-textarea">
+			<textarea v-model="value" :maxlength="maxlength"/>
+		</view>
 		<input v-else v-model="value" class="uni-input"/>
 	</view>
 </template>

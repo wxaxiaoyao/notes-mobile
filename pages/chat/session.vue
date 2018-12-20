@@ -90,6 +90,10 @@ export default {
 		this.scrollToBottom();
 	},
 
+	onShow() {
+		this.scrollToBottom();
+	},
+
 	methods: {
 		async pullMessages(sessionId) {
 			if (sessionId == "__rebot__") {

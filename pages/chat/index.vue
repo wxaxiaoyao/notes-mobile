@@ -4,11 +4,13 @@
 		<scroll-view class="session-list-container" scroll-y>
 			<view class="uni-list">
 				<view v-for="(x, i) in sessions" :key="i" @click="clickSession(x)" class="uni-list-cell" hover-class="uni-list-cell-hover">
-					<view class="uni-list-cell-navigate">
-						<image style="width:60px; height:60px" :src="x.logo"></image>
-						<view class="uni-column uni-list-cell-right uni-list-cell-pd">
-							<view class="uni-ellipsis uni-title">{{ x.title }}</view>
-							<view class="uni-ellipsis uni-text uni-text-gray">暂无消息</view>
+					<view class="uni-media-list">
+						<view class="uni-media-list-logo">
+							<image :src="x.logo"></image>
+						</view>
+						<view class="uni-media-list-body">
+							<view class="uni-media-list-text-top">{{ x.title }}</view>
+							<view class="uni-media-list-text-bottom uni-ellipsis">暂无消息</view>
 						</view>
 					</view>
 				</view>

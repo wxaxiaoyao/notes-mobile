@@ -1,8 +1,7 @@
 
 <template>
 	<view class="index-page-container">
-		<uni-nav-bar status-bar=true :title="title"></uni-nav-bar>
-		<upgrades-index :__data__="upgradesIndexData"></upgrades-index>
+		<uni-nav-bar status-bar=true title="NOTE"></uni-nav-bar>
 		<view class="uni-list">
 			<view class="uni-list-cell-divider"></view>
 
@@ -13,14 +12,14 @@
 			</view>
 
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
-				<view @click="go('/pages/web/index')" class="uni-list-cell-navigate uni-navigate-right">
-					webview
+				<view @click="go('/pages/page/index')" class="uni-list-cell-navigate uni-navigate-right">
+					页面
 				</view>
 			</view>
 
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
-				<view @click="upgrade" class="uni-list-cell-navigate uni-navigate-right">
-					升级
+				<view @click="go('/pages/web/index')" class="uni-list-cell-navigate uni-navigate-right">
+					webview
 				</view>
 			</view>
 		</view>
@@ -30,27 +29,21 @@
 <script>
 import component from "../../components/component.js";
 import uniNavBar from "../../components/unis/uni-nav-bar.vue";
-import upgradesIndex from "../../components/upgrades/index.vue";
 
 export default {
 	mixins:[component],
 
 	components: {
 		"uni-nav-bar": uniNavBar,
-		"upgrades-index": upgradesIndex,
 	},
 
 	data() {
 		return {
-			title:"NOTE",
-			upgradesIndexData:{visible:false},
 		}
 	},
 	async onLoad() {
 		this.authenticated();
-		this.title = this.user.username;
-		const version = await this.checkVersion();
-		console.log(version);
+		this.checkVersion();
 	},
 	methods: {
 		upgrade() {

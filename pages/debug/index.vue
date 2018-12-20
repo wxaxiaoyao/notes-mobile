@@ -34,7 +34,6 @@ export default {
 		debug() {
 			return JSON.stringify({
 				...config,
-				runtimeVersion: plus && plus.runtime.version,
 			}, undefined, 4);
 		}
 	},

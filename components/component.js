@@ -18,6 +18,7 @@ for (let i = 0; i < 26; i++) {
 
 const app = {
 	portraits,
+	config,
 };
 
 export default {
@@ -70,9 +71,12 @@ export default {
 		back() {
 			uni.navigateBack({delta:1});
 		},
-		go(url, options = {}) {
-			const qs = queryString.stringify(options, {encode:false});
-			uni.navigateTo({url: `${url}?${qs}`});
+		go(url, options) {
+			if (options)  {
+				const qs = queryString.stringify(options, {encode:false});
+				url = `${url}?${qs}`;
+			}
+			uni.navigateTo({url});
 		},
 		authenticated() {
 			if (this.isAuthenticated) return {...this.user, userId:this.user.id};
@@ -84,11 +88,41 @@ export default {
 			return await socket(config.socketUrl, {token: this.token});
 		},
 		async checkVersion() {
-			const result = await this.api.versions.get({"x-order":"id-desc", "type":0});
+			const result = await this.api.versions.get({
+				"x-order":"versionNo-desc",
+				"x-per-page":1,
+			   	"type":0,
+			});
 			const versions = result.data || [];
 			if (versions.length == 0) return;
 			const version = versions[0];
-			if (config.version.id >= version.id) return ;
+			if (config.version.versionNo >= version.versionNo) return ;
+			if (!version.downloadUrl) return;
+			uni.showModal({
+				title:"版本更新",
+				content:"存在新的可用版本, 升级获取更好服务与体验.",
+				success: res => {
+					if (!res.confirm) return ;
+					uni.showLoading({title:"下载中...", mask:true});
+					uni.downloadFile({
+						url: version.downloadUrl,
+						success: (res) => {
+							console.log('downloadFile success, res is', res)
+							const filename = res.tempFilePath;
+							//#ifdef APP-PLUS
+							plus.runtime.install(filename);
+							//#endif
+						},
+						fail: (err) => {
+							console.log('downloadFile fail, err is:', err)
+							uni.showToast({title:"下载失败", icon:"none"});
+						},
+						complete: () => {
+							uni.hideLoading();
+						},
+					});
+				}
+			});
 			return version;
 		}
 	},

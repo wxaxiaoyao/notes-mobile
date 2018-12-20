@@ -11,9 +11,13 @@
 		<view class="uni-list">
 			<view class="uni-list-cell-divider"></view>
 			<view @click="clickPortrait" class="uni-list-cell" hover-class="uni-list-cell-hover">
-				<view class="uni-list-cell-navigate">
-					<view>头像</view>
-					<image :src="user.portrait" style="width:60px; height:60px"></image>
+				<view class="uni-media-list uni-pull-right">
+					<view class="uni-media-list-logo">
+						<image :src="user.portrait"></image>
+					</view>
+					<view class="uni-media-list-body" style="justify-content:center">
+						头像
+					</view>
 				</view>
 			</view>
 			<view @click="clickNickname" class="uni-list-cell" hover-class="uni-list-cell-hover">
@@ -116,6 +120,9 @@ export default {
 				fail: (err) => {
 					console.log('chooseImage fail', err)
 					uni.hideLoading();
+				},
+				complete: () => {
+					console.log("---");
 				}
 			});
 		},

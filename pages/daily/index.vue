@@ -1,25 +1,23 @@
 
 <template>
-	<view class="daily-index-container">
+	<view>
 		<uni-nav-bar status-bar=true left-icon="back" left-text="返回" @click-left="back" title="日报" right-text="新增" @click-right="clickNewBtn"></uni-nav-bar>
-		<scroll-view class="dailies-list-container" scroll-y>
-			<view class="uni-list">
-				<view v-for="(x, i) in dailies" :key="i" @click="clickEditBtn(x)" class="uni-list-cell" hover-class="uni-list-cell-hover">
-					<view class="uni-flex uni-column uni-flex-item uni-list-cell-pd">
-						<view class="uni-inline-item" style="justify-content: space-between">
-							<view class="uni-title">
-								{{x.date}}
-							</view>
-							<tags-index :__data__="{tags: x.tags, size:'small', inverted:true}"></tags-index>
+		<view class="uni-list">
+			<view v-for="(x, i) in dailies" :key="i" @click="clickEditBtn(x)" class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view class="uni-flex uni-column uni-flex-item uni-list-cell-pd">
+					<view class="uni-inline-item" style="justify-content: space-between">
+						<view class="uni-title">
+							{{x.date}}
 						</view>
-						<view class="uni-text">
-							{{x.content}}
-						</view>
+						<tags-index :__data__="{tags: x.tags, size:'small', inverted:true}"></tags-index>
+					</view>
+					<view class="uni-text">
+						{{x.content}}
 					</view>
 				</view>
-				<uni-load-more :loadingType="loadingType" :contentText="contentText"></uni-load-more>
 			</view>
-		</scroll-view>	
+			<uni-load-more :loadingType="loadingType"></uni-load-more>
+		</view>
 	</view>
 </template>
 
@@ -47,11 +45,6 @@ export default {
 			},
 			dailies:[],
 			loadingType: 0,
-			contentText: {
-				contentdown: "上拉显示更多",
-				contentrefresh: "正在加载...",
-				contentnomore: "没有更多数据了"
-			}
 		}
 	},
 
@@ -105,8 +98,4 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.daily-container {
-	display:flex;
-	flex-direction:column;
-}
 </style>

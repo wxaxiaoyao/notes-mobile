@@ -1,8 +1,8 @@
 <template>
 	<view class="uni-mask" v-show="__data__.visible" :style="{top:offsetTop + 'px'}" @click="__data__.visible = false">
-		<view class="uni-flex uni-popup upgrades-container">
-			<view class="uni-h4">下载进度</view>
-			<progress :percent="percent" show-info stroke-width="12"/>
+		<view class="uni-popup upgrades-container">
+			<view class="uni-h4 title">下载进度:{{percent}}</view>
+			<progress :percent="percent" stroke-width="12"/>
 		</view>
 	</view>
 </template>
@@ -25,7 +25,7 @@ export default {
 		//#endif
 		return {
 			offsetTop: offsetTop,
-			percent:40,
+			percent:0,
 			default_data: {
 				visible: false,
 				url:"",
@@ -41,20 +41,24 @@ export default {
 
 	methods: {
 		upgrade() {
-			const url="http://statics.wxaxiaoyao.cn/app/android/__UNI__76406B9_1218181813.apk"; 
+			if (!this.__data__.url) {
+				this.__data__.visible = false;
+				return;
+			}
 			const downloadTask = uni.downloadFile({
-				url,
+				url: this.__data__.url,
 				success: (res) => {
 					console.log('downloadFile success, res is', res)
 					const filename = res.tempFilePath;
+					//#ifdef APP-PLUS
 					plus.runtime.install(filename);
-					uni.hideLoading();
+					//#endif
 				},
 				fail: (err) => {
 					console.log('downloadFile fail, err is:', err)
-					uni.hideLoading();
 					uni.showToast({title:"下载失败", icon:"none"});
-				}
+				},
+				complete: () => this.__data__.visible = false,
 			});
 			downloadTask.onProgressUpdate(res => {
 				this.percent = res.progress;
@@ -95,5 +99,7 @@ export default {
 	justify-content: center;
 	padding: 30upx;
 	height: 100px;
+}
+.title {
 }
 </style>
