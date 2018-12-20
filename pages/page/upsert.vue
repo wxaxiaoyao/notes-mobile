@@ -8,7 +8,7 @@
 		    right-text="提交"
 		    @click-right="clickSubmitBtn">
 			<view class="url-container full-height">
-				<input class="url-input" align="center" v-model="page.url" placeholder="文档地址" :disabled="page.id"/>
+				<input class="url-input" align="center" v-model="page.url" placeholder="文档地址" :disabled="page.id ? true : false"/>
 			</view>
 		</uni-nav-bar>
 		
