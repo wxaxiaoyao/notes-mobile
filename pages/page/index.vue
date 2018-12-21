@@ -55,10 +55,10 @@ export default {
 
 	methods: {
 		clickNewBtn() {
-			uni.navigateTo({url:"/pages/page/upsert"});
+			uni.navigateTo({url:"/pages/page/editor"});
 		},
 		clickEditBtn(x) {
-			uni.navigateTo({url:"/pages/page/upsert?id=" + x.id});
+			uni.navigateTo({url:"/pages/page/editor?url=" + x.url});
 		},
 		formatPage(page) {
 			page.updatedTime = moment(page.updatedAt).fromNow();

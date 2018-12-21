@@ -17,11 +17,6 @@
 				</view>
 			</view>
 
-			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
-				<view @click="go('/pages/web/index')" class="uni-list-cell-navigate uni-navigate-right">
-					webview
-				</view>
-			</view>
 		</view>
 	</view>
 </template>

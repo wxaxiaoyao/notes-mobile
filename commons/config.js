@@ -2,9 +2,9 @@
 const platform = uni.getSystemInfoSync().platform;
 const defaultConfig = {
 	version:{
-		versionNo:3,
-		versionName: "0.0.3",
-		description: `引入页面功能入口到首页`,
+		versionNo:4,
+		versionName: "0.0.4",
+		description: `增加页面编辑器功能`,
 	},
 }
 
@@ -14,6 +14,7 @@ const developmentConfig = {
 	socketUrl: platform == "android" ? "ws://192.168.31.250:3001/" : "ws://127.0.0.1:3001/",
 	//socketUrl: platform == "android" ? "ws://192.168.31.250:3001/" : "ws://api.wxaxiaoyao.cn/",
 	//socketUrl:"http://39.106.11.114:3001/",
+	webviewUrl: platform == "android" ? "http://192.168.31.250:3000" : "http://xiaoyao.com:3000",
 }
 
 const productionConfig = {
@@ -21,6 +22,7 @@ const productionConfig = {
 	//baseURL:"http://192.168.31.250:3001/api/v0/",
 	baseURL:"http://api.wxaxiaoyao.cn/api/v0/",
 	socketUrl: "ws://api.wxaxiaoyao.cn/",
+	webviewUrl: "http://wxaxiaoyao.cn",
 }
 
 const configs = {

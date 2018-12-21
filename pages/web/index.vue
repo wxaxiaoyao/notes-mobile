@@ -1,33 +1,34 @@
 
 <template>
-	<view class="user-info-modify-container">
-		<uni-nav-bar 
-			status-bar=true 
-			left-icon="back" 
-			left-text="测试"
-			@click-left="back">
-		</uni-nav-bar>
-
-		<web-view src="../../hybrid/html/index.html"></web-view>
-	</view>
+	<web-view :src="url"></web-view>
 </template>
 
 <script>
 import component from "../../components/component.js";
-import uniNavBar from "../../components/unis/uni-nav-bar.vue";
 
 export default {
 	mixins:[component],
 
 	components: {
-		"uni-nav-bar": uniNavBar,
 	},
 
 	data() {
 		return {
 		}
 	},
-	onLoad(options) {
+
+	computed: {
+		url() {
+			const webviewUrl = this.webviewUrl + "/note/editors/cellphone";
+			const token = this.token;
+			if (token) return `${webviewUrl}?access_token=${token}`;
+
+			return `${webviewUrl}`;
+		}
+	},
+
+	onLoad(options = {}) {
+		this.webviewUrl = options.url || this.app.config.webviewUrl;
 	},
 
 	methods: {
