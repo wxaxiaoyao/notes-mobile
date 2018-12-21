@@ -13,7 +13,7 @@
 		</uni-nav-bar>
 		
 		<view class="uni-flex-item uni-flex uni-column full-width">
-			<textarea class="uni-flex-item page-content" v-model="page.content" max-length=-1></textarea>
+			<textarea class="uni-flex-item textarea" v-model="page.content" maxlength=-1></textarea>
 		</view>
 	</view>
 </template>
@@ -58,9 +58,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.page-content {
-	background:#FFF;
-}
 .url-container {
 	display: flex;
 	justify-content:center;
