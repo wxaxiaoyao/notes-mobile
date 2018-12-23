@@ -2,9 +2,9 @@
 const platform = uni.getSystemInfoSync().platform;
 const defaultConfig = {
 	version:{
-		versionNo:5,
-		versionName: "0.0.4",
-		description: `增加页面编辑器功能`,
+		versionNo:6,
+		versionName: "0.0.6",
+		description: `增加通讯录及好友消息通信`,
 	},
 }
 

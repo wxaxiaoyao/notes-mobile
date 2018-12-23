@@ -25,16 +25,16 @@
 	"tabBar": {
 		"list": [
 			{
-				"pagePath":"pages/index/index",
-				"text":"首页"
+				"pagePath":"pages/chat/index",
+				"text":"消息"
 			},
 			{
 				"pagePath":"pages/contact/index",
-				"text":"联系人"
+				"text":"通讯录"
 			},
 			{
-				"pagePath":"pages/chat/index",
-				"text":"消息"
+				"pagePath":"pages/index/index",
+				"text":"圈子"
 			},
 			{
 				"pagePath":"pages/user/index",
