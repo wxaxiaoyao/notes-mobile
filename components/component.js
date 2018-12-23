@@ -17,6 +17,7 @@ for (let i = 0; i < 26; i++) {
 }
 
 const app = {
+	_,
 	portraits,
 	config,
 };
@@ -71,12 +72,12 @@ export default {
 		back() {
 			uni.navigateBack({delta:1});
 		},
-		go(url, options) {
+		go(url, options, type="navigateTo") {
 			if (options)  {
 				const qs = queryString.stringify(options, {encode:false});
 				url = `${url}?${qs}`;
 			}
-			uni.navigateTo({url});
+			uni[type]({url});
 		},
 		authenticated() {
 			if (this.isAuthenticated) return {...this.user, userId:this.user.id};

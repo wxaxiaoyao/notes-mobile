@@ -1,0 +1,74 @@
+
+<template>
+	<view>
+		<navigations-index></navigations-index>
+		<view class="uni-list">
+			<view @click="clickApply" class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view class="uni-list-cell-navigate">
+					新朋友
+				</view>
+			</view>
+
+			<view class="uni-list-cell-divider"></view>
+			<view v-for="(x, i) in contacts" :key="i" 
+				@click="clickContact(x)" class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view class="uni-media-list">
+					<view class="uni-media-list-logo">
+						<image :src="x.user.portrait"></image>
+					</view>
+					<view class="uni-media-list-body" style="justify-content:center">
+						{{ x.alias || x.user.nickname || x.user.username}}
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</template>
+
+<script>
+import component from "../../components/component.js";
+import uniNavBar from "../../components/unis/uni-nav-bar.vue";
+import navigationsIndex from "../../components/navigations/index.vue";
+
+export default {
+	mixins:[component],
+
+	components: {
+		"uni-nav-bar": uniNavBar,
+		"navigations-index": navigationsIndex,
+	},
+
+	data() {
+		return {
+			title:"",
+			contacts:[],
+		}
+	},
+
+	async onLoad() {
+		this.authenticated();
+		this.contacts = await this.api.contacts.get().then(res => res.data || []);
+	},
+
+	async onPullDownRefresh() {
+	},
+
+	methods: {
+		clickApply() {
+			this.go("/pages/contact/apply", undefined, "redirectTo");	
+		},
+		clickContact(x) {
+			const user = x.user;
+			user.alias = x.alias;
+			this.go("/pages/contact/info", user);	
+		},
+		clickLogoutBtn() {
+			uni.reLaunch({url:"/pages/login/index"});
+			this.setUser();
+		}
+	}
+}
+</script>
+
+<style lang="less" scoped>
+</style>

@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<uni-nav-bar status-bar=true title="消息列表"></uni-nav-bar>
+		<navigations-index></navigations-index>
 		<scroll-view class="session-list-container" scroll-y>
 			<view class="uni-list">
 				<view v-for="(x, i) in sessions" :key="i" @click="clickSession(x)" class="uni-list-cell" hover-class="uni-list-cell-hover">
@@ -23,6 +23,7 @@
 import _ from "../../libs/lodash.min.js";
 import component from "../../components/component.js";
 import uniNavBar from "../../components/unis/uni-nav-bar.vue";
+import navigationsIndex from "../../components/navigations/index.vue";
 
 
 export default {
@@ -30,6 +31,7 @@ export default {
 
 	components: {
 		"uni-nav-bar": uniNavBar,
+		"navigations-index": navigationsIndex,
 	},
 
 	data: function() {

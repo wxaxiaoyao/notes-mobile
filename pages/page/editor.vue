@@ -26,6 +26,7 @@ export default {
 		
 		this.authenticated();
 		this.url = `${webviewUrl}/note/editors/cellphone?access_token=${token}#${url}`;
+		console.log(this.url);
 	}
 }
 </script>

@@ -3,6 +3,10 @@
 		{"path": "pages/index/index"},
 		{"path": "pages/chat/index"},
 		{"path": "pages/chat/session"},
+		{"path": "pages/contact/index"},
+		{"path": "pages/contact/apply"},
+		{"path": "pages/contact/apply-verfiy"},
+		{"path": "pages/contact/info"},
 		{"path": "pages/user/index"},
 		{"path": "pages/user/info"},
 		{"path": "pages/user/info-more"},
@@ -23,6 +27,10 @@
 			{
 				"pagePath":"pages/index/index",
 				"text":"首页"
+			},
+			{
+				"pagePath":"pages/contact/index",
+				"text":"联系人"
 			},
 			{
 				"pagePath":"pages/chat/index",

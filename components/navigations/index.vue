@@ -1,70 +1,92 @@
 
 <template>
-	<view class="navigation-index-container">
-		<view class="status-bar"></view>
-		<view class="navigator-bar">
-			<view class="navigator-bar-left-container">
-				<view @click="clickBackBtn" v-show="isShowBackBtn" class="iconfont icon-back">&#xe612;</view>
+	<view class="navigations-index-container">
+		<uni-status-bar></uni-status-bar>
+		<view class="nav-bar-container">
+			<view class="title">NOTE</view>
+			<view class="btns">
+				<!--uni-icon @click="showPlusMenu = true" type="plusempty" size=30></uni-icon-->
 			</view>
-			<view class="navigator-bar-middle-container">{{__data__.title}}</view>
-			<view class="navigator-bar-right-container">
-			<view></view>
+		</view>
+		<view class="plus-menu-container" v-if="showPlusMenu">
+			<view class="menu-container">
+				<view @click="clickAddContact" class="uni-title">添加朋友</view>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+import uniStatusBar from "../unis/uni-status-bar.vue";
+import uniNavBar from "../unis/uni-nav-bar.vue";
+import uniIcon from "../unis/uni-icon.vue";
+import component from "../component.js";
 
 export default {
+	mixins:[component],
+	components: {
+		"uni-nav-bar": uniNavBar,
+		"uni-icon":uniIcon,
+		"uni-status-bar": uniStatusBar,
+	},
 
 	data: function() {
 		return {
-			isShowBackBtn:false,
-			title: "NOTE",
-		}
-	},
-
-	props: {
-		__data__: {
-			type: Object, 
-			default: function() {
-				return {
-					title:"NOTE"
-				}
-			}
+			showPlusMenu: false,
 		}
 	},
 
 	methods: {
-		clickBackBtn() {
-			uni.navigateBack({delta:1});
+		clickAddContact() {
+			this.showPlusMenu = false;
 		}
 	},
 
 	mounted() {
-		const pages = getCurrentPages();
-		this.isShowBackBtn = pages.length > 1 ? true : false;
 	}
 }
 </script>
 
 <style lang="less">
 .navigation-index-container {
+	position:relative;
 }
-.status-bar {
-	height: var(--status-bar-height);
-}
-.navigator-bar {
-	background-color: rgb(250,250,250);
-	height: 44px;
-	width: 100%;
+.nav-bar-container {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	background-color: #FFFFFF;
+	overflow: hidden;
 
-	.icon-back {
-		margin-left: 10px;
+	view {
+		line-height:44px;
+	}
+
+	.title {
+		padding:0 12px;
+	}
+
+	.btns {
+		padding:0 12px;
+	}
+}
+.nav-bar-container.fixed {
+	position: fixed;
+	z-index: 998;
+}
+.plus-menu-container {
+	position: relative;
+	width: 100%;
+
+	.menu-container {
+		background-color: #FFFFFF;
+		position: absolute;
+		z-index:10;
+		right:20px;
+		top: 0px;
+		width:150px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 }
 </style>

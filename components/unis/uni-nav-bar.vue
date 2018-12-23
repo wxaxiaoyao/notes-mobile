@@ -19,7 +19,7 @@
                     <uni-icon :type="rightIcon" :color="color" size="24"></uni-icon>
                 </view>
                 <!-- 优先显示图标 -->
-                <view v-if="rightText.length&&!rightIcon.length" class="uni-navbar-btn-text">{{rightText}}</view>
+                <view v-if="rightText.length" class="uni-navbar-btn-text">{{rightText}}</view>
                 <slot name="right"></slot>
             </view>
 		</view>

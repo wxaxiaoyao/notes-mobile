@@ -43,7 +43,7 @@ export default {
 	data() {
 		return {
 			name:'xcecd@qq.com',
-			title:"rebot",
+			title:"",
 			sessionId: "__data__",
 			session:{
 			},
@@ -77,12 +77,15 @@ export default {
 		this.style.contentViewHeight = windowHeight - (110 * windowHeight / 750); // 100upx => px
 
 		this.socket.on("push_messages", message => {
+			if (message.userId == this.user.id) return;
 			this.messages.push(message)
+			this.scrollToBottom();
 		});
 
 		this.socket.on("pull_messages", ({sessionId, userId}) => {
 			if (this.user.id == userId || this.sessionId != sessionId) return;
 			_.each(this.messages, o => o.state = 1); // 标记已读
+			this.scrollToBottom();
 		});
 
 		const messages = await this.pullMessages(sessionId);
@@ -136,7 +139,7 @@ export default {
 						that.scrollTop = that.style.mitemHeight - that.style.contentViewHeight;
 					}
 				});
-			});
+			}, 300);
 		},
 		toRobot: function (info) {
 			// this.addMessage('home', info, false);

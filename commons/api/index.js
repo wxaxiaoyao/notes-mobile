@@ -31,6 +31,7 @@ export function Users(options) {
 
 	initHttpOptions(self, options, "users");
 
+	self.search = self.apiRequest("post", "search");
 	self.login = self.apiRequest("post", "login");
 	self.logout = self.apiRequest("post", "logout");
 	self.register = self.apiRequest("post", "register");
@@ -338,11 +339,25 @@ export function Versions(options) {
 	initHttpOptions(self, options, "versions");
 }
 
+export function Contacts(options) {
+	const self = this;
+
+	initHttpOptions(self, options, "contacts");
+}
+
+export function Applies(options) {
+	const self = this;
+
+	initHttpOptions(self, options, "applies");
+
+	self.setState = self.apiRequest("put", ":id/state");
+}
+
 export function Notes(options = {}){
 	const self = this;
 	initHttpOptions(self, options);
 
-	self.dataSource = new DataSource(self.options);
+	self.applies = new Applies(self.options);
 	self.users = new Users(self.options);
 	self.files = new Files(self.options);
 	self.sites = new Sites(self.options);
@@ -377,6 +392,7 @@ export function Notes(options = {}){
 	self.experiences = new Experiences(self.options);
 	self.qinius = new Qinius(self.options);
 	self.versions = new Versions(self.options);
+	self.contacts = new Contacts(self.options);
 }
 
 export const options = {

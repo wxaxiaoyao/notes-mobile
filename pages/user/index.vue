@@ -1,7 +1,7 @@
 
 <template>
 	<view>
-		<uni-nav-bar status-bar=true :title="title"></uni-nav-bar>
+		<navigations-index></navigations-index>
 
 		<view class="uni-list">
 			<view class="uni-list-cell-divider"></view>
@@ -40,12 +40,14 @@
 <script>
 import component from "../../components/component.js";
 import uniNavBar from "../../components/unis/uni-nav-bar.vue";
+import navigationsIndex from "../../components/navigations/index.vue";
 
 export default {
 	mixins:[component],
 
 	components: {
 		"uni-nav-bar": uniNavBar,
+		"navigations-index": navigationsIndex,
 	},
 
 	data() {

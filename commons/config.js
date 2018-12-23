@@ -2,7 +2,7 @@
 const platform = uni.getSystemInfoSync().platform;
 const defaultConfig = {
 	version:{
-		versionNo:4,
+		versionNo:5,
 		versionName: "0.0.4",
 		description: `增加页面编辑器功能`,
 	},
