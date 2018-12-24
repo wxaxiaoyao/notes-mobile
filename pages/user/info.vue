@@ -32,6 +32,12 @@
 					<view class="uni-text-gray">{{user.username}}</view>
 				</view>
 			</view>
+			<view @click="clickQR" class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view class="uni-list-cell-navigate">
+					<view>二维码名片</view>
+					<view class="iconfont">&#xe693;</view>
+				</view>
+			</view>
 			<view @click="clickMore" class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view class="uni-list-cell-navigate">
 					更多
@@ -134,13 +140,16 @@ export default {
 
 		clickMore() {
 			this.go("/pages/user/info-more");
-			
 		},
 
 		clickLogoutBtn() {
 			uni.reLaunch({url:"/pages/login/index"});
 			this.setUser();
-		}
+		},
+
+		clickQR() {
+			this.go("/pages/user/qrcard");
+		},
 	}
 }
 </script>

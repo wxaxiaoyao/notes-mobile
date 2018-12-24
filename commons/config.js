@@ -2,9 +2,9 @@
 const platform = uni.getSystemInfoSync().platform;
 const defaultConfig = {
 	version:{
-		versionNo:6,
-		versionName: "0.0.6",
-		description: `增加通讯录及好友消息通信`,
+		versionNo:7,
+		versionName: "0.0.7",
+		description: `增加二维码名片及扫码功能`,
 	},
 }
 

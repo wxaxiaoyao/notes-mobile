@@ -17,6 +17,11 @@
 				</view>
 			</view>
 
+			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view @click="clickScanCode" class="uni-list-cell-navigate uni-navigate-right">
+					扫一扫
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -45,7 +50,26 @@ export default {
 	methods: {
 		upgrade() {
 			this.upgradesIndexData.visible = true;
-		}
+		},
+		
+		clickScanCode() {
+			uni.scanCode({
+				success: res => {
+					let info = undefined;
+					try {
+						info = JSON.parse(res.result);
+					} catch(e) {
+						info = undefined;
+					}
+					// 好友申请
+					if (info.type == 0 && info.userId) {
+						this.go("/pages/contact/apply-verify", {objectId:info.userId});
+					} else {
+						uni.showToast({title:"无效二维码", icon:"none"});
+					}
+				}
+			});
+		},
 	},
 }
 </script>

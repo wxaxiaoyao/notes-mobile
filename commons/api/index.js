@@ -45,6 +45,7 @@ export function Users(options) {
 	self.detail = self.apiRequest("get", ":username/detail");
 	self.contribution = self.apiRequest("get", ":id/contribution");
 	self.contacts = self.apiRequest("get", "contacts");
+	self.qr = self.apiRequest("get", "qr");
 }
 
 export function Sites(options) {
