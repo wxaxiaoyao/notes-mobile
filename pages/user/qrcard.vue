@@ -21,7 +21,7 @@
 						</view>
 					</view>
 				</view>
-				<view class="uni-list-cell">
+				<view class="uni-list-cell uni-center" style="padding:20px">
 					<image class="qrcode" :src="qrcode"></image>
 				</view>
 			</view>
