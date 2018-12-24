@@ -21,8 +21,8 @@
 						</view>
 					</view>
 				</view>
-				<view class="qrcode-container uni-list-cell">
-					<image :src="qrcode"></image>
+				<view class="uni-list-cell">
+					<image class="qrcode" :src="qrcode"></image>
 				</view>
 			</view>
 		</view>
@@ -56,5 +56,10 @@ export default {
 .qrcard-container {
 	padding: 20% 5%;
 	background-color:dimgrey;
+}
+
+.qrcode {
+	height: 300px;
+	width: 300px;
 }
 </style>
