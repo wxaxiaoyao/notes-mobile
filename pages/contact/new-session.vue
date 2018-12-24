@@ -103,7 +103,7 @@ export default {
 			}
 		},
 
-		clickConfirm() {
+		async clickConfirm() {
 			if (this.memberIds.length == 0) return;
 			
 			const session = await this.api.sessions.create({
