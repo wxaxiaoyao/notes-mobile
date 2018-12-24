@@ -4,7 +4,7 @@
 			<image class="head_icon" :src="__data__.portrait" v-if="__data__.userId != user.id"></image>
 		</view>
 		<view class="m-content">
-			<view class="m-content-head" :class="{'m-content-head-right':__data__.userId == user.id}">
+			<view class="m-content-head" :class="[__data__.userId == user.id ? 'm-content-head-right' : 'm-content-head-left']">
 				<view :class="[__data__.userId == user.id ? 'm-content-head-customer' : 'm-content-head-home']">{{__data__.text}} </view>
 			</view>
 		</view>
@@ -71,6 +71,10 @@ export default {
 	.m-content-head-right {
 		display: flex;
 		justify-content: flex-end;
+	}
+	.m-content-head-left {
+		display: flex;
+		justify-content: flex-start;
 	}
 	.m-content-head-home {
 		text-align: left;

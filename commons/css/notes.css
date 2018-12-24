@@ -41,6 +41,11 @@ uni-textarea, .textarea {
 	width:100%;
 }
 
+.uni-center {
+	align-items:center;
+	justify-content:center;	
+}
+
 .uni-common-mr {
 	margin-right:30upx;
 }
