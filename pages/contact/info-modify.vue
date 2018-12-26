@@ -18,9 +18,17 @@
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">标签</view>
-					<view>
-						
+					<view v-if="tags.length" class="uni-flex" @click="clickTag">
+						<uni-tag 
+							v-for="(tag, i) in tags" 
+							:key="i" 
+							:text="tag"
+							class="tag"
+							inverted=true
+							circle=true>
+						</uni-tag>
 					</view>
+					<input v-else @click="clickTag" class="uni-input" disabled=true placeholder="标签" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">电话</view>
@@ -38,25 +46,40 @@
 <script>
 import component from "../../components/component.js";
 import uniNavBar from "../../components/unis/uni-nav-bar.vue";
+import uniTag from "../../components/unis/uni-tag.vue";
 
 export default {
 	mixins:[component],
 
 	components: {
 		"uni-nav-bar": uniNavBar,
+		"uni-tag": uniTag,
 	},
 
 	data() {
 		return {
 			contact:{extra:{}},
+			tags: [],
 		}
 	},
 	async onLoad({id = 0}) {
-		this.contact = await this.api.contacts.getById({id}).then(res => res.data);
+		this.id = id;
+
+		await this.loadData();
+	},
+	async onShow() {
+		await this.loadData();
 	},
 	methods: {
+		async loadData() {
+			this.contact = await this.api.contacts.getById({id:this.id}).then(res => res.data);
+			this.tags = this.contact.tags || [];
+		},
 		clickSave() {
 			console.log(this.contact);
+		},
+		clickTag() {
+			this.go("/pages/contact/tag", {id:this.contact.id, tags:this.tags});
 		}
 	}
 }
@@ -65,6 +88,9 @@ export default {
 <style lang="less">
 .title {
 	padding:10px 0 !important;
+}
+.tag + .tag {
+	margin-left: 10px;
 }
 </style>
 

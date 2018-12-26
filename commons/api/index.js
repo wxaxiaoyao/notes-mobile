@@ -358,6 +358,8 @@ export function ClassifyTags(options) {
 	const self = this;
 
 	initHttpOptions(self, options, "classifyTags");
+
+	self.setTags = self.apiRequest("post", "set_tags");
 }
 
 export function Notes(options = {}){

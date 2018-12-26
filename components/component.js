@@ -72,8 +72,18 @@ export default {
 		back() {
 			uni.navigateBack({delta:1});
 		},
+		query(options = {}) {
+			const qs = options.qs;
+			if (!qs) return {};
+			try {
+				return JSON.parse(qs);
+			} catch(e) {
+				return {};
+			}
+		},
 		go(url, options, type="navigateTo") {
 			if (options)  {
+				options.qs = JSON.stringify(options);
 				const qs = queryString.stringify(options, {encode:false});
 				url = `${url}?${qs}`;
 			}

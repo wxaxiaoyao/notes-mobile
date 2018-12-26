@@ -2,9 +2,9 @@
 const platform = uni.getSystemInfoSync().platform;
 const defaultConfig = {
 	version:{
-		versionNo:7,
-		versionName: "0.0.7",
-		description: `增加二维码名片及扫码功能`,
+		versionNo:8,
+		versionName: "0.0.8",
+		description: `增加联系人打标签功能`,
 	},
 }
 
