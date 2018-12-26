@@ -9,7 +9,7 @@
 		<view class="message-list-container">
 			<scroll-view class="message-list" 
 				id="scrollview" 
-				:style="{height: style.contentViewHeight + 'px'}" 
+				:style="{height: messageListHeight + 'px'}" 
 				scroll-y="true" 
 				scroll-into-view="scroll-view-bottom"
 				:scroll-with-animation="true"
@@ -53,6 +53,7 @@ export default {
 				footViewHeight: 90,
 				mitemHeight: 0,
 			},
+			messageListHeight:0,
 			scrollTop: 0,
 			messages: [],
 			inputData: {
@@ -73,8 +74,10 @@ export default {
 		this.sessionId = sessionId;
 
 		const res = uni.getSystemInfoSync();
-		const windowHeight = res.windowHeight;
-		this.style.contentViewHeight = windowHeight - (110 * windowHeight / 750); // 100upx => px
+		this.messageListHeight = res.windowHeight - 20 - 44 - 38 - 15;  // 小程序状态栏25px 暂不考虑
+		//#ifdef H5
+			this.messageListHeight += 20;	
+		//#endif
 
 		this.socket.on("push_messages", message => {
 			if (message.userId == this.user.id) return;
@@ -131,12 +134,12 @@ export default {
 				query.selectAll('.m-item').boundingClientRect();
 				query.select('#scrollview').boundingClientRect();
 				query.exec(function (res) {
-					that.style.mitemHeight = 0;
+					let mitemHeight = 0;
 					res[0].forEach((rect) => {
-						that.style.mitemHeight = that.style.mitemHeight + rect.height + 20;
+						mitemHeight = mitemHeight + rect.height + 20;
 					});
-					if (that.style.mitemHeight > that.style.contentViewHeight) {
-						that.scrollTop = that.style.mitemHeight - that.style.contentViewHeight;
+					if (mitemHeight > that.messageListHeight) {
+						that.scrollTop = mitemHeight - that.messageListHeight
 					}
 				});
 			}, 300);
@@ -180,15 +183,15 @@ export default {
 }
 .message-list-container {
 	flex:1;
-	margin-bottom:100upx;
+	padding: 5px 0px 10px 0px;
 }
 .message-input-container {
 	position: fixed;
 	width: 100%;
-	height: 90upx;
-	min-height: 90upx;
-	left: 0upx;
-	bottom: 0upx;
+	height: 38px;
+	min-height: 38px;
+	left: 0px;
+	bottom: 0px;
 	overflow: hidden;
 
 }

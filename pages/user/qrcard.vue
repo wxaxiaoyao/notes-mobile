@@ -22,7 +22,7 @@
 					</view>
 				</view>
 				<view class="uni-list-cell uni-center" style="padding:20px">
-					<image class="qrcode" :src="qrcode"></image>
+					<image class="qrcode" :style="{'height': qrcodeHeight, 'width': qrcodeWidth}" :src="qrcode"></image>
 				</view>
 			</view>
 		</view>
@@ -43,10 +43,16 @@ export default {
 	data() {
 		return {
 			qrcode:"",
+			qrcodeWidth:"0px",
+			qrcodeHeight:"0px",
 		}
 	},
 
 	async onLoad() {
+		const res = uni.getSystemInfoSync();
+		const windowWidth = res.windowWidth;
+		this.qrcodeWidth = windowWidth * 0.75 + "px";
+		this.qrcodeHeight = this.qrcodeWidth;
 		this.qrcode = await this.api.users.qr().then(res => res.data || "");
 	},
 }
@@ -56,10 +62,5 @@ export default {
 .qrcard-container {
 	padding: 20% 5%;
 	background-color:dimgrey;
-}
-
-.qrcode {
-	height: 300px;
-	width: 300px;
 }
 </style>

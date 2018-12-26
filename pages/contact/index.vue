@@ -60,6 +60,7 @@ export default {
 		clickContact(x) {
 			const user = x.user;
 			user.alias = x.alias;
+			user.contactId = x.id;
 			this.go("/pages/contact/info", user);	
 		},
 		clickLogoutBtn() {

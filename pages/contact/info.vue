@@ -9,6 +9,7 @@
 		</uni-nav-bar>
 
 		<view class="uni-list">
+			<view class="uni-list-cell-divider"></view>
 			<view  class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view class="uni-media-list">
 					<view class="uni-media-list-logo">
@@ -25,7 +26,15 @@
 
 			<view class="uni-list-cell-divider"></view>
 
-			<button @click="clickSendMsg" class="full-width">发送消息</button>
+			<view @click="clickSetting" class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view class="uni-list-cell-navigate">
+					设置备注和标签
+				</view>
+			</view>
+
+			<view class="uni-list-cell-divider"></view>
+
+			<button type="primary" @click="clickSendMsg" class="full-width">发送消息</button>
 		</view>
 	</view>
 </template>
@@ -64,6 +73,9 @@ export default {
 				sessionId: session.sessionId,
 				title: contact.alias || contact.nickname || contact.username,
 			});
+		},
+		clickSetting() {
+			this.go("/pages/contact/info-modify", {id:this.contact.contactId});
 		}
 	}
 }

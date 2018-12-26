@@ -354,6 +354,12 @@ export function Applies(options) {
 	self.setState = self.apiRequest("put", ":id/state");
 }
 
+export function ClassifyTags(options) {
+	const self = this;
+
+	initHttpOptions(self, options, "classifyTags");
+}
+
 export function Notes(options = {}){
 	const self = this;
 	initHttpOptions(self, options);
@@ -394,6 +400,7 @@ export function Notes(options = {}){
 	self.qinius = new Qinius(self.options);
 	self.versions = new Versions(self.options);
 	self.contacts = new Contacts(self.options);
+	self.classifyTags = new ClassifyTags(self.options);
 }
 
 export const options = {
