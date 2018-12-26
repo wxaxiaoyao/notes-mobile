@@ -17,6 +17,12 @@
 					<input v-model="contact.alias" class="uni-input"  placeholder="备注名" />
 				</view>
 				<view class="uni-form-item uni-column">
+					<view class="title">标签</view>
+					<view>
+						
+					</view>
+				</view>
+				<view class="uni-form-item uni-column">
 					<view class="title">电话</view>
 					<input v-model="contact.extra.cellphone" class="uni-input"  placeholder="备注名" />
 				</view>

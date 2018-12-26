@@ -8,6 +8,7 @@
 		{"path": "pages/contact/apply-verify"},
 		{"path": "pages/contact/info"},
 		{"path": "pages/contact/info-modify"},
+		{"path": "pages/contact/tag"},
 		{"path": "pages/contact/new-session"},
 		{"path": "pages/user/index"},
 		{"path": "pages/user/info"},

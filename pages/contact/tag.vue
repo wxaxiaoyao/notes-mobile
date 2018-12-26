@@ -12,7 +12,8 @@
 
 		<view class="new-tag-container">
 		</view>
-		<view class="tags-container">
+		<view class="uni-flex">
+			<uni-tag v-for="(x, i) in tags" :key="x.id" :text="x.tagname"></uni-tag>
 		</view>
 	</view>
 </template>
@@ -20,33 +21,33 @@
 <script>
 import component from "../../components/component.js";
 import uniNavBar from "../../components/unis/uni-nav-bar.vue";
+import uniTag from "../../components/unis/uni-tag.vue";
 
 export default {
 	mixins:[component],
 
 	components: {
 		"uni-nav-bar": uniNavBar,
+		"uni-tag": uniTag,
 	},
 
 	data() {
 		return {
-			contact:{extra:{}},
+			newTags:[],
+			tags:[],
 		}
 	},
-	async onLoad({id = 0}) {
-		this.contact = await this.api.contacts.getById({id}).then(res => res.data);
+	async onLoad({id = 0, tags:[]}) {
+		this.newTags = tags;
+		this.tags = await this.api.classifyTags.get({classify:1});
 	},
 	methods: {
 		clickSave() {
-			console.log(this.contact);
 		}
 	}
 }
 </script>
 
 <style lang="less">
-.title {
-	padding:10px 0 !important;
-}
 </style>
 
