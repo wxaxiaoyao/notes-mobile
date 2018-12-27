@@ -75,11 +75,12 @@ export default {
 			this.contact = await this.api.contacts.getById({id:this.id}).then(res => res.data);
 			this.tags = this.contact.tags || [];
 		},
-		clickSave() {
-			console.log(this.contact);
+		async clickSave() {
+			await this.api.contacts.update(this.contact);
+			this.back();
 		},
 		clickTag() {
-			this.go("/pages/contact/tag", {id:this.contact.id, tags:this.tags});
+			this.go("/pages/contact/contact-tag", {id:this.contact.id, tags:this.tags});
 		}
 	}
 }

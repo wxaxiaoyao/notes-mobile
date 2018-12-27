@@ -8,6 +8,11 @@
 					新朋友
 				</view>
 			</view>
+			<view @click="clickTag" class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view class="uni-list-cell-navigate">
+					标签
+				</view>
+			</view>
 
 			<view class="uni-list-cell-divider"></view>
 			<view v-for="(x, i) in contacts" :key="i" 
@@ -54,6 +59,9 @@ export default {
 	},
 
 	methods: {
+		clickTag() {
+			this.go("/pages/contact/tag");	
+		},
 		clickApply() {
 			this.go("/pages/contact/apply", undefined, "redirectTo");	
 		},

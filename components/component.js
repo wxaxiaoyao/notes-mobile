@@ -6,6 +6,8 @@ import _ from "../libs/lodash.min.js";
 import api from "../commons/api/index.js";
 import config from "../commons/config.js";
 import socket from "../commons/socket.js";
+import consts from "../commons/const.js";
+import storage from "../commons/storage.js";
 
 const portraits = {};
 for (let i = 0; i < 26; i++) {
@@ -20,6 +22,7 @@ const app = {
 	_,
 	portraits,
 	config,
+	consts,
 };
 
 export default {
@@ -53,6 +56,11 @@ export default {
 			if (this.user && this.user.username) return this.user.username;
 			return "";
 		},
+		currentPageUrl() {
+			const pages = getCurrentPages();
+			const page = pages[pages.length - 1];
+			return "/" + page.route;
+		},
 	},
 
 	watch: {
@@ -69,21 +77,20 @@ export default {
 		...mapMutations({
 			setUser: "setUser",
 		}),
+		setPageArgs(url, args = {}) {
+			url = url || this.currentPageUrl;
+			storage.set(url, args);
+		},
+		getPageArgs(url) {
+			url = url || this.currentPageUrl;
+			return storage.get(url) || {};
+		},
 		back() {
 			uni.navigateBack({delta:1});
 		},
-		query(options = {}) {
-			const qs = options.qs;
-			if (!qs) return {};
-			try {
-				return JSON.parse(qs);
-			} catch(e) {
-				return {};
-			}
-		},
 		go(url, options, type="navigateTo") {
+			this.setPageArgs(url, options);
 			if (options)  {
-				options.qs = JSON.stringify(options);
 				const qs = queryString.stringify(options, {encode:false});
 				url = `${url}?${qs}`;
 			}
