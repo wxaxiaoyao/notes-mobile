@@ -3,11 +3,12 @@
 	<view class="uni-list">
 		<view class="search-container">
 			<uni-icon type="search"></uni-icon>
-			<input class="search-input" @input="searchInput" placeholder="请输入用户名" />
+			<input v-model="searchValue" class="search-input" placeholder="请输入用户名" />
 		</view>
 
 		<view class="uni-list-cell-divider"></view>
 		<label v-for="(x, i) in contacts" :key="x.id" 
+			v-show="isShow(x)"
 			@click="clickContact(x)" 
 			class="uni-list-cell" 
 			hover-class="uni-list-cell-hover">
@@ -20,7 +21,7 @@
 					<view class="uni-media-list-text-bottom uni-ellipsis">{{x.user.username}}</view>
 				</view>
 				<view class="uni-flex uni-center">
-					<checkbox></checkbox>
+					<checkbox :checked="isSelected(x)"></checkbox>
 				</view>
 			</view>
 		</label>
@@ -29,18 +30,34 @@
 
 <script>
 import component from "../component.js";
+import uniIcon from "../unis/uni-icon.vue";
 
 
 export default {
 	mixins:[component],
 
+	components: {
+		"uni-icon":uniIcon,
+	},
+
 	data() {
 		return {
+			searchValue:"",
 			contacts: [],
 		}
 	},
 
 	methods: {
+		isShow(x) {
+			if (x.alias && x.alias.indexOf(this.searchValue) >=0) return true;
+			if (x.user.nickname && x.user.nickname.indexOf(this.searchValue) >= 0) return true;
+			if (x.user.username.indexOf(this.searchValue) >= 0) return true;
+			return false;
+		},
+		isSelected(x) {
+			const index = this.app._.findIndex(this.__data__.selected, id => id == x.id);
+			return index < 0 ? false : true;
+		},
 		searchInput(e) {
 			const _ = this.app._;
 			const value = e.detail.value;
@@ -59,24 +76,30 @@ export default {
 		},
 
 		clickContact(x) {
-			const index = this.app._.findIndex(this.__data__.selected, o => o.id == x.id);
+			const index = this.app._.findIndex(this.__data__.selected, id => id == x.id);
 			if (index < 0) {
-				this.__data__.selected.push(x);
+				this.__data__.selected.push(x.id);
 			} else {
 				this.__data__.selected.splice(index, 1);
 			}
 		},
 	},
 
-	async mounted() {
+	mounted() {
 		this.__data__.selected = this.__data__.selected || [];
-		if (this.__data__.contacts) {
-			this.__data__.contacts = await this.api.contacts.get().then(res => res.data || []);
-		}
-		this.contacts = this.__data__.contacts;
-	}
+		this.contacts = this.app.storage.get("contacts") || [];
+	},
 }
 </script>
 
 <style>
+.search-container {
+	display: flex;
+	padding:10px 15px;
+
+	input {
+		flex:1;
+		margin: 0px 8px;
+	}
+}
 </style>

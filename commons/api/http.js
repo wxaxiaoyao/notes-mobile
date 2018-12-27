@@ -99,6 +99,9 @@ class Cache {
 }
 
 export function httpRequest(method, url, data = {}, config = {}) {
+	//const urlParams = {};
+	//_.each(data, (val, key) => urlParams[key] = _.toString(val));
+	//console.log(urlParams);
 	url = pathToRegexp.compile(url)(data);
 	if (url.indexOf("http") != 0 && config.baseURL) url = config.baseURL + url;
 	method = (method || "get").toLowerCase();

@@ -359,6 +359,7 @@ export function ClassifyTags(options) {
 
 	initHttpOptions(self, options, "classifyTags");
 
+	self.setObjects = self.apiRequest("post", ":id/set_objects");
 	self.setTags = self.apiRequest("post", "set_tags");
 }
 

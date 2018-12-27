@@ -53,6 +53,7 @@ export default {
 	async onLoad() {
 		this.authenticated();
 		this.contacts = await this.api.contacts.get().then(res => res.data || []);
+		this.app.storage.set("contacts", this.contacts);
 	},
 
 	async onPullDownRefresh() {

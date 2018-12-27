@@ -12,7 +12,7 @@
 		<view class="uni-list">
 			<view @longtag="tagLongtap" @tap="tagTap(x)" v-for="(x, i) in tags" :key="x.id" class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view class="uni-list-cell-navigate">
-					{{x.tagname + "(" + (x.count || 0) + ")"}}
+					{{x.tagname + "(" + x.objectTags.length + ")"}}
 				</view>
 			</view>
 		</view>
@@ -40,33 +40,21 @@ export default {
 
 	async onLoad() {
 		this.authenticated();
-		await this.loadData();
+		this.tags = await this.api.classifyTags.get({classify:this.app.consts.CLASSIFY_TAG_CONTACT}).then(res => res.data || []);
+	},
+
+	onShow() {
+		if (this.subpage == "tag-modify") {
+			const tag = this.getPageArgs();
+			const index = this.app._.findIndex(this.tags, o => o.id == tag.id);
+			this.tags.splice(index, 1, tag);
+		}
 	},
 
 	async onPullDownRefresh() {
 	},
 
 	methods: {
-		async loadData() {
-			const {_} = this.app;
-			const tags = await this.api.classifyTags.get({classify:this.app.consts.CLASSIFY_TAG_CONTACT}).then(res => res.data || []);
-			const contacts = await this.api.contacts.get().then(res => res.data || []);
-			_.each(contacts, contact => {
-				_.each(contact.tags || [], tagname => {
-					_.each(tags, tag => {
-						tag.count = tag.count || 0;
-						tag.contacts = tag.contacts || [];
-						if (tag.tagname == tagname) {
-							tag.count++;
-							tag.contacts.push(contact);
-						}
-					});
-				});
-			});
-
-			this.tags = tags;
-			this.contacts = contacts;
-		},
 		clickNewTag() {
 
 		},
@@ -74,7 +62,8 @@ export default {
 			console.log(e);
 		},
 		tagTap(x) {
-			console.log(x);
+			this.subpage = "tag-modify";
+			this.go("/pages/contact/tag-modify", x);
 		},
 	}
 }

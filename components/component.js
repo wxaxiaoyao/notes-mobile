@@ -23,6 +23,7 @@ const app = {
 	portraits,
 	config,
 	consts,
+	storage,
 };
 
 export default {
@@ -83,9 +84,17 @@ export default {
 		},
 		getPageArgs(url) {
 			url = url || this.currentPageUrl;
-			return storage.get(url) || {};
+			const args = storage.get(url) || {};
+			console.log(url, args);
+			return args;
 		},
-		back() {
+		back(args) {
+			const pages = getCurrentPages();
+			if (args && pages.length > 1)  {
+				const page = pages[pages.length - 2];
+				const url = "/" + page.route;
+				this.setPageArgs(url, args);
+			}
 			uni.navigateBack({delta:1});
 		},
 		go(url, options, type="navigateTo") {
