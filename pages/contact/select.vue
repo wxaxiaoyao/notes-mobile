@@ -45,10 +45,10 @@ export default {
 
 	methods: {
 		async clickSave() {
-			await this.api.classifyTags.setObjects({
-				id: this.id,
-				objectIds: this.contactsIndexData.selected,
-			});
+			//await this.api.classifyTags.setObjects({
+				//id: this.id,
+				//objectIds: this.contactsIndexData.selected,
+			//});
 			this.back(this.contactsIndexData.selected);
 		}
 	}

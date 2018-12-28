@@ -45,7 +45,7 @@ export default {
 
 	onShow() {
 		if (this.subpage == "tag-modify") {
-			const tag = this.getPageArgs();
+			const tag = this.getBackArgs();
 			const index = this.app._.findIndex(this.tags, o => o.id == tag.id);
 			this.tags.splice(index, 1, tag);
 		}

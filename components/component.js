@@ -88,12 +88,22 @@ export default {
 			console.log(url, args);
 			return args;
 		},
+		setBackArgs(url, args) {
+			url = (url || this.currentPageUrl) + "-back";
+			storage.set(url, args);
+		},
+		getBackArgs(url) {
+			url = (url || this.currentPageUrl) + "-back";
+			const args = storage.get(url) || {};
+			console.log(url, args);
+			return args;
+		},
 		back(args) {
 			const pages = getCurrentPages();
 			if (args && pages.length > 1)  {
 				const page = pages[pages.length - 2];
 				const url = "/" + page.route;
-				this.setPageArgs(url, args);
+				this.setPageArgs(`${url}-back`, args);
 			}
 			uni.navigateBack({delta:1});
 		},

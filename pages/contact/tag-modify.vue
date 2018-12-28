@@ -18,7 +18,7 @@
 			成员
 		</view>
 		<view class="user-list">
-			<view class="user" v-for="(x, i) in contacts" :key="i">
+			<view @click="clickUser(x.id)" class="user" v-for="(x, i) in contacts" :key="x.id" :class="[isDeleteMode ? 'delete-mode' : 'normal-mode']">
 				<image class="portrait" :src="x.user.portrait"></image>
 				<text>{{x.alias || x.user.nickname || x.user.username}}</text>
 			</view>
@@ -49,10 +49,12 @@ export default {
 		return {
 			tag:{},
 			contacts:[],
+			isDeleteMode: true,
 		}
 	},
 
 	async onLoad() {
+		this.subpage = "";
 		this.tag = this.getPageArgs();
 		const contacts = this.app.storage.get("contacts");
 		this.app._.each(this.tag.objectTags, x => this.contacts.push(this.app._.find(contacts, {id: x.objectId})));
@@ -64,7 +66,7 @@ export default {
 
 	async onShow() {
 		if (this.subpage == "select-tag-contact") {
-			const selected = this.getPageArgs();
+			const selected = this.getBackArgs();
 			this.tag.objectTags = [];
 			this.contacts = [];
 
@@ -81,6 +83,13 @@ export default {
 	},
 
 	methods: {
+		clickUser(contactId) {
+			if (!this.isDeleteMode) return;
+			const index = this.app._.findIndex(this.contacts, x => x.id == contactId);
+			this.contacts.splice(index, 1);
+			this.app._.remove(this.tag.objectTags, o => o.objectId == contactId);
+		},
+
 		clickNew() {
 			this.subpage = "select-tag-contact";
 			
@@ -91,17 +100,14 @@ export default {
 		},
 
 		clickDelete() {
-
+			this.isDeleteMode = !this.isDeleteMode;
 		},
 		async clickSave() {
-			await this.api.classifyTags(this.tag);
+			const objectIds = [];
+			await this.app._.each(this.contacts, o => objectIds.push(o.id));
+			await this.api.classifyTags.setObjects({id: this.tag.id, objectIds});
+			await this.api.classifyTags.update(this.tag);
 			this.back(this.tag);
-		},
-		tagLongtap(e) {
-			console.log(e);
-		},
-		tagTap(x) {
-			console.log(x);
 		},
 	}
 }
@@ -115,6 +121,7 @@ export default {
 }
 
 .user {
+	position: relative;
 	width: 80px;
 	height: 80px;
 	padding:5px;
@@ -124,7 +131,15 @@ export default {
 	justify-content: center;
 	align-items: center;
 }
-
+.delete-mode:before {
+	position: absolute;
+	left:5px;
+	top:0px;
+	font-family: "iconfont";
+	content:"\eb6d";
+	font-size:20px;
+	color:red;
+}
 .portrait {
 	width: 50px;
 	height: 50px;
