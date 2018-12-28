@@ -43,6 +43,10 @@ export default {
 		this.tags = await this.api.classifyTags.get({classify:this.app.consts.CLASSIFY_TAG_CONTACT}).then(res => res.data || []);
 	},
 
+	async onUnload() {
+		this.subpage = "";
+	},
+
 	onShow() {
 		if (this.subpage == "tag-modify") {
 			const tag = this.getBackArgs();
