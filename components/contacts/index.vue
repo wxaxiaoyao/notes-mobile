@@ -92,7 +92,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 .search-container {
 	display: flex;
 	padding:10px 15px;
