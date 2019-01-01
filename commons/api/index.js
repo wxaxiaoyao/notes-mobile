@@ -363,6 +363,13 @@ export function ClassifyTags(options) {
 	self.setTags = self.apiRequest("post", "set_tags");
 }
 
+export function Locations(options) {
+	const self = this;
+
+	initHttpOptions(self, options, "locations");
+	self.getNearBy = self.apiRequest("get", "nearby");
+}
+
 export function Notes(options = {}){
 	const self = this;
 	initHttpOptions(self, options);
@@ -404,6 +411,7 @@ export function Notes(options = {}){
 	self.versions = new Versions(self.options);
 	self.contacts = new Contacts(self.options);
 	self.classifyTags = new ClassifyTags(self.options);
+	self.locations = new Locations(self.options);
 }
 
 export const options = {

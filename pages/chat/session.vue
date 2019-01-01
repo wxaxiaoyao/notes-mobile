@@ -112,9 +112,9 @@ export default {
 				})
 			});
 		},
-		sendMessage: function ({text, type=0}) { //获取子组件的输入数据
+		sendMessage: function ({text, type=0, url}) { //获取子组件的输入数据
 			const {username, id, portrait, nickname} = this.user;
-			const msg = {sessionId:this.sessionId, type, text, userId: id, username, portrait, nickname, state:0, id:0};
+			const msg = {url, sessionId:this.sessionId, type, text, userId: id, username, portrait, nickname, state:0, id:0};
 			this.messages.push(msg);
 			this.scrollToBottom();
 			if (this.isSystemSession) {

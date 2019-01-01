@@ -5,7 +5,14 @@
 		</view>
 		<view class="m-content">
 			<view class="m-content-head" :class="[__data__.userId == user.id ? 'm-content-head-right' : 'm-content-head-left']">
-				<view :class="[__data__.userId == user.id ? 'm-content-head-customer' : 'm-content-head-home']">{{__data__.text}} </view>
+				<view :class="[__data__.userId == user.id ? 'm-content-head-customer' : 'm-content-head-home']">
+					<view v-if="__data__.type == 0">
+						{{__data__.text}} 
+					</view>
+					<view v-else-if="__data__.type == 1">
+						<image :src="__data__.url"></image>
+					</view>
+				</view>
 			</view>
 		</view>
 		<view class="m-right">
@@ -30,6 +37,7 @@ export default {
 				username: "xiaoyao",
 				portrait: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/app/customerHL.png",
 				text: "你好",
+				type: 0,
 			},
 		}
 	}

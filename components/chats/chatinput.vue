@@ -6,17 +6,23 @@
 		<view class="footer-center">
 			<input class="input-text" type="text" v-model="inputValue"></input>
 		</view>
-		<view class="footer-right" @tap="sendMessage">
-			<view id='msg-type' >发送</view>
+		<view class="footer-right" >
+			<view @tap="sendMessage" v-if="inputValue">发送</view>
+			<view @click="clickImage" v-else >图片</view>
 		</view>
 	</view>
 </template>
 
 <script>
 import component from "../component.js";
+import uniIcon from "../unis/uni-icon.vue";
 
 export default {
 	mixins: [component],
+	
+	components: {
+		"uni-icon":uniIcon,
+	},
 
 	data() {
 		return {
@@ -47,6 +53,40 @@ export default {
 			//点击发送按钮时，通知父组件用户输入的内容
 			this.__data__.sendMessage && this.__data__.sendMessage({text: this.inputValue});
 			that.inputValue = '';
+		},
+		clickImage() {
+			uni.chooseImage({
+				sizeType: ['compressed'],
+				sourceType: ['album'],
+				success: (res) => {
+					this.app._.each(res.tempFilePaths, filepath => {
+						uni.uploadFile({
+							url: this.app.config.baseURL + "files/sessionUpload",
+							name: "file",
+							filePath: filepath,
+							header: {"Authorization": "Bearer " + this.token},
+							success: async (res) => {
+								console.log('uploadImage success, res is:', res)
+								const url = res.data;
+								this.__data__.sendMessage && this.__data__.sendMessage({url, type:1});
+							},
+							fail: (err) => {
+								console.log('uploadImage fail', err);
+							},
+							complete: () => {
+								console.log("complate")
+							}
+						});
+					});
+				},
+				fail: (err) => {
+					console.log('chooseImage fail', err)
+					uni.hideLoading();
+				},
+				complete: () => {
+					console.log("---");
+				}
+			});
 		}
 	}
 }
@@ -65,7 +105,6 @@ export default {
 		background-color: #fafafa;
 	}
 	.footer-left {
-
 		width: 80upx;
 		height: 80upx;
 

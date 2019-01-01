@@ -22,6 +22,12 @@
 					扫一扫
 				</view>
 			</view>
+
+			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view @click="clickNearContact" class="uni-list-cell-navigate uni-navigate-right">
+					附近的人
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -69,6 +75,10 @@ export default {
 					}
 				}
 			});
+		},
+		clickNearContact() {
+			this.go("/pages/index/near");
+			
 		},
 	},
 	mounted() {
