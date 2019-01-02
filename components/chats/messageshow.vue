@@ -3,14 +3,14 @@
 		<view class="m-left">
 			<image class="head_icon" :src="__data__.portrait" v-if="__data__.userId != user.id"></image>
 		</view>
-		<view class="m-content">
+		<view class="m-content" :style="{width: contentWidth + 'px'}">
 			<view class="m-content-head" :class="[__data__.userId == user.id ? 'm-content-head-right' : 'm-content-head-left']">
 				<view :class="[__data__.userId == user.id ? 'm-content-head-customer' : 'm-content-head-home']">
 					<view v-if="__data__.type == 0">
 						{{__data__.text}} 
 					</view>
 					<view v-else-if="__data__.type == 1">
-						<image :src="__data__.url"></image>
+						<image :src="__data__.url" :style="{width: contentWidth + 'px', height: contentWidth + 'px'}"></image>
 					</view>
 				</view>
 			</view>
@@ -31,6 +31,7 @@ export default {
 
 	data: function() {
 		return {
+			contentWidth: 0,
 			default_data: {
 				sessionId:"__rebot__",
 				userId: 1,
@@ -40,6 +41,10 @@ export default {
 				type: 0,
 			},
 		}
+	},
+
+	beforeMount() {
+		this.contentWidth = this.windowWidth - 60 * 2;
 	}
 }
 </script>
@@ -62,6 +67,7 @@ export default {
 		flex-direction: column;
 		justify-content: center;
 		word-break: break-all;
+		max-width: 100%;
 	}
 	.m-right {
 		display: flex;

@@ -62,6 +62,12 @@ export default {
 			const page = pages[pages.length - 1];
 			return "/" + page.route;
 		},
+		windowHeight() {
+			return uni.getSystemInfoSync().windowHeight;
+		},
+		windowWidth() {
+			return uni.getSystemInfoSync().windowWidth;
+		},
 	},
 
 	watch: {
