@@ -12,6 +12,12 @@
 			</view>
 
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view @click="go('/pages/note/index')" class="uni-list-cell-navigate uni-navigate-right">
+					手记
+				</view>
+			</view>
+
+			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view @click="go('/pages/page/index')" class="uni-list-cell-navigate uni-navigate-right">
 					页面
 				</view>
@@ -57,7 +63,6 @@ export default {
 		upgrade() {
 			this.upgradesIndexData.visible = true;
 		},
-		
 		clickScanCode() {
 			uni.scanCode({
 				success: res => {
@@ -78,7 +83,6 @@ export default {
 		},
 		clickNearContact() {
 			this.go("/pages/index/near");
-			
 		},
 	},
 	mounted() {

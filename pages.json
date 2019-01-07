@@ -27,6 +27,9 @@
 		{"path": "pages/register/index"},
 		{"path": "pages/daily/index"},
 		{"path": "pages/daily/upsert"},
+		{"path": "pages/note/index"},
+		{"path": "pages/note/upsert"},
+		{"path": "pages/note/tag-edit"},
 		{"path": "pages/debug/index"},
 		{"path": "pages/web/index"}
 	],

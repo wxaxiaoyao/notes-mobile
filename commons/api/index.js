@@ -370,7 +370,19 @@ export function Locations(options) {
 	self.getNearBy = self.apiRequest("get", "nearby");
 }
 
-export function Notes(options = {}){
+export function Notes(options) {
+	const self = this;
+
+	initHttpOptions(self, options, "notes");
+}
+
+export function NotePackages(options) {
+	const self = this;
+
+	initHttpOptions(self, options, "notePackages");
+}
+
+export function __Notes__(options = {}){
 	const self = this;
 	initHttpOptions(self, options);
 
@@ -412,6 +424,8 @@ export function Notes(options = {}){
 	self.contacts = new Contacts(self.options);
 	self.classifyTags = new ClassifyTags(self.options);
 	self.locations = new Locations(self.options);
+	self.notes = new Notes(self.options);
+	self.notePackages = new NotePackages(self.options);
 }
 
 export const options = {
@@ -420,4 +434,4 @@ export const options = {
 	baseURL: "",
 }
 
-export default new Notes(options);
+export default new __Notes__(options);
