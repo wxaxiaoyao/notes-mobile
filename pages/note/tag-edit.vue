@@ -62,9 +62,9 @@ export default {
 	},
 	
 	async onLoad() {
-		const {selectedTags = [], tags = []} = this.getPageArgs();
+		const {selectedTags = []} = this.getPageArgs();
 		this.selectedTags = selectedTags;
-		this.tags = tags;
+		this.tags = await this.api.classifyTags.get({classify:3}).then(res => res.data || []);
 	},
 
 	methods: {

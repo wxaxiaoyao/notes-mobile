@@ -20,7 +20,7 @@ export default {
 	},
 
 	async onLoad(options = {}) {
-		const url = options.url || "";
+		const {url=""} = this.getPageArgs();
 		const token = this.token;
 		const webviewUrl = this.app.config.webviewUrl;
 		

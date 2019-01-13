@@ -68,7 +68,8 @@ export default {
 		},
 	},
 
-	async onLoad({sessionId, title}) {
+	async onLoad() {
+		const {sessionId, title} = this.getPageArgs();
 		this.socket = await this.initSocket();
 		this.title = title;
 		this.sessionId = sessionId;
@@ -193,6 +194,9 @@ export default {
 	left: 0px;
 	bottom: 0px;
 	overflow: hidden;
-
+	padding-bottom:6px;
+}
+#scroll-view-bottom {
+	height:20px;
 }
 </style>

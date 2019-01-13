@@ -115,10 +115,6 @@ export default {
 		},
 		go(url, options, type="navigateTo") {
 			this.setPageArgs(url, options);
-			if (options)  {
-				const qs = queryString.stringify(options, {encode:false});
-				url = `${url}?${qs}`;
-			}
 			uni[type]({url});
 		},
 		authenticated() {

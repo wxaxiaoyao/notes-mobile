@@ -80,7 +80,8 @@ export default {
 		},
 	},
 
-	async onLoad(options) {
+	async onLoad() {
+		const options = this.getPageArgs();
 		if (options.id) {
 			const result = await this.api.dailies.getById({id: options.id});
 			this.daily = result.data || this.daily;

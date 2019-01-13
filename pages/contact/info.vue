@@ -58,7 +58,7 @@ export default {
 		}
 	},
 	onLoad(options) {
-		this.contact = options;
+		this.contact = this.getPageArgs();
 	},
 	methods: {
 		async clickSendMsg() {

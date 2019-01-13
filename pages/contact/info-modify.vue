@@ -62,7 +62,8 @@ export default {
 			tags: [],
 		}
 	},
-	async onLoad({id = 0}) {
+	async onLoad() {
+		const {id = 0} = this.getPageArgs();
 		this.id = id;
 
 		await this.loadData();

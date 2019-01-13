@@ -11,6 +11,11 @@
 		</uni-nav-bar>
 
 		<view class="uni-list">
+			<view class="uni-list-cell">
+				<view class="uni-input">
+					<input v-model="note.title" auto-height placeholder="(可选)请输入手记标题..."></textarea>
+				</view>
+			</view>
 			<view @click="clickTagEdit" class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view class="uni-list-cell-navigate">
 					<view>标签</view>
@@ -24,25 +29,11 @@
 			<view class="uni-list-cell">
 				<view class="uni-list-cell-navigate">
 					<view class="uni-textarea">
-						<textarea style="min-height:100px;" class="x-input-border" v-model="note.text" auto-height placeholder="请输入手记内容..."></textarea>
+						<textarea style="min-height:100px;" maxlength=-1 class="x-input-border" v-model="note.text" auto-height placeholder="请输入手记内容..."></textarea>
 					</view>
 				</view>
 			</view>
 		</view>
-
-		<!--scroll-view v-if="showTags" scroll-x style="white-space:nowrap">
-			<uni-tag v-for="(x, i) in tags" :key="x.id" @click="clickAddTag(x)" :text="x.tagname"></uni-tag>
-		</scroll-view>
-
-		<scroll-view scroll-x style="white-space:nowrap">
-			<uni-tag @click="showTags = !showTags" text="标签"></uni-tag>
-			<uni-tag v-for="(x, i) in selectedTags" :key="i" @click="clickDeleteTag(x, i)" :text="x.tagname"></uni-tag>
-			<uni-tag @click="clickTagEdit" text="新增"></uni-tag>
-		</scroll-view>
-
-		<view class="uni-textarea">
-			<textarea style="min-height:100px;" class="x-input-border" v-model="note.text" auto-height placeholder="请输入手记内容..."></textarea>
-		</view-->
 	</view>
 </template>
 
@@ -62,35 +53,26 @@ export default {
 	data: function() {
 		return {
 			note:{},
-			tags:[],
 			selectedTags:[],
-			showTags: false,
 		}
 	},
 	
-	computed: {
-		tag(){
-			const tags = [];
-			this.app._.each(this.selectedTags, o => tags.push(o.tagname));
-			return tags.join(",");
-		}
-	},
-
 	async onLoad() {
-		this.tags = await this.api.classifyTags.get({classify:3}).then(res => res.data || []);
+		this.note = this.getPageArgs();
+		this.selectedTags = this.note.classifyTags || [];
 	},
 
 	onShow() {
 		const {selectedTags, tags} = this.getBackArgs();
 		this.selectedTags = selectedTags || this.selectedTags;
-		this.tags = tags || this.tags;
+		this.note.classifyTags = this.selectedTags;
 	},
 
 	methods: {
 		async clickSubmitBtn() {
 			const oper = this.note.id ? "update" : "create";
-			const result = await this.api.notes[oper](this.note);
-			//return this.back();
+			const result = await this.api.notes[oper]({...this.note, classifyTags: this.selectedTags});
+			return this.back();
 		},
 
 		clickAddTag(x) {

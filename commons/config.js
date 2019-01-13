@@ -2,9 +2,9 @@
 const platform = uni.getSystemInfoSync().platform;
 const defaultConfig = {
 	version:{
-		versionNo:9,
-		versionName: "0.0.8",
-		description: `增加联系人打标签功能`,
+		versionNo:10,
+		versionName: "0.0.10",
+		description: `增加便条功能`,
 	},
 }
 

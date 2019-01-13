@@ -48,7 +48,8 @@ export default {
 		},
 	},
 
-	async onLoad(options) {
+	async onLoad() {
+		const options = this.getPageArgs();
 		if (options.id) {
 			const result = await this.api.pages.getById({id: options.id});
 			this.page = result.data || this.page;

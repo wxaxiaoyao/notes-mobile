@@ -37,7 +37,7 @@ export default {
 		}
 	},
 	onLoad(options) {
-		const {title, key, value} = options;
+		const {title, key, value} = this.getPageArgs();
 		this.title = title;
 		this.value = value;
 		this.type = options.type || "input";

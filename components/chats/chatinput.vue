@@ -1,5 +1,5 @@
 <template>
-	<view class="footer">
+	<view class="input-container">
 		<view class="footer-left">
 			<view class="uni-icon uni-icon-mic" @tap="startRecognize"> </view>
 		</view>
@@ -93,7 +93,7 @@ export default {
 </script>
 
 <style>
-	.footer {
+	.input-container {
 		display: flex;
 		flex-direction: row;
 		width: 100%;

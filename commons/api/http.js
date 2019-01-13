@@ -114,7 +114,7 @@ export function httpRequest(method, url, data = {}, config = {}) {
 		return cache.request(config);
 	}
 
-	//console.log(config);
+	console.log(url);
 
 	return new Promise((resolve, reject) => {
 		uni.request({

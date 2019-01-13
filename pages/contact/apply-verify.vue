@@ -36,7 +36,8 @@ export default {
 		}
 	},
 
-	onLoad({objectId, objectType = 0}) {
+	onLoad() {
+		const {objectId, objectType = 0} = this.getPageArgs();
 		this.authenticated();
 		this.legend = this.user.nickname || this.user.username;
 		this.apply = {
