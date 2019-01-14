@@ -73,13 +73,12 @@ export default {
 			this.setUser(this.user);
 		},
 		clickDescription() {
-			const args = queryString.stringify({
+			this.go("/pages/user/info-modify", {
 				title:"更改个性签名", 
 				key:"description", 
 				value: this.user.description,
 				type:"textarea",
-			}, {encode:false});
-			this.go("/pages/user/info-modify?" + args);
+			});
 		},
 
 		clickLogoutBtn() {

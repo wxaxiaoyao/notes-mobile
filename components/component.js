@@ -68,6 +68,12 @@ export default {
 		windowWidth() {
 			return uni.getSystemInfoSync().windowWidth;
 		},
+		navBarHeight() {
+			//#ifdef H5
+				return 44;
+			//#endif
+			return 64;
+		}
 	},
 
 	watch: {
@@ -91,7 +97,7 @@ export default {
 		getPageArgs(url) {
 			url = url || this.currentPageUrl;
 			const args = storage.get(url) || {};
-			console.log(url, args);
+			//console.log(url, args);
 			return args;
 		},
 		setBackArgs(url, args) {
@@ -101,7 +107,7 @@ export default {
 		getBackArgs(url) {
 			url = (url || this.currentPageUrl) + "-back";
 			const args = storage.get(url) || {};
-			console.log(url, args);
+			//console.log(url, args);
 			return args;
 		},
 		back(args) {

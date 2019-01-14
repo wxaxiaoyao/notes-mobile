@@ -1,6 +1,6 @@
 
 <template>
-	<view>
+	<view @click="noteContextStyle.display = 'none'" class="full-height">
 		<uni-nav-bar status-bar=true 
 			left-icon="back" 
 			left-text="返回" 
@@ -17,7 +17,7 @@
 		</view>
 
 		<view class="uni-list">
-			<view @longpress="longpress(x, $event)" @click="clickEditNote(x)" v-for="(x, i) in notes" :key="i" class="uni-list-cell" hover-class="uni-list-cell-hover">
+			<view @longpress="longpress(x, $event)" @click="clickEditNote(x, $event)" v-for="(x, i) in notes" :key="i" class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view class="uni-flex uni-column uni-flex-item uni-list-cell-pd">
 					<view class="uni-inline-item" style="justify-content: space-between">
 						<view class="uni-title">
@@ -53,8 +53,8 @@ export default {
 			notes:[],
 			noteContextStyle: {
 				display:"none",
-				left: "0px",
-				top:"0px",
+				left: 0,
+				top: 0,
 			}
 		}
 	},
@@ -63,14 +63,24 @@ export default {
 		await this.loadDatas();
 	},
 
+	async onShow() {
+		const note = this.getBackArgs() || {};
+		if (!note.id) return;
+
+		const index = this.app._.findIndex(this.notes, o => o == note.id);
+		if (index < 0) this.notes.push(note);
+		else this.notes[index] = note;
+		this.setBackArgs(this.currentPageUrl, {});
+	},
+
 	methods: {
 		longpress(x, e) {
 			this.note = x;
 			this.noteContextStyle.display = "block";
 			this.noteContextStyle.left = e.touches[0].pageX + 10;
 			this.noteContextStyle.top = e.touches[0].pageY - 40;
-			console.log(x);
-			console.log(JSON.stringify(e));
+			//console.log(x);
+			//console.log(JSON.stringify(e));
 		},
 		async clickDeleteNote() {
 			if (!this.note) return;
@@ -80,10 +90,14 @@ export default {
 			this.noteContextStyle.display = "none";
 			this.note = null;
 		},
-		clickEditNote(x) {
-			this.go("/pages/note/upsert", x);
+		clickEditNote(x, e) {
+			this.subPageType = "update";
+			if (this.noteContextStyle.display != "none") return;
+			//this.go("/pages/note/upsert", x);
+			this.go("/pages/note/show", x);
 		},
 		clickNewBtn() {
+			this.subPageType = "create";
 			return this.go("/pages/note/upsert", {});
 		},
 

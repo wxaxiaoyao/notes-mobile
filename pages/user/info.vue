@@ -134,8 +134,7 @@ export default {
 		},
 
 		clickNickname() {
-			const args = queryString.stringify({title:"更改昵称", key:"nickname", value: this.user.nickname}, {encode:false});
-			this.go("/pages/user/info-modify?" + args);
+			this.go("/pages/user/info-modify", {title:"更改昵称", key:"nickname", value: this.user.nickname});
 		},
 
 		clickMore() {

@@ -63,9 +63,10 @@ export default {
 	},
 
 	onShow() {
-		const {selectedTags, tags} = this.getBackArgs();
+		const {selectedTags} = this.getBackArgs();
 		this.selectedTags = selectedTags || this.selectedTags;
 		this.note.classifyTags = this.selectedTags;
+		this.setBackArgs(this.currentPageUrl, {});
 	},
 
 	methods: {
@@ -87,7 +88,7 @@ export default {
 		},
 
 		clickTagEdit() {
-			this.go("/pages/note/tag-edit", {selectedTags:this.selectedTags, tags: this.tags});
+			this.go("/pages/note/tag-edit", {selectedTags:this.selectedTags});
 		}
 	},
 
