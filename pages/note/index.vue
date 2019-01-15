@@ -17,16 +17,12 @@
 		</view>
 
 		<view class="uni-list">
-			<view @longpress="longpress(x, $event)" @click="clickEditNote(x, $event)" v-for="(x, i) in notes" :key="i" class="uni-list-cell" hover-class="uni-list-cell-hover">
-				<view class="uni-flex uni-column uni-flex-item uni-list-cell-pd">
-					<view class="uni-inline-item" style="justify-content: space-between">
-						<view class="uni-title">
-							{{x.title || x.datestr}}
-						</view>
-						<view>
-						</view>
+			<view @longpress="longpress(x, $event)" @click="clickShowNote(x, $event)" v-for="(x, i) in notes" :key="i" class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view class="note-container">
+					<view class="uni-title uni-ellipsis">
+						{{x.title || x.datestr}}
 					</view>
-					<view class="uni-text">
+					<view class="uni-text-small uni-ellipsis">
 						{{x.text}}
 					</view>
 				</view>
@@ -36,7 +32,6 @@
 </template>
 
 <script>
-						//<tags-index :__data__="{tags: x.tags, size:'small', inverted:true}"></tags-index>
 import moment from "moment";
 import component from "../../components/component.js";
 import uniNavBar from "../../components/unis/uni-nav-bar.vue";
@@ -79,8 +74,6 @@ export default {
 			this.noteContextStyle.display = "block";
 			this.noteContextStyle.left = e.touches[0].pageX + 10;
 			this.noteContextStyle.top = e.touches[0].pageY - 40;
-			//console.log(x);
-			//console.log(JSON.stringify(e));
 		},
 		async clickDeleteNote() {
 			if (!this.note) return;
@@ -90,7 +83,7 @@ export default {
 			this.noteContextStyle.display = "none";
 			this.note = null;
 		},
-		clickEditNote(x, e) {
+		clickShowNote(x, e) {
 			this.subPageType = "update";
 			if (this.noteContextStyle.display != "none") return;
 			//this.go("/pages/note/upsert", x);
@@ -117,5 +110,13 @@ export default {
 .note-context-container {
 	position:fixed;
 	z-index:10;
+}
+.note-container {
+	display: flex;
+	flex: 1;
+	width: 100%;
+	flex-direction: column;
+	box-sizing: border-box;
+	padding: 22upx 30upx;
 }
 </style>

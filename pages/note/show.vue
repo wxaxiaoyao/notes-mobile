@@ -6,11 +6,21 @@
 			left-text="返回" 
 			right-icon="more-filled"
 			@click-right="isShowMoreMenu = !isShowMoreMenu"
-			@click-left="back">
+			@click-left="back(note)">
 		</uni-nav-bar>
 		<view v-if="isShowMoreMenu" class="more-menu-container" :style="{top: (navBarHeight + 6) + 'px'}">
-			<view @click="clickEditBtn">编辑</view>
-			<view @click="clickShareBtn">分享</view>
+			<view class="uni-list">
+				<view @click="clickEditBtn" class="uni-list-cell" hover-class="uni-list-cell-hover">
+					<view class="uni-list-cell-navigate">
+						编辑
+					</view>
+				</view>
+				<view @click="clickShareBtn" class="uni-list-cell" hover-class="uni-list-cell-hover">
+					<view class="uni-list-cell-navigate">
+						分享
+					</view>
+				</view>
+			</view>
 		</view>
 		<view class="note-container">
 			<view class="note-title">
@@ -52,14 +62,15 @@ export default {
 	},
 
 	onShow() {
+		this.note = this.getBackArgs() || this.note;
 	},
 
 	methods: {
 		clickEditBtn() {
-			
+			this.isShowMoreMenu = false;
 		},
 		clickShareBtn() {
-
+			this.isShowMoreMenu = false;
 		},
 	},
 }
@@ -81,7 +92,9 @@ export default {
 	position: fixed;
 	z-index:100;
 	right: 4px;
-	padding:10px;
-	background-color: dimgrey;
+	/*padding:10px;*/
+	/*background-color: dimgrey;*/
+	background-color: #FFF;
+	width:80px;
 }
 </style>

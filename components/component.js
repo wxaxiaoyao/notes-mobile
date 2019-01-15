@@ -90,13 +90,13 @@ export default {
 		...mapMutations({
 			setUser: "setUser",
 		}),
-		setPageArgs(url, args = {}) {
+		setPageArgs(url, args) {
 			url = url || this.currentPageUrl;
 			storage.set(url, args);
 		},
 		getPageArgs(url) {
 			url = url || this.currentPageUrl;
-			const args = storage.get(url) || {};
+			const args = storage.get(url);
 			//console.log(url, args);
 			return args;
 		},
@@ -106,16 +106,16 @@ export default {
 		},
 		getBackArgs(url) {
 			url = (url || this.currentPageUrl) + "-back";
-			const args = storage.get(url) || {};
+			const args = storage.get(url);
 			//console.log(url, args);
 			return args;
 		},
 		back(args) {
 			const pages = getCurrentPages();
-			if (args && pages.length > 1)  {
+			if (pages.length > 1)  {
 				const page = pages[pages.length - 2];
 				const url = "/" + page.route;
-				this.setPageArgs(`${url}-back`, args);
+				this.setBackArgs(url, args);
 			}
 			uni.navigateBack({delta:1});
 		},
