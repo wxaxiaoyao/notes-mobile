@@ -50,13 +50,15 @@ export default {
 
 	methods: {
 		clickBackBtn() {
-			uni.navigateBack({delta:1});
+			this.back();
 		},
 		clickNewBtn() {
-			uni.navigateTo({url:"/pages/daily/upsert"});
+			this.subpage = "daily-create";
+			this.go("/pages/daily/upsert", {});
 		},
 		clickEditBtn(x) {
-			uni.navigateTo({url:"/pages/daily/upsert?id=" + x.id});
+			this.subpage = "daily-modify";
+			this.go("/pages/daily/upsert", {daily:x});
 		},
 		async loadDailies(query) {
 			if (this.loading) return Promise.resolve([]);
@@ -80,7 +82,13 @@ export default {
 	},
 
 	async onShow() {
-		await this.initPageData();
+		const daily = this.getBackArgs(); 
+		if (this.subpage == "daily-create" && daily.id) {
+			this.dailies.splice(0, 0, daily);
+		} else if (this.subpage == "daily-modify") {
+			const index = this.app._.findIndex(this.dailies, o => o.id == daily.id);
+			this.dailies.splice(index, 1, daily);
+		}
 	},
 
 	async onReachBottom() {

@@ -31,6 +31,7 @@
 		{"path": "pages/note/show"},
 		{"path": "pages/note/upsert"},
 		{"path": "pages/note/tag-edit"},
+		{"path": "pages/tag/edit"},
 		{"path": "pages/debug/index"},
 		{"path": "pages/web/index"}
 	],

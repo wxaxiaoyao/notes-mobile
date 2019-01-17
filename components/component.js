@@ -90,7 +90,7 @@ export default {
 		...mapMutations({
 			setUser: "setUser",
 		}),
-		setPageArgs(url, args) {
+		setPageArgs(url, args = {}) {
 			url = url || this.currentPageUrl;
 			storage.set(url, args);
 		},
@@ -98,9 +98,9 @@ export default {
 			url = url || this.currentPageUrl;
 			const args = storage.get(url);
 			//console.log(url, args);
-			return args;
+			return args || {};
 		},
-		setBackArgs(url, args) {
+		setBackArgs(url, args = {}) {
 			url = (url || this.currentPageUrl) + "-back";
 			storage.set(url, args);
 		},
@@ -108,7 +108,7 @@ export default {
 			url = (url || this.currentPageUrl) + "-back";
 			const args = storage.get(url);
 			//console.log(url, args);
-			return args;
+			return args || {};
 		},
 		back(args) {
 			const pages = getCurrentPages();

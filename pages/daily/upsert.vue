@@ -4,7 +4,7 @@
 		<uni-nav-bar status-bar=true 
 			left-icon="back" 
 			left-text="返回" 
-			@click-left="back" 
+			@click-left="back(daily)" 
 			:title="daily.id ? '日报-更新' : '日报-新增'"
 		    right-text="提交"
 		    @click-right="clickSubmitBtn">
@@ -22,9 +22,14 @@
 					</picker>
 				</view>
 			</view>
-			<view class="uni-list-cell">
+			<view @click="clickTagEdit" class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view class="uni-list-cell-navigate">
-					<tags-index :__data__="tagsData"></tags-index>
+					<view>标签</view>
+					<view class="uni-text-gray" style="max-width:200px;">
+						<scroll-view scroll-x style="white-space:nowrap">
+							<uni-tag v-for="(x, i) in tags" :key="i" @click="clickDeleteTag(x, i)" size="small" :text="x.tagname"></uni-tag>
+						</scroll-view>
+					</view>
 				</view>
 			</view>
 			<view class="uni-list-cell">
@@ -42,14 +47,14 @@
 import moment from "moment";
 import component from "../../components/component.js";
 import uniNavBar from "../../components/unis/uni-nav-bar.vue";
-import tagsIndex from "../../components/tags/index.vue";
+import uniTag from "../../components/unis/uni-tag.vue";
 
 export default {
 	mixins:[component],
 
 	components: {
 		"uni-nav-bar": uniNavBar,
-		"tags-index": tagsIndex,
+		"uni-tag": uniTag,
 	},
 
 	data: function() {
@@ -58,38 +63,48 @@ export default {
 				date:moment().format("YYYY-MM-DD"),
 				content:"请输入日报内容...",
 			},
-			tagsData: {
-				tags:[],
-				editable: true,
-			}
+			tags:[],
 		}
+	},
+
+	onLoad() {
+		const {daily} = this.getPageArgs();
+		this.daily = daily || this.daily;
+		this.tags = (daily.tags || "").split("|").filter(o => o).map(o => ({tagname:o}));
+	},
+
+	onShow() {
+		const {selectedTags} = this.getBackArgs();
+		if (this.subpage == "tag-edit" && selectedTags) {
+			this.tags = selectedTags;
+		}
+		this.subpage = undefined;
 	},
 
 	methods: {
 		dateChange(evt) {
 			this.daily.date = evt.detail.value;
 		},
+		clickTagEdit() {
+			this.subpage = "tag-edit";
+			this.go("/pages/tag/edit", {selectedTags:this.tags, classify:4});
+		},
 		async clickSubmitBtn() {
-			this.daily.tags = this.tagsData.tags.join("|");
+			this.daily.tags = "|" + this.tags.map(o => o.tagname).join("|") + "|";
 			if (this.daily.id) {
 				await this.api.dailies.update(this.daily);
 			} else {
-				await this.api.dailies.create(this.daily);
+				this.daily = await this.api.dailies.create(this.daily).then(res => res.data || {});
 			}
-			this.back();
+			this.back(this.daily);
 		},
 	},
 
-	async onLoad() {
-		const options = this.getPageArgs();
-		if (options.id) {
-			const result = await this.api.dailies.getById({id: options.id});
-			this.daily = result.data || this.daily;
-			this.tagsData = {...this.tagsData, tags: this.daily.tags};
-		}
-	}
 }
 </script>
 
 <style lang="less" scoped>
+.uni-tag {
+	margin-left:4px;
+}
 </style>
