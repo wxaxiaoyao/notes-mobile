@@ -14,7 +14,10 @@
         "modules" : {
             "Maps" : {},
             "Contacts" : {},
-            "Speech" : {}
+            "Speech" : {},
+            "OAuth" : {},
+            "LivePusher" : {},
+            "VideoPlayer" : {}
         },
         /* 模块配置 */
         "distribute" : {
@@ -53,6 +56,11 @@
             "sdkConfigs" : {
                 "speech" : {
                     "ifly" : {}
+                },
+                "oauth" : {
+                    "qq" : {
+                        "appid" : "101547492"
+                    }
                 }
             }
         }

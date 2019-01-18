@@ -62,7 +62,7 @@ export default {
 		const note = this.getBackArgs() || {};
 		if (!note.id) return;
 
-		const index = this.app._.findIndex(this.notes, o => o == note.id);
+		const index = this.app._.findIndex(this.notes, o => o.id == note.id);
 		if (index < 0) this.notes.push(note);
 		else this.notes[index] = note;
 		this.setBackArgs(this.currentPageUrl, {});

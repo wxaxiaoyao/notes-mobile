@@ -62,7 +62,7 @@ export default {
 	},
 
 	onShow() {
-		this.note = this.getBackArgs() || this.note;
+		//this.note = this.getBackArgs() || this.note;
 	},
 
 	methods: {

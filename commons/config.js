@@ -2,7 +2,7 @@
 const platform = uni.getSystemInfoSync().platform;
 const defaultConfig = {
 	version:{
-		versionNo:10,
+		versionNo:11,
 		versionName: "0.0.10",
 		description: `增加便条功能`,
 	},

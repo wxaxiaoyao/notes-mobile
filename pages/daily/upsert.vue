@@ -70,7 +70,7 @@ export default {
 	onLoad() {
 		const {daily} = this.getPageArgs();
 		this.daily = daily || this.daily;
-		this.tags = (daily.tags || "").split("|").filter(o => o).map(o => ({tagname:o}));
+		this.tags = (this.daily.tags || "").split("|").filter(o => o).map(o => ({tagname:o}));
 	},
 
 	onShow() {
