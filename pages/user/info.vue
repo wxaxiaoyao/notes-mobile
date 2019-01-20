@@ -26,7 +26,7 @@
 					<view class="uni-text-gray">{{user.nickname}}</view>
 				</view>
 			</view>
-			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+			<view @click="clickUsername" class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view class="uni-list-cell-navigate">
 					<view>用户名</view>
 					<view class="uni-text-gray">{{user.username}}</view>
@@ -135,6 +135,10 @@ export default {
 
 		clickNickname() {
 			this.go("/pages/user/info-modify", {title:"更改昵称", key:"nickname", value: this.user.nickname});
+		},
+
+		clickUsername() {
+			this.go("/pages/user/info-modify", {title:"更改用户名", key:"username", value: this.user.username});
 		},
 
 		clickMore() {

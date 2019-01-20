@@ -103,7 +103,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style>
 .uni-tag {
 	margin-left:4px;
 }

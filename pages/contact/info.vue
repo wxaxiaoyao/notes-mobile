@@ -69,6 +69,7 @@ export default {
 			}).then(o => o.data);	
 			if (!session) return uni.showToast({title:"创建会话失败", icon:"none"});
 
+			//console.log(session);
 			return this.go("/pages/chat/session", {
 				sessionId: session.sessionId,
 				title: contact.alias || contact.nickname || contact.username,

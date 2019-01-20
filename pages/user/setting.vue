@@ -10,6 +10,11 @@
 
 		<view class="uni-list">
 			<view class="uni-list-cell-divider"></view>
+			<view @click="clickAccountAndSafe" class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view class="uni-list-cell-navigate">
+					<view>账号与安全</view>
+				</view>
+			</view>
 			<view @click="clickCheckVersion" class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view class="uni-list-cell-navigate">
 					<view>版本检测</view>
@@ -50,6 +55,10 @@ export default {
 	onLoad() {
 	},
 	methods: {
+		clickAccountAndSafe() {
+			this.go("/pages/user/safe");
+		},
+
 		async clickCheckVersion() {
 			const version = await this.checkVersion();
 			if (!version) {

@@ -11,9 +11,9 @@
 		</uni-nav-bar>
 
 		<view v-if="type == 'textarea'" class="uni-textarea">
-			<textarea v-model="value" :maxlength="maxlength"/>
+			<textarea v-model="value" :placeholder="placeholder" :maxlength="maxlength"/>
 		</view>
-		<input v-else v-model="value" class="uni-input"/>
+		<input v-else v-model="value" :placeholder="placeholder" class="uni-input"/>
 	</view>
 </template>
 
@@ -34,27 +34,31 @@ export default {
 			value: "",
 			type: "",
 			maxlength: 140,
+			placeholder:"",
 		}
 	},
 	onLoad(options) {
-		const {title, key, value} = this.getPageArgs();
+		const {title, key, value="", type="input", maxlength=140, placeholder=""} = this.getPageArgs();
 		this.title = title;
 		this.value = value;
-		this.type = options.type || "input";
-		this.maxlength = options.maxlength || 140;
-		this.options = options;
+		this.key = key;
+		this.type = type;
+		this.maxlength = maxlength;
+		this.placeholder = placeholder;
 	},
 
 	methods: {
 		async clickSave() {
-			if (this.value == this.options.value) return this.back();
-
-			const result = await this.api.users.update({[this.options.key]: this.value, id: this.user.id});
-			if (result.isErr()) return uni.showToast({title:"更新失败"});
-
-			this.user[this.options.key] = this.value;
+			const result = await this.api.users.update({[this.key]: this.value, id: this.user.id});
+			if (result.isErr()) {
+				if (this.key == "username") {
+					return uni.showToast({title:"用户名已存在", icon:"none"});
+				} else {
+					return uni.showToast({title:"更新失败", icon:"none"});
+				}
+			} 
+			this.user[this.key] = this.value;
 			this.setUser(this.user);
-
 			this.back();
 		}
 	}

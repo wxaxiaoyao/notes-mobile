@@ -4,24 +4,19 @@
 		<uni-nav-bar status-bar=true 
 			left-icon="back" 
 			left-text="返回" 
-			@click-left="back" 
+			@click-left="clickBackBtn" 
 			:title="note.id ? '手记-更新' : '手记-新增'"
-		    right-text="提交"
-		    @click-right="clickSubmitBtn">
+		    right-icon="more-filled"
+		    @click-right="clickMoreBtn">
 		</uni-nav-bar>
 
 		<view class="uni-list">
-			<view class="uni-list-cell">
-				<view class="uni-input">
-					<input v-model="note.title" auto-height placeholder="(可选)请输入手记标题..."></textarea>
-				</view>
-			</view>
 			<view @click="clickTagEdit" class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view class="uni-list-cell-navigate">
 					<view>标签</view>
 					<view class="uni-text-gray" style="max-width:200px;">
 						<scroll-view scroll-x style="white-space:nowrap">
-							<uni-tag v-for="(x, i) in selectedTags" :key="i" @click="clickDeleteTag(x, i)" :text="x.tagname"></uni-tag>
+							<uni-tag size="small" v-for="(x, i) in selectedTags" :key="i" @click="clickDeleteTag(x, i)" :text="x.tagname"></uni-tag>
 						</scroll-view>
 					</view>
 				</view>
@@ -52,43 +47,58 @@ export default {
 
 	data: function() {
 		return {
-			note:{},
+			note:{id: null},
 			selectedTags:[],
 		}
 	},
 	
+	computed: {
+		id() {
+			return this.note.id;
+		}
+	},
+
 	async onLoad() {
 		this.note = this.getPageArgs();
 		this.selectedTags = this.note.classifyTags || [];
+		this.text = this.note.text || "";
 	},
 
-	onShow() {
-		const {selectedTags} = this.getBackArgs();
-		this.selectedTags = selectedTags || this.selectedTags;
-		this.note.classifyTags = this.selectedTags;
-		this.setBackArgs(this.currentPageUrl, {});
+	async onShow() {
+		if (this.subpage == "tag-edit") {
+			const {selectedTags} = this.getBackArgs();
+			this.selectedTags = selectedTags || this.selectedTags;
+			this.note.classifyTags = this.selectedTags;
+			this.setBackArgs(this.currentPageUrl, {});
+
+			if (this.note.id) {
+				await this.api.notes.setTags({id: this.note.id, tags: this.selectedTags});
+			}
+		}
 	},
 
 	methods: {
-		async clickSubmitBtn() {
-			const oper = this.note.id ? "update" : "create";
-			const result = await this.api.notes[oper]({...this.note, classifyTags: this.selectedTags});
-			return this.back();
+		async clickBackBtn() {
+			if (this.note.id) {
+				if (this.text != this.note.text) {
+					await this.api.notes.update({id: this.note.id, text:this.note.text});
+				}
+			} else {
+				if (this.note.text || this.selectedTags.length) {
+					await this.api.notes.create({...this.note, classifyTags: this.selectedTags});
+				}
+			}
+
+			return this.back(this.note);
 		},
 
-		clickAddTag(x) {
-			const index = this.app._.findIndex(this.selectedTags, o => x.tagname == o.tagname);
-			if (index >= 0) return;
-
-			this.selectedTags.push(x);
-		},
-		
-		clickDeleteTag(x, i) {
-			this.selectedTags.splice(i, 1);
+		clickMoreBtn() {
+			
 		},
 
 		clickTagEdit() {
-			this.go("/pages/note/tag-edit", {selectedTags:this.selectedTags});
+			this.subpage = "tag-edit";
+			this.go("/pages/tag/edit", {selectedTags:this.selectedTags, classify:3});
 		}
 	},
 

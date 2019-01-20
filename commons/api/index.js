@@ -32,13 +32,14 @@ export function Users(options) {
 	initHttpOptions(self, options, "users");
 
 	self.search = self.apiRequest("post", "search");
+	self.captcha = self.apiRequest("post", "captcha");
 	self.login = self.apiRequest("post", "login");
+	self.cellphoneLogin = self.apiRequest("post", "cellphone_login");
 	self.logout = self.apiRequest("post", "logout");
 	self.register = self.apiRequest("post", "register");
 	self.changepwd = self.apiRequest("post", "changepwd");
 	self.confirmpwd = self.apiRequest("post", "confirmpwd");
-	self.cellphoneVerifyOne = self.apiRequest("get", "cellphone_captcha");
-	self.cellphoneVerifyTwo = self.apiRequest("post", "cellphone_captcha");
+	self.cellphoneBind = self.apiRequest("post", "cellphone_bind");
 	self.emailVerifyOne = self.apiRequest("post", "email_captcha");
 	self.emailVerifyTwo = self.apiRequest("post", "email_captcha");
 	self.getByUsername = self.apiRequest("get", ":username");
@@ -374,6 +375,7 @@ export function Notes(options) {
 	const self = this;
 
 	initHttpOptions(self, options, "notes");
+	self.setTags = self.apiRequest("post", ":id/tags");
 }
 
 export function NotePackages(options) {

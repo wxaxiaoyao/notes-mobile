@@ -12,7 +12,7 @@
 					</view>
 					<view class="uni-media-list-body">
 						<view class="uni-media-list-text-top">{{ user.nickname || "" }}</view>
-						<view class="uni-media-list-text-bottom uni-ellipsis">{{"用户名: " + user.username}}</view>
+						<view class="uni-media-list-text-bottom uni-ellipsis">{{"用户名: " + (user.username || "")}}</view>
 					</view>
 				</view>
 			</view>

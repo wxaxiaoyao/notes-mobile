@@ -75,9 +75,11 @@ export default {
 		this.sessionId = sessionId;
 
 		const res = uni.getSystemInfoSync();
-		this.messageListHeight = res.windowHeight - 20 - 44 - 38 - 15;  // 小程序状态栏25px 暂不考虑
 		//#ifdef H5
-			this.messageListHeight += 20;	
+			this.messageListHeight = res.windowHeight - 44 - 38 - 15;  // 小程序状态栏25px 暂不考虑
+		//#endif
+		//#ifndef H5
+			this.messageListHeight = res.windowHeight - 20 - 44;  // 小程序状态栏25px 暂不考虑
 		//#endif
 
 		this.socket.on("push_messages", message => {

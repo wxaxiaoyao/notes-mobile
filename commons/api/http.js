@@ -1,7 +1,6 @@
 
 import _ from "../../libs/lodash.min.js";
-import pathToRegexp from 'path-to-regexp';
-
+import pathToRegexp from './path-to-regexp';
 import Error from "./error.js";
 
 const caches = {};
@@ -99,13 +98,12 @@ class Cache {
 }
 
 export function httpRequest(method, url, data = {}, config = {}) {
-	//const urlParams = {};
-	//_.each(data, (val, key) => urlParams[key] = _.toString(val));
-	//console.log(urlParams);
 	url = pathToRegexp.compile(url)(data);
 	if (url.indexOf("http") != 0 && config.baseURL) url = config.baseURL + url;
 	method = (method || "get").toLowerCase();
 	config = {...config, method, url, data};
+
+	//console.log(url);
 
 	// cache get disable
 	if (method == "get" && config.cache) {
@@ -113,8 +111,6 @@ export function httpRequest(method, url, data = {}, config = {}) {
 		const cache = Cache.get(key, config);
 		return cache.request(config);
 	}
-
-	console.log(url);
 
 	return new Promise((resolve, reject) => {
 		uni.request({
@@ -130,20 +126,6 @@ export function httpRequest(method, url, data = {}, config = {}) {
 		});
 
 	});
-	//return axios.request(config).then(res => {
-		//const result = new Error(res.data, res.status, res.headers);
-		//result.total = parseInt(res.headers["x-total"]);
-		//return result;
-	//}).catch(e => {
-		//if (e.response) {
-			//if (e.response.status == 401) window.location.href="/note/users/login";
-			//return new Error(e.response.data, e.response.status, e.response.headers);
-		//} else if (e.request) {
-			//return new Error("网络异常, 请稍后尝试!!!", 500);
-		//} else {
-			//return new Error("客户端内部错误!!!", 400);
-		//}
-	//});
 }
 
 export const httpGet = (url, data, config) => httpRequest("get", url, data, config);

@@ -17,7 +17,8 @@
 			<button @click="clickLoginBtn">登陆</button>
 		</view>
 
-		<view class="register-link-container">
+		<view class="tip-info">
+			<navigator url="/pages/login/cellphone" open-type="reLaunch" hover-class="navigator-hover">手机号登陆注册</navigator>	
 			<navigator url="/pages/register/index" open-type="reLaunch" hover-class="navigator-hover">没有账号 去注册</navigator>	
 		</view>
 	</view>
@@ -68,10 +69,10 @@ export default {
 .uni-input {
 	flex:8;
 }
-.register-link-container {
+.tip-info {
 	margin:10px 20px;
 	display:flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 
 	uni-navigator {
 		/*margin-right:20px;*/
