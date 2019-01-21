@@ -13,7 +13,7 @@
 
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view @click="go('/pages/note/index')" class="uni-list-cell-navigate uni-navigate-right">
-					手记
+					便条
 				</view>
 			</view>
 

@@ -25,13 +25,14 @@
 			标签列表(长按删除)
 		</view>
 		<view class="uni-flex tags-container">
-			<uni-tag 
+			<view class="tag"
 				v-for="(x, i) in tags" 
 				:key="x.id" 
 				@click="clickAddTag(x)" 
-				@longtap="tagLongtap(x, i)"
-				:text="x.tagname">
-			</uni-tag>
+				@longtap="tagLongtap(x, i)">
+				<uni-tag :text="x.tagname">
+				</uni-tag>
+			</view>
 		</view>
 	</view>
 </template>
@@ -125,7 +126,7 @@ export default {
 </script>
 
 <style>
-.uni-tag {
+.tag {
 	margin-left:4px;
 }
 .tags-container {

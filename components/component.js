@@ -63,7 +63,14 @@ export default {
 			return "/" + page.route;
 		},
 		windowHeight() {
-			return uni.getSystemInfoSync().windowHeight;
+			const windowHeight = uni.getSystemInfoSync().windowHeight;
+			
+			//#ifdef H5
+			return windowHeight;
+			//#endif
+			//#ifndef H5
+			return windowHeight + 44;
+			//#endif
 		},
 		windowWidth() {
 			return uni.getSystemInfoSync().windowWidth;

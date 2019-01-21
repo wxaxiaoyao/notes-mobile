@@ -1,6 +1,6 @@
 
 <template>
-	<view>
+	<view class="full-height">
 		<uni-nav-bar status-bar=true 
 			left-icon="back" 
 			left-text="返回" 
@@ -11,8 +11,8 @@
 		</uni-nav-bar>
 
 		<view class="uni-list">
-			<view @click="clickTagEdit" class="uni-list-cell" hover-class="uni-list-cell-hover">
-				<view class="uni-list-cell-navigate">
+			<view @click="clickTagEdit" class="uni-list-cell" hover-class="uni-list-cell-hover" style="height:40px">
+				<view class="uni-list-cell-navigate" style="padding:9px 15px 9px 12px">
 					<view>标签</view>
 					<view class="uni-text-gray" style="max-width:200px;">
 						<scroll-view scroll-x style="white-space:nowrap">
@@ -21,10 +21,10 @@
 					</view>
 				</view>
 			</view>
-			<view class="uni-list-cell">
-				<view class="uni-list-cell-navigate">
-					<view class="uni-textarea">
-						<textarea style="min-height:100px;" maxlength=-1 class="x-input-border" v-model="note.text" auto-height placeholder="请输入手记内容..."></textarea>
+			<view class="uni-list-cell" :style='{height: textareaHeight + "px"}'>
+				<view class="uni-list-cell-navigate full-height" style="padding:9px 15px 9px 12px">
+					<view class="uni-textarea full-height">
+						<textarea :style='{height: textareaHeight - 32 + "px"}' maxlength=-1 class="x-input-border" v-model="note.text" placeholder="请输入手记内容..."></textarea>
 					</view>
 				</view>
 			</view>
@@ -49,6 +49,7 @@ export default {
 		return {
 			note:{id: null},
 			selectedTags:[],
+			textareaHeight:100,
 		}
 	},
 	
@@ -62,6 +63,7 @@ export default {
 		this.note = this.getPageArgs();
 		this.selectedTags = this.note.classifyTags || [];
 		this.text = this.note.text || "";
+		this.textareaHeight = this.windowHeight - 44 - 40;  // 小程序状态栏25px 暂不考虑
 	},
 
 	async onShow() {
@@ -108,5 +110,12 @@ export default {
 <style>
 .uni-tag {
 	margin-left:2px;
+}
+.uni-textarea textarea{
+	width:96%;
+	padding:7px 2%;
+	line-height:1.6;
+	font-size:28upx;
+	height:150upx;
 }
 </style>

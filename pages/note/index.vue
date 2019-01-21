@@ -85,7 +85,8 @@ export default {
 		format(x) {
 			const text = x.text || "";
 			x.formatTitle = text.split("\n")[0];
-			x.formatText = text.replace(/[\t ]+/g, " ").split("\n").slice(1).join(" ");
+			x.formatText = text.split("\n").slice(1).join(" ");
+			//x.formatText = text.replace(/[\t ]+/g, " ").split("\n").slice(1).join(" ");
 			x.formatUpdatedAt =  moment(x.updatedAt).fromNow();
 		},
 		longpress(x, e) {

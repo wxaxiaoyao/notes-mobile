@@ -32,8 +32,10 @@ export default {
 
 	computed: {
 		debug() {
+			const sysinfo = uni.getSystemInfoSync();
 			return JSON.stringify({
 				...config,
+				sysinfo,
 			}, undefined, 4);
 		}
 	},

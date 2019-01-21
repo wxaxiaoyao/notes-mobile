@@ -74,13 +74,7 @@ export default {
 		this.title = title;
 		this.sessionId = sessionId;
 
-		const res = uni.getSystemInfoSync();
-		//#ifdef H5
-			this.messageListHeight = res.windowHeight - 44 - 38 - 15;  // 小程序状态栏25px 暂不考虑
-		//#endif
-		//#ifndef H5
-			this.messageListHeight = res.windowHeight - 20 - 44;  // 小程序状态栏25px 暂不考虑
-		//#endif
+		this.messageListHeight = this.windowHeight - 44 - 40;  // 小程序状态栏25px 暂不考虑
 
 		this.socket.on("push_messages", message => {
 			if (message.userId == this.user.id) return;
@@ -184,19 +178,18 @@ export default {
 	display: flex;
 	flex-direction: column;
 }
+
 .message-list-container {
 	flex:1;
-	padding: 5px 0px 10px 0px;
 }
+
 .message-input-container {
 	position: fixed;
 	width: 100%;
-	height: 38px;
-	min-height: 38px;
+	height: 40px;
 	left: 0px;
 	bottom: 0px;
 	overflow: hidden;
-	padding-bottom:6px;
 }
 #scroll-view-bottom {
 	height:20px;

@@ -97,16 +97,14 @@ export default {
 		display: flex;
 		flex-direction: row;
 		width: 100%;
-		height: 80upx;
-		min-height: 80upx;
+		height: 100%;
 		border-top: solid 1px #bbb;
 		overflow: hidden;
-		padding: 5upx;
 		background-color: #fafafa;
 	}
 	.footer-left {
 		width: 80upx;
-		height: 80upx;
+		height: 100%;
 
 		display: flex;
 		justify-content: center;
@@ -114,7 +112,7 @@ export default {
 	}
 	.footer-right {
 		width: 120upx;
-		height: 80upx;
+		height: 100%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -122,7 +120,7 @@ export default {
 	}
 	.footer-center {
 		flex: 1;
-		height: 80upx;
+		height: 100%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -131,7 +129,7 @@ export default {
 		flex: 1;
 		background: #fff;
 		border: solid 1upx #ddd;
-		padding: 10upx !important;
+		padding: 4px !important;
 		font-family: verdana !important;
 		overflow: hidden;
 		border-radius: 15upx;
