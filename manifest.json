@@ -17,7 +17,8 @@
             "Speech" : {},
             "OAuth" : {},
             "LivePusher" : {},
-            "VideoPlayer" : {}
+            "VideoPlayer" : {},
+            "Share" : {}
         },
         /* 模块配置 */
         "distribute" : {
@@ -58,6 +59,15 @@
                     "ifly" : {}
                 },
                 "oauth" : {
+                    "qq" : {
+                        "appid" : "101547492"
+                    }
+                },
+                "share" : {
+                    "weixin" : {
+                        "appid" : "wx69fe76a59c6e6671",
+                        "appsecret" : "7c9edf3831f450845314f25fada10b1d"
+                    },
                     "qq" : {
                         "appid" : "101547492"
                     }

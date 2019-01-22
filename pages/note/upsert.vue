@@ -5,7 +5,7 @@
 			left-icon="back" 
 			left-text="返回" 
 			@click-left="clickBackBtn" 
-			:title="note.id ? '手记-更新' : '手记-新增'"
+			:title="note.id ? '便条-更新' : '便条-新增'"
 		    right-icon="more-filled"
 		    @click-right="clickMoreBtn">
 		</uni-nav-bar>
@@ -80,22 +80,44 @@ export default {
 	},
 
 	methods: {
-		async clickBackBtn() {
+		async saveNote() {
 			if (this.note.id) {
 				if (this.text != this.note.text) {
 					await this.api.notes.update({id: this.note.id, text:this.note.text});
 				}
 			} else {
 				if (this.note.text || this.selectedTags.length) {
-					await this.api.notes.create({...this.note, classifyTags: this.selectedTags});
+					const note = await this.api.notes.create({...this.note, classifyTags: this.selectedTags}).then(res => res.data);
+					this.note = {...this.note, ...note};
 				}
 			}
-
-			return this.back(this.note);
+			this.note.updatedAt = new Date();
+		},
+		async clickBackBtn() {
+			await this.saveNote();
+			return this.back('/pages/note/index', this.note);
 		},
 
 		clickMoreBtn() {
-			
+			uni.showActionSheet({
+				itemList: ["保存", "分享到朋友圈", "分享给朋友"],
+				success: async (res) => {
+					const index = res.tapIndex;
+					if (index == 0) {
+						await this.saveNote();
+					} else if (index == 1 || index == 2) {
+						uni.share({
+							provider: "weixin",
+							scene: index == 1 ? "WXSenceTimeline" : "WXSceneSession",
+							type: 1,
+							summary: this.note.text || "",
+							success: res => uni.showToast({title:"分享成功"}),
+							fail: err => console.log("fail:", JSON.stringify(err)),
+						});
+					}
+				},
+				fail: res => console.log(res.errMsg),
+			});
 		},
 
 		clickTagEdit() {

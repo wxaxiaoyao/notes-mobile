@@ -10,7 +10,7 @@
 						{{__data__.text}} 
 					</view>
 					<view v-else-if="__data__.type == 1">
-						<image :src="__data__.url" :style="{width: contentWidth + 'px', height: contentWidth + 'px'}"></image>
+						<image @click="clickImage" :src="__data__.url" :style="{width: contentWidth + 'px', height: contentWidth + 'px'}"></image>
 					</view>
 				</view>
 			</view>
@@ -40,6 +40,14 @@ export default {
 				text: "你好",
 				type: 0,
 			},
+		}
+	},
+
+	methods: {
+		clickImage() {
+			uni.previewImage({
+				urls: [this.__data__.url],
+			});
 		}
 	},
 
