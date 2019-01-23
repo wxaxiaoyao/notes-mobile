@@ -1,5 +1,5 @@
 
-import _ from "../../libs/lodash.min.js";
+import _ from "lodash";
 
 class Error { 
 	constructor(data, status = 200, headers = {}) {

@@ -111,7 +111,10 @@ export default {
 							scene: index == 1 ? "WXSenceTimeline" : "WXSceneSession",
 							type: 1,
 							summary: this.note.text || "",
-							success: res => uni.showToast({title:"分享成功"}),
+							success: res => {
+								console.log(JSON.stringify(res));
+								uni.showToast({title:"分享成功"})
+							},
 							fail: err => console.log("fail:", JSON.stringify(err)),
 						});
 					} else if (index == 3) {

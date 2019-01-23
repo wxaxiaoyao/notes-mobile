@@ -1,5 +1,5 @@
 
-import _ from "../../libs/lodash.min.js";
+import _ from "lodash";
 import pathToRegexp from './path-to-regexp';
 import Error from "./error.js";
 

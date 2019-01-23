@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import _ from "../../libs/lodash.min.js";
+import _ from "lodash";
 import component from "../../components/component.js";
 import uniNavBar from "../../components/unis/uni-nav-bar.vue";
 import chatInput from '../../components/chats/chatinput.vue';

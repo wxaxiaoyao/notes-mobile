@@ -1,7 +1,7 @@
 
 import vue from "vue";
 import vuex from "vuex";
-import _ from "../libs/lodash.min.js";
+import _ from "lodash";
 import jwt from "jwt-simple";
 
 import storage from "../commons/storage.js";

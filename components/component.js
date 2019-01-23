@@ -2,7 +2,7 @@
 import vue from "vue";
 import {mapGetters, mapActions, mapMutations} from "vuex";
 import queryString from 'query-string';
-import _ from "../libs/lodash.min.js";
+import _ from "lodash";
 import api from "../commons/api/index.js";
 import config from "../commons/config.js";
 import socket from "../commons/socket.js";

@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import _ from "../../libs/lodash.min.js";
+import _ from "lodash";
 import component from "../component.js";
 export default {
 	mixins:[component],

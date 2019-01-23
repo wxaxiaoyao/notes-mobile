@@ -17,7 +17,7 @@
 import component from "../component.js";
 import uniTag from "../unis/uni-tag.vue";
 import uniIcon from "../unis/uni-icon.vue";
-import _ from "../../libs/lodash.min.js";
+import _ from "lodash";
 
 export default {
 	mixins:[component],
