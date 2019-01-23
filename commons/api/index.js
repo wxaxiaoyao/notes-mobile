@@ -355,15 +355,6 @@ export function Applies(options) {
 	self.setState = self.apiRequest("put", ":id/state");
 }
 
-export function ClassifyTags(options) {
-	const self = this;
-
-	initHttpOptions(self, options, "classifyTags");
-
-	self.setObjects = self.apiRequest("post", ":id/set_objects");
-	self.setTags = self.apiRequest("post", "set_tags");
-}
-
 export function Locations(options) {
 	const self = this;
 
@@ -384,6 +375,19 @@ export function NotePackages(options) {
 	initHttpOptions(self, options, "notePackages");
 }
 
+export function Documents(options) {
+	const self = this;
+
+	initHttpOptions(self, options, "documents");
+}
+
+export function ObjectTags(options) {
+	const self = this;
+
+	initHttpOptions(self, options, "objectTags");
+
+	self.setTags = self.apiRequest("post", "set_tags");
+}
 export function __Notes__(options = {}){
 	const self = this;
 	initHttpOptions(self, options);
@@ -402,7 +406,6 @@ export function __Notes__(options = {}){
 	self.domains = new Domains(self.options);
 	self.comments = new Comments(self.options);
 	self.modules = new Modules(self.options);
-	self.tags = new Tags(self.options);
 	self.issues = new Issues(self.options);
 	self.trades = new Trades(self.options);
 	self.notifications = new Notifications(self.options);
@@ -424,10 +427,12 @@ export function __Notes__(options = {}){
 	self.qinius = new Qinius(self.options);
 	self.versions = new Versions(self.options);
 	self.contacts = new Contacts(self.options);
-	self.classifyTags = new ClassifyTags(self.options);
 	self.locations = new Locations(self.options);
 	self.notes = new Notes(self.options);
 	self.notePackages = new NotePackages(self.options);
+	self.documents = new Documents(self.options);
+	self.objectTags = new ObjectTags(self.options);
+	self.tags = new Tags(self.options);
 }
 
 export const options = {

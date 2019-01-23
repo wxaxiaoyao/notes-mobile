@@ -16,7 +16,7 @@
 					<view>标签</view>
 					<view class="uni-text-gray" style="max-width:200px;">
 						<scroll-view scroll-x style="white-space:nowrap">
-							<uni-tag size="small" v-for="(x, i) in selectedTags" :key="i" @click="clickDeleteTag(x, i)" :text="x.tagname"></uni-tag>
+							<uni-tag size="small" v-for="(x, i) in tags" :key="i"  :text="x.tagname"></uni-tag>
 						</scroll-view>
 					</view>
 				</view>
@@ -47,8 +47,8 @@ export default {
 
 	data: function() {
 		return {
-			note:{id: null},
-			selectedTags:[],
+			note:{id: null, tags:[]},
+			tags:[],
 			textareaHeight:100,
 		}
 	},
@@ -61,21 +61,17 @@ export default {
 
 	async onLoad() {
 		this.note = this.getPageArgs();
-		this.selectedTags = this.note.classifyTags || [];
+		this.tags = this.note.tags || [];
 		this.text = this.note.text || "";
 		this.textareaHeight = this.windowHeight - 44 - 40;  // 小程序状态栏25px 暂不考虑
 	},
 
 	async onShow() {
 		if (this.subpage == "tag-edit") {
-			const {selectedTags} = this.getBackArgs();
-			this.selectedTags = selectedTags || this.selectedTags;
-			this.note.classifyTags = this.selectedTags;
+			const {tags} = this.getBackArgs();
+			this.tags = tags || this.tags;
+			this.note.tags = this.tags;
 			this.setBackArgs(this.currentPageUrl, {});
-
-			if (this.note.id) {
-				await this.api.notes.setTags({id: this.note.id, tags: this.selectedTags});
-			}
 		}
 	},
 
@@ -83,24 +79,28 @@ export default {
 		async saveNote() {
 			if (this.note.id) {
 				if (this.text != this.note.text) {
-					await this.api.notes.update({id: this.note.id, text:this.note.text});
+					await this.api.notes.update(this.note);
+				} else {
+					return;
 				}
 			} else {
-				if (this.note.text || this.selectedTags.length) {
-					const note = await this.api.notes.create({...this.note, classifyTags: this.selectedTags}).then(res => res.data);
+				if (this.note.text || this.tags.length) {
+					const note = await this.api.notes.create({...this.note, tags: this.tags}).then(res => res.data);
 					this.note = {...this.note, ...note};
+				} else {
+					return;
 				}
 			}
 			this.note.updatedAt = new Date();
 		},
 		async clickBackBtn() {
 			await this.saveNote();
-			return this.back('/pages/note/index', this.note);
+			return this.back({note:this.note});
 		},
 
 		clickMoreBtn() {
 			uni.showActionSheet({
-				itemList: ["保存", "分享到朋友圈", "分享给朋友"],
+				itemList: ["保存", "分享到朋友圈", "分享给朋友", "删除"],
 				success: async (res) => {
 					const index = res.tapIndex;
 					if (index == 0) {
@@ -114,6 +114,10 @@ export default {
 							success: res => uni.showToast({title:"分享成功"}),
 							fail: err => console.log("fail:", JSON.stringify(err)),
 						});
+					} else if (index == 3) {
+						if (!this.note.id) return;
+						await this.api.notes.delete({id: this.note.id});
+						return this.back({action:"delete", note:this.note});
 					}
 				},
 				fail: res => console.log(res.errMsg),
@@ -122,7 +126,7 @@ export default {
 
 		clickTagEdit() {
 			this.subpage = "tag-edit";
-			this.go("/pages/tag/edit", {selectedTags:this.selectedTags, classify:3});
+			this.go("/pages/tag/edit", {objectId: this.note.id, tags: this.tags, classify:3});
 		}
 	},
 

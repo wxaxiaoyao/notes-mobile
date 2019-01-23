@@ -18,8 +18,8 @@
 			</view>
 
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
-				<view @click="go('/pages/page/index')" class="uni-list-cell-navigate uni-navigate-right">
-					页面
+				<view @click="go('/pages/document/index')" class="uni-list-cell-navigate uni-navigate-right">
+					文档
 				</view>
 			</view>
 

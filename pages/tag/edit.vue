@@ -4,8 +4,6 @@
 			status-bar=true 
 			left-icon="back" 
 			left-text="标签编辑" 
-			right-text="确定"
-			@click-right="clickConfirmBtn"
 			@click-left="clickBackBtn">
 		</uni-nav-bar>
 
@@ -62,18 +60,26 @@ export default {
 	},
 	
 	async onLoad() {
-		const {selectedTags = [], classify} = this.getPageArgs();
+		const {tags = [], classify = 0, objectId} = this.getPageArgs();
 		this.classify = classify || 0;
-		this.selectedTags = selectedTags;
-		this.tags = await this.api.classifyTags.get({classify}).then(res => res.data || []);
+		this.selectedTags = tags;
+		this.tags = await this.api.tags.get({classify}).then(res => res.data || []);
+		if (objectId) {
+			this.objectId = objectId;
+			this.selectedTags = await this.api.objectTags.get({classify, objectId}).then(res => res.data || []);
+		}
 	},
 
 	methods: {
-		clickBackBtn() {
-			this.back();
-		},
-		clickConfirmBtn() {
-			this.back({selectedTags: this.selectedTags});
+		async clickBackBtn() {
+			if (this.objectId) {
+				await this.api.objectTags.setTags({
+					objectId: this.objectId, 
+					classify: this.classify,
+					tags:this.selectedTags.map(o => ({objectId:this.objectId, tagId:o.id})),
+				});
+			}
+			this.back({tags: this.selectedTags});
 		},
 
 		clickAddTag(x) {
@@ -101,7 +107,7 @@ export default {
 				return;
 			}
 			
-			const result = await this.api.classifyTags.create({
+			const result = await this.api.tags.create({
 				tagname:this.tag,
 				classify: this.classify,
 				userId: this.user.id,
@@ -119,7 +125,7 @@ export default {
 
 		async tagLongtap(x, i) {
 			this.tags.splice(i, 1);
-			await this.api.classifyTags.delete({id:x.id});
+			await this.api.tags.delete({id:x.id});
 		},
 	},
 }

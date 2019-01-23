@@ -5,21 +5,21 @@
 			left-icon="back" 
 			left-text="返回" 
 			@click-left="back" 
-			title="手记"
+			title="文档"
 			right-icon="plusempty"
 		    @click-right="clickNewBtn">
 		</uni-nav-bar>
 
 		<view class="uni-list">
-			<view @click="clickNote(x, $event)" v-for="(x, i) in notes" :key="x.id" class="uni-list-cell" hover-class="uni-list-cell-hover">
-				<view class="note-container">
+			<view @click="clickDocument(x, $event)" v-for="(x, i) in documents" :key="x.id" class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view class="document-container">
 					<view class="uni-title uni-ellipsis">
-						{{x.formatTitle}}
+						{{x.filename}}
 					</view>
 					<view class="uni-text-small x-text-ellipsis">
-						{{x.formatText}}
+						{{x.text}}
 					</view>
-					<view class="note-footer">
+					<view class="document-footer">
 						<view>
 							<scroll-view scroll-x style="white-space:nowrap">
 								<uni-tag inverted=true  v-for="tag in x.tags" :key="x.id + '-' + tag.id"  :text="tag.tagname"></uni-tag>
@@ -51,7 +51,7 @@ export default {
 
 	data: function() {
 		return {
-			notes:[],
+			documents:[],
 		}
 	},
 
@@ -60,17 +60,17 @@ export default {
 	},
 
 	async onShow() {
-		const {note = {},action} = this.getBackArgs() || {};
-		if (!note.id) return;
-		const index = this.app._.findIndex(this.notes, o => o.id == note.id);
+		const {action, document={}} = this.getBackArgs() || {};
+		if (!document.id) return;
 
+		const index = this.app._.findIndex(this.documents, o => o.id == document.id);
 		if (action == "delete") {
 			if (index < 0) return;
-			this.notes.splice(index, 1);
+			this.documents.splice(index, 1);
 		} else {
-			this.format(note);
-			if (index < 0) this.notes.push(note);
-			else this.notes.splice(index, 1, note);
+			this.format(document);
+			if (index < 0) this.documents.push(document);
+			else this.documents.splice(index, 1, document);
 		}
 
 		this.setBackArgs(this.currentPageUrl, {});
@@ -79,24 +79,20 @@ export default {
 	methods: {
 		format(x) {
 			const text = x.text || "";
-			x.formatTitle = text.split("\n")[0];
-			x.formatText = text.split("\n").slice(1).join(" ");
 			x.formatUpdatedAt =  moment(x.updatedAt).fromNow();
+			x.tags = [];
 		},
-		clickNote(x, e) {
-			this.subPageType = "update";
-			this.go("/pages/note/upsert", x);
+		clickDocument(x, e) {
+			this.go("/pages/document/upsert", x);
+			//this.go("/pages/document/show", x);
 		},
 		clickNewBtn() {
-			this.subPageType = "create";
-			return this.go("/pages/note/upsert", {});
+			return this.go("/pages/document/upsert", {});
 		},
-
 		async loadDatas() {
-			const result = await this.api.notes.get();
-			this.notes = result.data || [];
-
-			this.app._.each(this.notes, o => this.format(o));
+			const result = await this.api.documents.get();
+			this.documents = result.data || [];
+			this.app._.each(this.documents, o => this.format(o));
 			return;
 		},
 	}
@@ -108,11 +104,11 @@ export default {
 .uni-tag+.uni-tag {
 	margin-left:2px;
 }
-.note-context-container {
+.document-context-container {
 	position:fixed;
 	z-index:10;
 }
-.note-container {
+.document-container {
 	display: flex;
 	flex: 1;
 	width: 100%;
@@ -120,7 +116,7 @@ export default {
 	box-sizing: border-box;
 	padding: 22upx 30upx;
 }
-.note-footer {
+.document-footer {
 	display:flex;
 	justify-content: space-between;
 	align-items: center;

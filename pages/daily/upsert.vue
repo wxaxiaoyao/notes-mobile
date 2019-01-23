@@ -74,9 +74,9 @@ export default {
 	},
 
 	onShow() {
-		const {selectedTags} = this.getBackArgs();
+		const {tags} = this.getBackArgs();
 		if (this.subpage == "tag-edit" && selectedTags) {
-			this.tags = selectedTags;
+			this.tags = tags;
 		}
 		this.subpage = undefined;
 	},
@@ -87,7 +87,7 @@ export default {
 		},
 		clickTagEdit() {
 			this.subpage = "tag-edit";
-			this.go("/pages/tag/edit", {selectedTags:this.tags, classify:4});
+			this.go("/pages/tag/edit", {tags:this.tags, objectId: this.daily.id, classify:4});
 		},
 		async clickSubmitBtn() {
 			this.daily.tags = "|" + this.tags.map(o => o.tagname).join("|") + "|";
