@@ -19,7 +19,6 @@ const developmentConfig = {
 
 const productionConfig = {
 	env:"production",
-	//baseURL:"http://192.168.31.250:3001/api/v0/",
 	baseURL:"http://api.wxaxiaoyao.cn/api/v0/",
 	socketUrl: "ws://api.wxaxiaoyao.cn/",
 	webviewUrl: "http://wxaxiaoyao.cn",

@@ -24,6 +24,12 @@
 			</view>
 
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view @click="go('/pages/game/index')" class="uni-list-cell-navigate uni-navigate-right">
+					游戏
+				</view>
+			</view>
+
+			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view @click="clickScanCode" class="uni-list-cell-navigate uni-navigate-right">
 					扫一扫
 				</view>
