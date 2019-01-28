@@ -28,6 +28,11 @@
 			</view>
 
 			<view class="uni-list-cell-divider"></view>
+			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view @click="go('/pages/user/sponsor')" class="uni-list-cell-navigate">打赏</view>
+			</view>
+
+			<view class="uni-list-cell-divider"></view>
 			<view @click="clickLogoutBtn" class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view class="uni-list-cell-navigate">
 					退出

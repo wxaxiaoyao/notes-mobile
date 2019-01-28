@@ -2,9 +2,9 @@
 const platform = uni.getSystemInfoSync().platform;
 const defaultConfig = {
 	version:{
-		versionNo:12,
-		versionName: "0.0.12",
-		description: `完善便条功能`,
+		versionNo:13,
+		versionName: "0.0.13",
+		description: `增加魔方游戏功能`,
 	},
 }
 
