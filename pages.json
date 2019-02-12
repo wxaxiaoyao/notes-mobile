@@ -2,6 +2,7 @@
 	"pages": [
 		{"path": "pages/index/index"},
 		{"path": "pages/index/near"},
+		{"path": "pages/index/search"},
 		{"path": "pages/document/index"},
 		{"path": "pages/document/upsert"},
 		{"path": "pages/chat/index"},
@@ -37,6 +38,8 @@
 		{"path": "pages/note/index"},
 		{"path": "pages/note/upsert"},
 		{"path": "pages/tag/edit"},
+		{"path": "pages/tag/index"},
+		{"path": "pages/tag/upsert"},
 		{"path": "pages/debug/index"},
 		{"path": "pages/web/index"},
 		{"path": "pages/game/index"},

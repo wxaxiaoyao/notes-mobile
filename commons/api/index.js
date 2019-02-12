@@ -229,6 +229,7 @@ export function Dailies(options) {
 
 	initHttpOptions(self, options, "dailies");
 	self.import = self.apiRequest("post", "import");
+	self.search = self.apiRequest("post", "search");
 }
 
 export function Suggestions(options) {
@@ -367,6 +368,7 @@ export function Notes(options) {
 
 	initHttpOptions(self, options, "notes");
 	self.setTags = self.apiRequest("post", ":id/tags");
+	self.search = self.apiRequest("post", "search");
 }
 
 export function NotePackages(options) {
@@ -379,6 +381,7 @@ export function Documents(options) {
 	const self = this;
 
 	initHttpOptions(self, options, "documents");
+	self.search = self.apiRequest("post", "search");
 }
 
 export function ObjectTags(options) {

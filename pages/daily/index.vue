@@ -1,7 +1,7 @@
 
 <template>
 	<view>
-		<uni-nav-bar status-bar=true left-icon="back" left-text="返回" @click-left="back" title="日报" right-text="新增" @click-right="clickNewBtn"></uni-nav-bar>
+		<uni-nav-bar status-bar=true left-icon="back" left-text="返回" @click-left="back" title="日记" right-text="新增" @click-right="clickNewBtn"></uni-nav-bar>
 		<view class="uni-list">
 			<view v-for="(x, i) in dailies" :key="i" @click="clickEditBtn(x)" class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view class="uni-flex uni-column uni-flex-item uni-list-cell-pd">

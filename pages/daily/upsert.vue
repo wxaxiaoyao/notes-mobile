@@ -5,7 +5,7 @@
 			left-icon="back" 
 			left-text="返回" 
 			@click-left="back(daily)" 
-			:title="daily.id ? '日报-更新' : '日报-新增'"
+			:title="daily.id ? '日记-更新' : '日记-新增'"
 		    right-text="提交"
 		    @click-right="clickSubmitBtn">
 		</uni-nav-bar>
@@ -35,7 +35,7 @@
 			<view class="uni-list-cell">
 				<view class="uni-list-cell-navigate">
 					<view class="uni-textarea">
-						<textarea style="min-height:100px" class="x-input-border" v-model="daily.content" auto-height placeholder="请输入日报内容..."></textarea>
+						<textarea style="min-height:100px" class="x-input-border" v-model="daily.content" auto-height placeholder="请输入日记内容..."></textarea>
 					</view>
 				</view>
 			</view>
@@ -61,7 +61,7 @@ export default {
 		return {
 			daily: {
 				date:moment().format("YYYY-MM-DD"),
-				content:"请输入日报内容...",
+				content:"",
 			},
 			tags:[],
 		}

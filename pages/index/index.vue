@@ -7,7 +7,7 @@
 
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view @click="go('/pages/daily/index')" class="uni-list-cell-navigate uni-navigate-right">
-					日报
+					日记
 				</view>
 			</view>
 
@@ -35,11 +35,11 @@
 				</view>
 			</view>
 
-			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+			<!--view class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view @click="clickNearContact" class="uni-list-cell-navigate uni-navigate-right">
 					附近的人
 				</view>
-			</view>
+			</view-->
 		</view>
 	</view>
 </template>

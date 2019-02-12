@@ -9,8 +9,13 @@
 			right-icon="plusempty"
 		    @click-right="clickNewBtn">
 		</uni-nav-bar>
-
 		<view class="uni-list">
+			<view @click="clickTag" class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view class="uni-list-cell-navigate">
+					标签
+				</view>
+			</view>
+
 			<view @click="clickNote(x, $event)" v-for="(x, i) in notes" :key="x.id" class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view class="note-container">
 					<view class="uni-title uni-ellipsis">
@@ -25,7 +30,7 @@
 								<uni-tag inverted=true  v-for="tag in x.tags" :key="x.id + '-' + tag.id"  :text="tag.tagname"></uni-tag>
 							</scroll-view>
 						</view>
-						<text>{{ x.formatUpdatedAt}}</text>
+						<text>{{x.formatUpdatedAt}}</text>
 					</view>
 				</view>
 			</view>
@@ -82,6 +87,9 @@ export default {
 			x.formatTitle = text.split("\n")[0];
 			x.formatText = text.split("\n").slice(1).join(" ");
 			x.formatUpdatedAt =  moment(x.updatedAt).fromNow();
+		},
+		clickTag() {
+			return this.go("/pages/tag/index", {classify:this.app.consts.CLASSIFY_TAG_NOTE});
 		},
 		clickNote(x, e) {
 			this.subPageType = "update";
