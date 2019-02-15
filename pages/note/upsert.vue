@@ -114,6 +114,7 @@ export default {
 							success: res => {
 								console.log(JSON.stringify(res));
 								uni.showToast({title:"分享成功"})
+								this.clickBackBtn();
 							},
 							fail: err => console.log("fail:", JSON.stringify(err)),
 						});

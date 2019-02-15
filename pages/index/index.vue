@@ -6,6 +6,12 @@
 			<view class="uni-list-cell-divider"></view>
 
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view @click="go('/pages/index/editor')" class="uni-list-cell-navigate uni-navigate-right">
+					编辑器
+				</view>
+			</view>
+
+			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view @click="go('/pages/daily/index')" class="uni-list-cell-navigate uni-navigate-right">
 					日记
 				</view>
