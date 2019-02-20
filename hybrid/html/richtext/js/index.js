@@ -12,14 +12,25 @@ const setStyle = (cmd, value = null) => {
 
 document.addEventListener('UniAppJSBridgeReady', function() {
 	window.clickBackBtn = function() {
-		const text = document.getElementById('text-area').innerHTML;
+		//const text = document.getElementById('text-area').innerHTML;
 		//console.log(text);
 		//uni.postMessage({data:text});
-		uni.navigateBack({
-			delta:1,
+// 		uni.navigateBack({
+// 			delta:1,
+// 		});
+// // 		uni.navigateTo({  
+//             url: '/pages/index/index',
+//         });
+		uni.switchTab({
+			url: '/pages/index/index'
 		});
 	}
     uni.getEnv(function(res) {  
+		if (res.plus) {
+			document.getElementById("page-container").style.top = "20px";
+		} else if (res["h5"]) {
+			//document.getElementById("page-container").style.top = "20px";
+		}
         console.log('当前环境：' + JSON.stringify(res));  
     });  
 });

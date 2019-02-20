@@ -1,7 +1,15 @@
 
 <template>
 	<view class="editor-page-container">
-		<web-view @message="messageHandle" :src="webviewUrl"></web-view>
+		<uni-nav-bar 
+			status-bar=true 
+			fixed=true
+			left-icon="back" 
+			left-text="编辑器"
+			
+			@click-left="back">
+		</uni-nav-bar>
+		<web-view :webview-styles="webviewStyles" @message="messageHandle" :src="webviewUrl"></web-view>
 	</view>
 </template>
 
@@ -19,11 +27,15 @@ export default {
 
 	data() {
 		return {
+			webviewStyles: {
+				progress: true,
+			}
 		}
 	},
 	
 	computed:{
 		webviewUrl() {
+			//return "http://notes-modbile.wxaxiaoyao.cn/richtext/index.html";
 			const url = "/hybrid/html/richtext/index.html";
 			return config.env == "production" ? url : ("http://127.0.0.1:8848/notes-mobile" + url);
 		}
@@ -43,6 +55,7 @@ export default {
 
 <style lang="less" scoped>
 .editor-page-container {
+	position: relative;
 	width:100%;
 	height:100%;
 }

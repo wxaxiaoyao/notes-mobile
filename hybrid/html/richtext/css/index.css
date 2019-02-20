@@ -12,6 +12,7 @@
 	height: 44px;
 	display: flex;
 	align-items: center;
+	background-color: white;
 }
 .text-area-container {
 	flex: 1;
