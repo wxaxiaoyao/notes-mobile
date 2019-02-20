@@ -71,6 +71,10 @@ export default {
 		this.authenticated();
 		this.checkVersion();
 	},
+	onShow() {
+		const data = uni.getStorageSync("webview-back");
+		console.log(data);
+	},
 	methods: {
 		upgrade() {
 			this.upgradesIndexData.visible = true;
