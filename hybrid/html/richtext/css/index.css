@@ -43,6 +43,10 @@
 .tool-bar>.btn {
 	font-size:20px;
 }
-#control-area {
-	display: none;
+
+/* richtext style */
+#text-area img {
+	max-height: 100%;
+	max-width: 100%;
+	display: block;
 }

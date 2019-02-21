@@ -12,6 +12,18 @@ const changeStyle = data => {
 // 	uni && uni.postMessage && uni.postMessage({data:text});
 // }
 // 
+
+function fileUpload(e) {
+	console.log(e);
+	const reads= new FileReader();
+    const file=document.getElementById('fileupload').files[0];
+    reads.readAsDataURL(file);
+    reads.onload= function () {
+		const src = this.result;
+		changeStyle({command:"insertImage", value:src});
+    };
+}
+
 function save() {
 	const {id, token, url, fieldName="text"} = app.query;
 	if (!id || !token|| !url) return;

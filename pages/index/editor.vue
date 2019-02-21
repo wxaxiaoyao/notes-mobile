@@ -1,13 +1,6 @@
 
 <template>
 	<view class="editor-page-container">
-		<uni-nav-bar 
-			status-bar=true 
-			fixed=true
-			left-icon="back" 
-			left-text="编辑器"
-			@click-left="back">
-		</uni-nav-bar>
 		<web-view :src="webviewUrl"></web-view>
 		<!-- <web-view :webview-styles="webviewStyles" @message="messageHandle" :src="webviewUrl"></web-view> -->
 	</view>
@@ -33,11 +26,12 @@ export default {
 		}
 	},
 	
-	computed:{
+	computed: {
 		webviewUrl() {
-			//return "http://notes-modbile.wxaxiaoyao.cn/richtext/index.html";
-			const url = "/hybrid/html/richtext/index.html";
-			return config.env == "production" ? "http://notes-modbile.wxaxiaoyao.cn/richtext/index.html" : ("http://127.0.0.1:8848/notes-mobile" + url);
+			const version = 1;
+			const token = this.token || "";
+			const url = config.env == "production" ? "http://notes-modbile.wxaxiaoyao.cn/richtext/index.html" : "http://127.0.0.1:8848/notes-mobile/hybrid/html/richtext/index.html";
+			return `${url}?v=${version}&token=${token}`;
 		}
 	},
 	
