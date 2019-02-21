@@ -6,7 +6,6 @@
 			fixed=true
 			left-icon="back" 
 			left-text="编辑器"
-			
 			@click-left="back">
 		</uni-nav-bar>
 		<web-view :webview-styles="webviewStyles" @message="messageHandle" :src="webviewUrl"></web-view>
@@ -43,6 +42,7 @@ export default {
 	
 	async onLoad() {
 	},
+	
 	methods: {
 		messageHandle(e) {
 			console.log(e);

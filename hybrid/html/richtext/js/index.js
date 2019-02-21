@@ -1,3 +1,4 @@
+const app = {};
 
 const changeStyle = data => {
 	const {command, value=null} = data;
@@ -10,17 +11,38 @@ const setStyle = (cmd, value = null) => {
 	document.execCommand(cmd, false, value);
 }
 
+const textChange = () => {
+	console.log("-------");
+	const text = document.getElementById('text-area').innerHTML;
+	//console.log(text);
+	// uni && uni.postMessage && uni.postMessage({data:text});
+	uni.postMessage({data:{text}});
+}
+
+function save() {
+	const {id, token, url, fieldName="text"} = app.query;
+	if (!id || !token|| !url) return;
+	const text = document.getElementById('text-area').innerHTML;
+	axios({
+		method:"post",
+		url,
+		data: {
+			id, 
+			[fieldName]:text,
+		},
+		headers: {
+			"Authorization": "Bearer " + token,
+			"Content-Type": "application/json",
+		},
+	}).then(()=> {
+		console.log("保存成功");
+	});
+}
 document.addEventListener('UniAppJSBridgeReady', function() {
 	window.clickBackBtn = function() {
 		//const text = document.getElementById('text-area').innerHTML;
 		//console.log(text);
 		//uni.postMessage({data:text});
-// 		uni.navigateBack({
-// 			delta:1,
-// 		});
-// // 		uni.navigateTo({  
-//             url: '/pages/index/index',
-//         });
 		uni.switchTab({
 			url: '/pages/index/index'
 		});
@@ -36,7 +58,9 @@ document.addEventListener('UniAppJSBridgeReady', function() {
 });
 
 window.onload = function() {
+	app.query = url("?", window.location.href) || {};
 	const editor = document.getElementById("text-area");
 	setTimeout(() => document.getElementById("text-area").focus());
+	document.getElementById('text-area').innerHTML = app.query.text || "";
 }
 
