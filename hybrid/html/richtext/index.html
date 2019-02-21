@@ -15,7 +15,7 @@
 				<a href="#" class="btn iconfont icon-back" style="padding-left: 2px;" onclick="clickBackBtn()">返回</a>
 			</div>
 			<div class="text-area-container" onclick="document.getElementById('control-area').style.display='none'">
-				<div id="text-area" contenteditable onkeyup="textChange()"></div>
+				<div id="text-area" contenteditable></div>
 			</div>
 			<div class="tool-bar-container">
 				<div class="tool-bar">
@@ -26,26 +26,10 @@
 					<!-- <a href="#" class='btn' data-command='insertHorizontalRule' onclick="changeStyle(this.dataset)">水平线</a> -->
 					<a href="#" class='btn iconfont icon-editor-list-bulleted' data-command='insertUnorderedList' onclick="changeStyle(this.dataset)"></a>
 					<a href="#" class='btn iconfont icon-editor-list-numbers' data-command='insertOrderedList' onclick="changeStyle(this.dataset)"></a>
-					<!-- <select id="fontName" onchange='setStyle("fontName", document.getElementById("fontName").value)'>
-						<option value="宋体">宋体</option>
-						<option value="黑体">黑体</option>
-						<option value="楷体">楷体</option>
-						<option value="仿宋">仿宋</option>
-						<option value="微软雅黑">微软雅黑</option>
-					</select>
+
 					<a href="#" class="btn" onclick="document.getElementById('control-area').style.display='block'">文本</a> -->
 					<a href="#" class="btn iconfont icon-editor-image"></a>
 					<a href="#" class='btn iconfont icon-save' onclick="save()"></a>
-				</div>
-				<div id="control-area">
-					<div class="tool-classify-container">
-						
-					</div>
-					<a href="#" class='btn middle grey' data-command='bold' onclick="changeStyle(this.dataset)">粗体</a>
-					<a href="#" class='btn middle grey' data-command='InsertInputCheckbox' onclick="changeStyle(this.dataset)">代办</a>
-					<a href="#" class='btn middle grey' data-command='insertHorizontalRule' onclick="changeStyle(this.dataset)">水平线</a>
-					<a href="#" class='btn middle grey' data-command='insertUnorderedList' onclick="changeStyle(this.dataset)">项目符号</a>
-					<a href="#" class='btn middle grey' data-command='insertOrderedList' onclick="changeStyle(this.dataset)">数字编码</a>
 				</div>
 			</div>
 		</div>
@@ -60,64 +44,3 @@
 	</body>
 </html>
 <!-- https://developer.mozilla.org/zh-CN/docs/Web/API/Document/execCommand#%E5%91%BD%E4%BB%A4 -->
-<!-- <div id="control-area">
-					<div class="btn-group">
-						<a href="#" class='btn left blue' data-command='undo' onclick="changeStyle(this.dataset)">◀撤销</a>
-						<a href="#" class='btn right blue' data-command='redo' onclick="changeStyle(this.dataset)">重做▶</a>
-					</div>
-					<div class="btn-group">
-						<a href="#" class='btn left blue' data-command='fontName' data-value="宋体" onclick="changeStyle(this.dataset)">宋</a>
-						<a href="#" class='btn middle blue' data-command='fontName' data-value="黑体" onclick="changeStyle(this.dataset)">黑</a>
-						<a href="#" class='btn middle blue' data-command='fontName' data-value="楷体" onclick="changeStyle(this.dataset)">楷</a>
-						<a href="#" class='btn middle blue' data-command='fontName' data-value="仿宋" onclick="changeStyle(this.dataset)">仿宋</a>
-						<a href="#" class='btn right blue' data-command='fontName' data-value="微软雅黑" onclick="changeStyle(this.dataset)">雅黑</a>
-					</div>
-					<div class="btn-group">
-						<a href="#" class='btn left grey' data-command='italic' onclick="changeStyle(this.dataset)">斜体</a>
-						<a href="#" class='btn middle grey' data-command='bold' onclick="changeStyle(this.dataset)">粗体</a>
-						<a href="#" class='btn middle grey' data-command='underline' onclick="changeStyle(this.dataset)">下划线</a>
-						<a href="#" class='btn right grey' data-command='strikeThrough' onclick="changeStyle(this.dataset)">删除线</a>
-					</div>
-					<div class="btn-group">
-						<a href="#" class='btn left blue' data-command='justifyLeft' onclick="changeStyle(this.dataset)">左</a>
-						<a href="#" class='btn middle blue' data-command='justifyCenter' onclick="changeStyle(this.dataset)">居中</a>
-						<a href="#" class='btn middle blue' data-command='justifyRight' onclick="changeStyle(this.dataset)">右</a>
-						<a href="#" class='btn right blue' data-command='justifyFull' onclick="changeStyle(this.dataset)">两端</a>
-					</div>
-					<div class="btn-group">
-						<a href="#" class='btn left grey' data-command='indent' onclick="changeStyle(this.dataset)">右缩进</a>
-						<a href="#" class='btn right grey' data-command='outdent' onclick="changeStyle(this.dataset)">左缩进</a>
-					</div>
-					<div class="btn-group">
-						<a href="#" class='btn left blue' data-command='insertOrderedList' onclick="changeStyle(this.dataset)">有序列表</a>
-						<a href="#" class='btn right blue' data-command='insertUnorderedList' onclick="changeStyle(this.dataset)">无序列表</a>
-					</div>
-					<div class="btn-group">
-						<a href="#" class='btn left grey' data-command='superscript' onclick="changeStyle(this.dataset)">上标</a>
-						<a href="#" class='btn right grey' data-command='subscript' onclick="changeStyle(this.dataset)">下标</a>
-					</div>
-
-					<div class="btn-group">
-						<a href="#" class='btn left blue' data-command='selectAll' onclick="changeStyle(this.dataset)">全选</a>
-						<a href="#" class='btn middle blue' data-command='copy' onclick="changeStyle(this.dataset)">复制</a>
-						<a href="#" class='btn right blue' data-command='cut' onclick="changeStyle(this.dataset)">剪切</a>
-					</div>
-					<div class="btn-group">
-						<a href="#" class='btn left grey' data-command='fontSize' data-value="1" onclick="changeStyle(this.dataset)">1号</a>
-						<a href="#" class='btn middle grey' data-command='fontSize' data-value="2" onclick="changeStyle(this.dataset)">2号</a>
-						<a href="#" class='btn middle grey' data-command='fontSize' data-value="3" onclick="changeStyle(this.dataset)">3号</a>
-						<a href="#" class='btn middle grey' data-command='fontSize' data-value="4" onclick="changeStyle(this.dataset)">4号</a>
-						<a href="#" class='btn middle grey' data-command='fontSize' data-value="5" onclick="changeStyle(this.dataset)">5号</a>
-						<a href="#" class='btn middle grey' data-command='fontSize' data-value="6" onclick="changeStyle(this.dataset)">6号</a>
-						<a href="#" class='btn right grey' data-command='fontSize' data-value="7" onclick="changeStyle(this.dataset)">7号</a>
-					</div>
-					<div class="btn-group">
-						<a href="#" class='btn left' data-command='foreColor' data-value="red" onclick="changeStyle(this.dataset)" style="background-color: red">&nbsp;&nbsp;</a>
-						<a href="#" class='btn middle' data-command='foreColor' data-value="orange" onclick="changeStyle(this.dataset)" style="background-color: orange">&nbsp;&nbsp;</a>
-						<a href="#" class='btn middle' data-command='foreColor' data-value="yellow" onclick="changeStyle(this.dataset)" style="background-color: yellow">&nbsp;&nbsp;</a>
-						<a href="#" class='btn middle' data-command='foreColor' data-value="green" onclick="changeStyle(this.dataset)" style="background-color: green">&nbsp;&nbsp;</a>
-						<a href="#" class='btn middle' data-command='foreColor' data-value="cyan" onclick="changeStyle(this.dataset)" style="background-color: cyan">&nbsp;&nbsp;</a>
-						<a href="#" class='btn middle' data-command='foreColor' data-value="blue" onclick="changeStyle(this.dataset)" style="background-color: blue">&nbsp;&nbsp;</a>
-						<a href="#" class='btn middle' data-command='foreColor' data-value="purple" onclick="changeStyle(this.dataset)" style="background-color: purple">&nbsp;&nbsp;</a>
-					</div>
-				</div> -->

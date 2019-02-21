@@ -8,7 +8,8 @@
 			left-text="编辑器"
 			@click-left="back">
 		</uni-nav-bar>
-		<web-view :webview-styles="webviewStyles" @message="messageHandle" :src="webviewUrl"></web-view>
+		<web-view :src="webviewUrl"></web-view>
+		<!-- <web-view :webview-styles="webviewStyles" @message="messageHandle" :src="webviewUrl"></web-view> -->
 	</view>
 </template>
 
@@ -36,7 +37,7 @@ export default {
 		webviewUrl() {
 			//return "http://notes-modbile.wxaxiaoyao.cn/richtext/index.html";
 			const url = "/hybrid/html/richtext/index.html";
-			return config.env == "production" ? url : ("http://127.0.0.1:8848/notes-mobile" + url);
+			return config.env == "production" ? "http://notes-modbile.wxaxiaoyao.cn/richtext/index.html" : ("http://127.0.0.1:8848/notes-mobile" + url);
 		}
 	},
 	

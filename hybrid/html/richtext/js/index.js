@@ -3,22 +3,15 @@ const app = {};
 const changeStyle = data => {
 	const {command, value=null} = data;
     const result = document.execCommand(command, false, value);
-	console.log(result, command, value);
+	// console.log(result, command, value);
 	setTimeout(() => document.getElementById("text-area").focus());
 }
 
-const setStyle = (cmd, value = null) => {
-	document.execCommand(cmd, false, value);
-}
-
-const textChange = () => {
-	console.log("-------");
-	const text = document.getElementById('text-area').innerHTML;
-	//console.log(text);
-	// uni && uni.postMessage && uni.postMessage({data:text});
-	uni.postMessage({data:{text}});
-}
-
+// const textChange = () => {
+// 	const text = document.getElementById('text-area').innerHTML;
+// 	uni && uni.postMessage && uni.postMessage({data:text});
+// }
+// 
 function save() {
 	const {id, token, url, fieldName="text"} = app.query;
 	if (!id || !token|| !url) return;
@@ -40,9 +33,6 @@ function save() {
 }
 document.addEventListener('UniAppJSBridgeReady', function() {
 	window.clickBackBtn = function() {
-		//const text = document.getElementById('text-area').innerHTML;
-		//console.log(text);
-		//uni.postMessage({data:text});
 		uni.switchTab({
 			url: '/pages/index/index'
 		});
