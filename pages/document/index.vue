@@ -17,7 +17,7 @@
 						{{x.filename}}
 					</view>
 					<view class="uni-text-small x-text-ellipsis">
-						{{x.text}}
+						{{x.text.replace(/<\/?.+?\/?>/g, '')}}
 					</view>
 					<view class="document-footer">
 						<view>
@@ -83,7 +83,7 @@ export default {
 			x.tags = [];
 		},
 		clickDocument(x, e) {
-			this.go("/pages/document/upsert", x);
+			this.go("/pages/document/show", x);
 			//this.go("/pages/document/show", x);
 		},
 		clickNewBtn() {

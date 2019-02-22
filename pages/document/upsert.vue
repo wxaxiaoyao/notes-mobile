@@ -14,7 +14,7 @@
 			<view class="uni-input">
 				<input v-model="document.filename" class="filename-input" placeholder="文档名" />
 			</view>
-
+			
 			<view class="uni-textarea full-height">
 				<textarea :style='{height: textareaHeight - 20 + "px"}' maxlength=-1 class="x-input-border" v-model="document.text" placeholder="请输入手记内容..."></textarea>
 			</view>
@@ -46,30 +46,29 @@ export default {
 	computed: {
 		id() {
 			return this.document.id;
-		}
+		},
 	},
 
 	async onLoad() {
 		this.document = this.getPageArgs();
 		this.text = this.document.text || "";
-		this.tagstr = this.document.tags;
+		this.tags = this.document.tags || [];
 		this.textareaHeight = this.windowHeight - 44 - 33;  // 小程序状态栏25px 暂不考虑
 	},
 
 	async onShow() {
-		const {selectedTags=[]} = this.getBackArgs();
-		this.selectedTags = selectedTags || this.selectedTags;
-		this.document.aliasTags = this.selectedTags.map(o => o.tagname);
-		this.document.tags = "|" + this.document.aliasTags.join("|") + "|";
-		this.tags = this.document.aliasTags;
-
-		this.setBackArgs(this.currentPageUrl, {});
+		if (this.subpage == "tag-edit") {
+			const {tags} = this.getBackArgs();
+			this.tags = tags || this.tags;
+			this.document.tags = this.tags;
+			this.setBackArgs(this.currentPageUrl, {});
+		}
 	},
 
 	methods: {
 		async saveDocument() {
 			if (this.document.id) {
-				if (this.text != this.document.text || this.tagstr != this.document.tags) {
+				if (this.text != this.document.text) {
 					await this.api.documents.update(this.document);
 				} else {
 					return;
@@ -107,7 +106,7 @@ export default {
 						});
 					} else if (index == 3) {
 						// 编辑标签
-						this.go("/pages/tag/edit", {objectId: this.document.id, classify:0});
+						this.go("/pages/tag/edit", {objectId: this.document.id, classify:5});
 					} else if (index == 4) {
 						if (!this.document.id) return;
 						await this.api.documents.delete({id: this.document.id});
@@ -117,7 +116,7 @@ export default {
 				fail: res => console.log(res.errMsg),
 			});
 		},
-
+		
 		clickTagEdit() {
 		}
 	},

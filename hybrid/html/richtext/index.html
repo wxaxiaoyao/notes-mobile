@@ -13,25 +13,36 @@
 		<input id="fileupload" onchange="fileUpload(this)" type="file" accept="image/*" style="position: fixed; bottom: 0; z-index: 1;">
 		<div id="page-container" class="page-container">
 			<div class="nav-bar-container">
-				<a href="#" class="btn iconfont icon-back" style="padding-left: 2px;" onclick="clickBackBtn()">返回</a>
-			</div>
-			<div class="text-area-container">
-				<div id="text-area" contenteditable onkeyup="textChange()" onfocus="textChange()"></div>
-			</div>
-			<div class="tool-bar-container">
+				<!-- <a href="#" class="btn iconfont icon-back" style="padding-left: 2px;" onclick="clickBackBtn()">返回</a> -->
+				<!-- <input id="filename" class="filename-input" placeholder="请输入文档名" /> -->
 				<div class="tool-bar">
 					<a href="#" class='btn iconfont icon-editor-undo' data-command='undo' onclick="changeStyle(this.dataset)"></a>
 					<a href="#" class='btn iconfont icon-editor-redo' data-command='redo' onclick="changeStyle(this.dataset)"></a>
 					<a href="#" class='btn iconfont icon-editor-bold' data-command='bold' onclick="changeStyle(this.dataset)"></a>
 					<a href="#" class='btn iconfont icon-todo' data-command='insertHTML' data-value='<input type="checkbox"> ' onclick="changeStyle(this.dataset)"></a>
-					<!-- <a href="#" class='btn' data-command='insertHorizontalRule' onclick="changeStyle(this.dataset)">水平线</a> -->
 					<a href="#" class='btn iconfont icon-editor-list-bulleted' data-command='insertUnorderedList' onclick="changeStyle(this.dataset)"></a>
 					<a href="#" class='btn iconfont icon-editor-list-numbers' data-command='insertOrderedList' onclick="changeStyle(this.dataset)"></a>
-					
 					<a href="#" class="btn iconfont icon-editor-image" onclick="document.getElementById('fileupload').click()"></a>
-					<a href="#" class='btn iconfont icon-save' onclick="save()"></a>
+					<a id="save" href="#" class='btn iconfont icon-save' onclick="save()"></a>
 				</div>
 			</div>
+			<div class="text-area-container">
+				<div id="text-area" contenteditable onkeyup="textChange()" onfocus="textChange()"></div>
+			</div>
+<!-- 			<div class="tool-bar-container">
+				<div class="tool-bar">
+					<a href="#" class='btn iconfont icon-editor-undo' data-command='undo' onclick="changeStyle(this.dataset)"></a>
+					<a href="#" class='btn iconfont icon-editor-redo' data-command='redo' onclick="changeStyle(this.dataset)"></a>
+					<a href="#" class='btn iconfont icon-delete' onclick="document.getElementById('text-area').innerHTML=''"></a>
+					<a href="#" class='btn iconfont icon-editor-bold' data-command='bold' onclick="changeStyle(this.dataset)"></a>
+					<a href="#" class='btn iconfont icon-todo' data-command='insertHTML' data-value='<input type="checkbox"> ' onclick="changeStyle(this.dataset)"></a>
+					<a href="#" class='btn' data-command='insertHorizontalRule' onclick="changeStyle(this.dataset)">水平线</a>
+					<a href="#" class='btn iconfont icon-editor-list-bulleted' data-command='insertUnorderedList' onclick="changeStyle(this.dataset)"></a>
+					<a href="#" class='btn iconfont icon-editor-list-numbers' data-command='insertOrderedList' onclick="changeStyle(this.dataset)"></a>
+					<a href="#" class="btn iconfont icon-editor-image" onclick="document.getElementById('fileupload').click()"></a>
+					<a id="save" href="#" class='btn iconfont icon-save' onclick="save()"></a>
+				</div>
+			</div> -->
 		</div>
 		<!-- uni 的 SDK，必须引用。 -->  
 		<script type="text/javascript" src="https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.1.5.0.js"></script>

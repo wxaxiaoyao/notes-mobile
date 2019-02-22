@@ -9,15 +9,17 @@ const changeStyle = data => {
 
 const textChange = () => {
 	const text = document.getElementById('text-area').innerHTML;
-	if (app.text != text) {
-		app.text = text;
+	if (app.text == text) return;
+	document.getElementById("save").className = "btn iconfont icon-edit";
+	
+	clearTimeout(app.timer);
+	app.timer = setTimeout(()=> {
 		window.localStorage.setItem("__richtext_text__", text);
-	}
+	}, 3000);
 }
 
 
 function fileUpload(e) {
-	console.log(e);
 	return handleImage(e);
 	const reads= new FileReader();
     const file=document.getElementById('fileupload').files[0];
@@ -29,15 +31,23 @@ function fileUpload(e) {
 }
 
 function save() {
-	const {id, token, url, fieldName="text"} = app.query;
-	if (!id || !token|| !url) return;
+	document.getElementById("save").className = "btn iconfont icon-save";
 	const text = document.getElementById('text-area').innerHTML;
+	const innerText = document.getElementById('text-area').innerHTML;
+	// const filename = document.getElementById("filename").value
+	if (app.text == text) return;
+	app.text = text;
+	window.localStorage.setItem("__richtext_text__", text);
+	
+	const {id, token} = app.query;
+	if (!token) return;
 	axios({
-		method:"post",
-		url,
+		method:id ? "put" : "post",
+		url: "http://api.wxaxiaoyao.cn/api/v0/documents",
 		data: {
 			id, 
-			[fieldName]:text,
+			// filename, 
+			text,
 		},
 		headers: {
 			"Authorization": "Bearer " + token,
@@ -49,9 +59,12 @@ function save() {
 }
 document.addEventListener('UniAppJSBridgeReady', function() {
 	window.clickBackBtn = function() {
-		uni.switchTab({
-			url: '/pages/index/index'
+		uni.navigateBack({
+			delta:2,
 		});
+// 		uni.switchTab({
+// 			url: '/pages/index/index'
+// 		});
 	}
     uni.getEnv(function(res) {  
 		if (res.plus) {
@@ -70,6 +83,7 @@ window.onload = function() {
 	app.query = url("?", window.location.href) || {};
 	app.text = app.query.text || text || "";
 	document.getElementById('text-area').innerHTML = app.text;
+	// document.getElementById('filename').value = app.query.filename || "";
 		
 	setTimeout(() => document.getElementById("text-area").focus());
 }

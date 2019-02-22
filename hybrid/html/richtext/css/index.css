@@ -15,17 +15,28 @@
 	display: flex;
 	align-items: center;
 	background-color: white;
+	border-bottom:1px solid #dddddd;
 }
 
+.filename-input {
+	width: 100%;
+	height: 100%;
+	border:0;
+	border-bottom:1px solid #dddddd;
+	outline: none;
+	margin: 0px 4px;
+}
 .text-area-container {
 	flex: 1;
+	padding: 1px 4px;
 	overflow-x: hidden;
 	overflow-y: auto;
 }
 
 #text-area {
 	min-height: 100%;
-	border:1px solid #dddddd;
+	white-space:pre-wrap;
+	/* border-top:1px solid #dddddd; */
 	outline: 0px;
 }
 
@@ -34,8 +45,11 @@
 }
 
 .tool-bar {
+	height: 100%;
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	padding: 5px 3px;
 }
 
