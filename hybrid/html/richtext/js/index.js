@@ -15,6 +15,7 @@ const changeStyle = data => {
 
 function fileUpload(e) {
 	console.log(e);
+	return handleImage(e);
 	const reads= new FileReader();
     const file=document.getElementById('fileupload').files[0];
     reads.readAsDataURL(file);
