@@ -7,11 +7,14 @@ const changeStyle = data => {
 	setTimeout(() => document.getElementById("text-area").focus());
 }
 
-// const textChange = () => {
-// 	const text = document.getElementById('text-area').innerHTML;
-// 	uni && uni.postMessage && uni.postMessage({data:text});
-// }
-// 
+const textChange = () => {
+	const text = document.getElementById('text-area').innerHTML;
+	if (app.text != text) {
+		app.text = text;
+		window.localStorage.setItem("__richtext_text__", text);
+	}
+}
+
 
 function fileUpload(e) {
 	console.log(e);
@@ -61,9 +64,13 @@ document.addEventListener('UniAppJSBridgeReady', function() {
 });
 
 window.onload = function() {
-	app.query = url("?", window.location.href) || {};
 	const editor = document.getElementById("text-area");
+	const text = window.localStorage.getItem("__richtext_text__");
+	
+	app.query = url("?", window.location.href) || {};
+	app.text = app.query.text || text || "";
+	document.getElementById('text-area').innerHTML = app.text;
+		
 	setTimeout(() => document.getElementById("text-area").focus());
-	document.getElementById('text-area').innerHTML = app.query.text || "";
 }
 
