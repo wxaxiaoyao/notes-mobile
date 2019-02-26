@@ -1,7 +1,10 @@
 
 <template>
 	<view>
-		<navigations-index></navigations-index>
+		<uni-nav-bar 
+			status-bar=true 
+			left-text="  NOTE">
+		</uni-nav-bar>
 		<view class="uni-list">
 			<view @click="clickApply" class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view class="uni-list-cell-navigate">
@@ -33,14 +36,12 @@
 <script>
 import component from "../../components/component.js";
 import uniNavBar from "../../components/unis/uni-nav-bar.vue";
-import navigationsIndex from "../../components/navigations/index.vue";
 
 export default {
 	mixins:[component],
 
 	components: {
 		"uni-nav-bar": uniNavBar,
-		"navigations-index": navigationsIndex,
 	},
 
 	data() {

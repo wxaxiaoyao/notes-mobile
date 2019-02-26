@@ -32,7 +32,7 @@ export default {
 	
 	computed: {
 		richtext() {
-			const text = this.document.text;
+			const text = this.document.text;			
 			return `<div style="white-space:pre-wrap; background-color:#fff; padding: 1px 4px;">${text}</div>`;
 		},
 	},

@@ -62,14 +62,15 @@ export default {
 			const page = pages[pages.length - 1];
 			return "/" + page.route;
 		},
-		windowHeight() {
-			const windowHeight = uni.getSystemInfoSync().windowHeight;
+		windowHeight() { // 不包含状态栏的高度
+			const sysinfo = uni.getSystemInfoSync();
+			const windowHeight = sysinfo.windowHeight;
 			
 			//#ifdef H5
 			return windowHeight;
 			//#endif
 			//#ifndef H5
-			return windowHeight + 44;
+			return windowHeight - sysinfo.statusBarHeight;
 			//#endif
 		},
 		windowWidth() {

@@ -1,7 +1,10 @@
 
 <template>
 	<view>
-		<navigations-index></navigations-index>
+		<uni-nav-bar 
+			status-bar=true 
+			left-text="  NOTE">
+		</uni-nav-bar>
 
 		<view class="uni-list">
 			<view class="uni-list-cell-divider"></view>

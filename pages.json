@@ -58,11 +58,11 @@
 			},
 			{
 				"pagePath":"pages/contact/index",
-				"text":"通讯录"
+				"text":"好友"
 			},
 			{
 				"pagePath":"pages/index/index",
-				"text":"圈子"
+				"text":"记录"
 			},
 			{
 				"pagePath":"pages/user/index",

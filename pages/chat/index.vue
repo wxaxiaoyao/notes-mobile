@@ -1,6 +1,9 @@
 <template>
 	<view>
-		<navigations-index></navigations-index>
+		<uni-nav-bar 
+			status-bar=true 
+			left-text="  NOTE">
+		</uni-nav-bar>
 		<scroll-view class="session-list-container" scroll-y>
 			<view class="uni-list">
 				<view v-for="(x, i) in sessions" :key="i" @click="clickSession(x)" class="uni-list-cell" hover-class="uni-list-cell-hover">

@@ -192,6 +192,9 @@
 		padding:0 12upx;
 	}
 	
+	.uni-navbar-btn-icon-left {
+		margin-left: 10px;
+	}
 	.uni-navbar-header .uni-navbar-header-btns:first-child{
 		padding-left:0;
 	}
