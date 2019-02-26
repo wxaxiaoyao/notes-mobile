@@ -41,11 +41,12 @@ function save() {
 	
 	const {id, token} = app.query;
 	if (!token) return;
+	const documentId = parseInt(id) || 0;
 	axios({
-		method:id ? "put" : "post",
-		url: "http://api.wxaxiaoyao.cn/api/v0/documents",
+		method:documentId ? "put" : "post",
+		url: "http://api.wxaxiaoyao.cn/api/v0/documents" + (documentId ? `/${documentId}` : ""),
 		data: {
-			id, 
+			id: documentId || undefined, 
 			// filename, 
 			text,
 		},
@@ -53,7 +54,11 @@ function save() {
 			"Authorization": "Bearer " + token,
 			"Content-Type": "application/json",
 		},
-	}).then(()=> {
+	}).then((result)=> {
+		const data = result.data;
+		if (!id && data) {
+			this.query = {...this.query, ...data};
+		}
 		console.log("保存成功");
 	});
 }

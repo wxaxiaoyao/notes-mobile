@@ -30,6 +30,7 @@ export default {
 	},
 	onLoad(options) {
 		const {id, filename} = this.getPageArgs();
+		console.log(id, filename);
 		this.id = id;
 		this.oldfilename = filename;
 		this.filename = filename;

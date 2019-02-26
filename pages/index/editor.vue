@@ -28,6 +28,7 @@ export default {
 	
 	computed: {
 		webviewUrl() {
+			return "/hybrid/html/richtext/test.html";
 			const version = new Date().getTime();
 			const token = this.token || "";
 			const url = config.env == "production" ? "http://notes-modbile.wxaxiaoyao.cn/richtext/index.html" : "http://127.0.0.1:8848/notes-mobile/hybrid/html/richtext/index.html";

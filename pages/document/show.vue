@@ -4,7 +4,7 @@
 		<uni-nav-bar status-bar=true 
 			left-icon="back" 
 			left-text="返回" 
-			@click-left="back" 
+			@click-left="back(document)" 
 			title="文档详情">
 		</uni-nav-bar>
 		
@@ -19,16 +19,19 @@
 			<view @click="clickTagEdit" class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view class="uni-list-cell-navigate">
 					<view style="min-width:max-content">标签</view>
-					<view class="uni-text-gray uni-ellipsis uni-common-pl">{{tags.map(o => o.tagname).join("|")}}</view>
+					<view class="uni-text-gray uni-ellipsis uni-common-pl">{{tagstr}}</view>
 				</view>
 			</view>
 			<view @click="clickText" class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view class="uni-list-cell-navigate">
-					<view style="min-width:max-content">标签</view>
+					<view style="min-width:max-content">正文</view>
 					<view class="uni-text-gray uni-ellipsis uni-common-pl">{{"..."}}</view>
 				</view>
 			</view>
 		</view>
+		<view style="margin-top: 10px;">
+			<button @click="clickDeleteBtn">删除</button>
+		</view>	
 	</view>
 </template>
 
@@ -61,13 +64,15 @@ export default {
 			const text = this.document.text;
 			return `<div style="white-space:pre-wrap; background-color:#fff; padding: 1px 4px;">${text}</div>`;
 		},
+		tagstr() {
+			return this.tags.map(o => o.tagname).join("|");
+		}
 	},
 
 	async onLoad() {
 		this.document = this.getPageArgs();
 		this.text = this.document.text || "";
-		this.tags = this.document.tags || [];
-		this.textareaHeight = this.windowHeight - 44 - 33;  // 小程序状态栏25px 暂不考虑
+		this.tags = await this.api.objectTags.get({classify:5, objectId:this.document.id}).then(res => res.data || []);
 	},
 
 	async onShow() {
@@ -79,20 +84,40 @@ export default {
 		} else if (this.subpage == "filename-edit") {
 			const {filename} = this.getBackArgs();
 			this.document.filename = filename;
+		} else if (this.subpage == "text-show") {
+			const {text} = this.getBackArgs();
+			this.document.text = text;
 		}
+		this.subpage = "";
 	},
 
 	methods: {
+		clickDeleteBtn() {
+			if (!this.document.id) return;
+			uni.showModal({
+				title: '删除确认',
+				content: '确认删除此篇文档?',
+				success: async (res) => {
+					if (res.confirm) {
+						// console.log('用户点击确定');
+						await this.api.documents.destroy({id:this.document.id});
+						this.back({action:'delete', document:this.document});
+					} else if (res.cancel) {
+						//console.log('用户点击取消');
+					}
+				}
+			});
+		},
 		clickFilenameEdit() {
 			this.subpage = "filename-edit";
-			this.go("/pages/document/filename", {id: this.document.id, text: this.document.filename});
+			this.go("/pages/document/filename", {id: this.document.id, filename: this.document.filename});
 		},
 		clickTagEdit() {
 			this.subpage = "tag-edit";
 			this.go("/pages/tag/edit", {objectId: this.document.id, tags: this.document.tags, classify:5});
 		},
 		clickText() {
-			this.subpage = "text-edit";
+			this.subpage = "text-show";
 			this.go("/pages/document/text", {id: this.document.id, text: this.document.text});
 		},
 	},

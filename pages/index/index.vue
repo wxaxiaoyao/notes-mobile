@@ -5,11 +5,11 @@
 		<view class="uni-list">
 			<view class="uni-list-cell-divider"></view>
 
-			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+		<!-- 	<view class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view @click="go('/pages/index/editor')" class="uni-list-cell-navigate uni-navigate-right">
 					编辑器
 				</view>
-			</view>
+			</view> -->
 
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view @click="go('/pages/daily/index')" class="uni-list-cell-navigate uni-navigate-right">
@@ -29,7 +29,7 @@
 				</view>
 			</view>
 
-			<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+			<!-- <view class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view @click="go('/pages/game/index')" class="uni-list-cell-navigate uni-navigate-right">
 					游戏
 				</view>
@@ -40,7 +40,7 @@
 					扫一扫
 				</view>
 			</view>
-
+ -->
 			<!--view class="uni-list-cell" hover-class="uni-list-cell-hover">
 				<view @click="clickNearContact" class="uni-list-cell-navigate uni-navigate-right">
 					附近的人

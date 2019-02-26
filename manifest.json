@@ -75,7 +75,7 @@
             },
 			
 			"cache": {  
-			    "mode": "noCache"  
+			    /* "mode": "noCache" */ 
 			} 
         }
     },

@@ -1,10 +1,10 @@
 
 <template>
-	<view class="full-height">
+	<view class="page-container">
 		<uni-nav-bar status-bar=true 
 			left-icon="back" 
 			left-text="返回" 
-			@click-left="back" 
+			@click-left="clickBackBtn" 
 			title="文档详情"
 			right-icon="more-filled"
 			@click-right="clickMoreBtn">
@@ -42,16 +42,28 @@ export default {
 	},
 
 	async onShow() {
-	
+		if (this.subpage == "text-edit") {
+			if (!this.document.id) return;
+			const doc = await this.api.documents.getById({id: this.document.id}).then(res => res.data);
+			if (!doc) return;
+			this.document.text = doc.text;
+		}
+		
+		this.subpage = "";
 	},
 
 	methods: {
+		clickBackBtn() {
+			return this.back(this.document);
+		},
+		
 		clickMoreBtn() {
 			uni.showActionSheet({
 				itemList: ["编辑", "分享到朋友圈", "分享给朋友"],
 				success: async (res) => {
 					const index = res.tapIndex;
 					if (index == 0) {
+						this.subpage = "text-edit";
 						this.go("/pages/document/editor", {id: this.document.id, text: this.document.text});
 					} else if (index == 1 || index == 2) {
 						uni.share({
@@ -75,6 +87,10 @@ export default {
 </script>
 
 <style>
+.page-container {
+	height: 100%;
+	background-color: white;
+}
 .uni-tag {
 	margin-left:2px;
 }

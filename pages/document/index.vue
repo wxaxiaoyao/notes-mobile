@@ -17,7 +17,7 @@
 						{{x.filename}}
 					</view>
 					<view class="uni-text-small x-text-ellipsis">
-						{{x.text.replace(/<\/?.+?\/?>/g, '')}}
+						{{x.showText}}
 					</view>
 					<view class="document-footer">
 						<view>
@@ -60,20 +60,24 @@ export default {
 	},
 
 	async onShow() {
-		const {action, document={}} = this.getBackArgs() || {};
-		if (!document.id) return;
-
-		const index = this.app._.findIndex(this.documents, o => o.id == document.id);
-		if (action == "delete") {
-			if (index < 0) return;
-			this.documents.splice(index, 1);
+		if (this.subpage == "show") {
+			const {action, document={}} = this.getBackArgs() || {};
+			if (!document.id) return;
+			const index = this.app._.findIndex(this.documents, o => o.id == document.id);
+			if (action == "delete") {
+				if (index < 0) return;
+				this.documents.splice(index, 1);
+			} else {
+				this.format(document);
+				if (index < 0) this.documents.push(document);
+				else this.documents.splice(index, 1, document);
+			}
+			this.setBackArgs(this.currentPageUrl, {});
+		} else if (this.subpage == "editor") {
+			await this.loadDatas();
 		} else {
-			this.format(document);
-			if (index < 0) this.documents.push(document);
-			else this.documents.splice(index, 1, document);
 		}
-
-		this.setBackArgs(this.currentPageUrl, {});
+		this.subpage = "";
 	},
 
 	methods: {
@@ -81,22 +85,25 @@ export default {
 			const text = x.text || "";
 			x.formatUpdatedAt =  moment(x.updatedAt).fromNow();
 			x.tags = [];
+			x.showText = text.replace(/<\/?.+?\/?>/g, '');
 		},
 		clickDocument(x, e) {
+			// console.log(x);
+			this.subpage = "show";
 			this.go("/pages/document/show", x);
 			//this.go("/pages/document/show", x);
 		},
 		clickNewBtn() {
-			return this.go("/pages/document/upsert", {});
+			this.subpage = "editor";
+			return this.go("/pages/document/editor", {});
 		},
 		async loadDatas() {
-			const result = await this.api.documents.get();
+			const result = await this.api.documents.get({"x-order":"updatedAt-desc"});
 			this.documents = result.data || [];
 			this.app._.each(this.documents, o => this.format(o));
 			return;
 		},
 	}
-
 }
 </script>
 

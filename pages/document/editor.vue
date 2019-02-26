@@ -34,6 +34,15 @@ export default {
 		this.query = this.getPageArgs();
 	},
 	
+	onBackPress(options) {
+		// console.log(options);
+		if (options.from === 'navigateBack') {  
+			return false;  
+        }  
+        this.back();  
+        return true;  
+	},
+	
 	methods: {
 	},
 	
